@@ -1,0 +1,558 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile, products, newsletter, essays, references, contacts } from '../data/content.js';
+
+const current = products[products.length - 1];
+const timeline = [...products].reverse();
+---
+
+<Base>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="/" class="mono brand">YISHAN.LI</a>
+      <nav class="mono site-nav" aria-label="主导航">
+        <a href="#products" class="magnetic">奇遇</a>
+        <a href="#newsletter" class="magnetic">启发</a>
+        <a href="#essays" class="magnetic">文章</a>
+        <a href="#references" class="magnetic">参考</a>
+        <a href="#contact" class="magnetic">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero dotgrid" id="hero">
+      <canvas id="gravity-canvas" aria-hidden="true"></canvas>
+      <div class="wrap hero-inner">
+        <p class="mono hero-kicker">PRODUCT · UX · DATA — SINCE {profile.since}</p>
+        <h1 class="serif">你好，我是 {profile.name} <span class="cn-name">{profile.cnName}</span></h1>
+        <p class="hero-role">{profile.role}</p>
+        <p class="serif epigraph">“{profile.epigraph}”</p>
+        <div class="hero-intro">
+          {profile.intro.map((p) => <p>{p}</p>)}
+        </div>
+        <p class="mono motto">{profile.motto} 🙆🏻‍♂️</p>
+      </div>
+      <svg class="orbit" viewBox="0 0 300 300" aria-hidden="true">
+        <circle cx="150" cy="150" r="130" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 8" opacity="0.4"></circle>
+        <circle cx="150" cy="150" r="88" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 7" opacity="0.55"></circle>
+        <circle cx="150" cy="150" r="48" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 6" opacity="0.7"></circle>
+        <circle cx="150" cy="150" r="5" class="orbit-core"></circle>
+        <g class="orbit-sat orbit-sat-1"><circle cx="238" cy="150" r="3" fill="currentColor"></circle></g>
+        <g class="orbit-sat orbit-sat-2"><circle cx="150" cy="62" r="2.5" fill="currentColor" opacity="0.7"></circle></g>
+        <g class="orbit-sat orbit-sat-3"><circle cx="150" cy="280" r="2" fill="currentColor" opacity="0.5"></circle></g>
+      </svg>
+    </section>
+
+    <section class="section" id="products">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — ANNUAL REVIEW</h2>
+        <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
+        <div class="timeline" role="list">
+          <div class="timeline-rail" aria-hidden="true"></div>
+          {timeline.map((p) => (
+            <a class="timeline-node" class:list={{ current: p.year === current.year }} href={p.href} role="listitem">
+              <span class="node-dot" aria-hidden="true"></span>
+              <span class="mono node-year">{p.year}</span>
+              {p.year === current.year && <span class="mono node-tag">最近</span>}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="newsletter">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">02</span> 有所启发 — NEWSLETTER</h2>
+        <p class="section-note">
+          {newsletter.about}
+          <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
+        </p>
+        <ul class="issue-list">
+          {newsletter.issues.map((i) => (
+            <li>
+              <a class="issue-row" href={i.href}>
+                <span class="mono issue-no">#{i.no}</span>
+                <span class="issue-title">{i.title}</span>
+                <span class="mono issue-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="essays">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">03</span> 但说无妨 — ESSAYS</h2>
+        <p class="section-note">{essays.about}</p>
+        {essays.groups.map((g) => (
+          <div class="essay-group">
+            <h3 class="mono essay-year">{g.year} →</h3>
+            <ul class="essay-list">
+              {g.items.map((e) => (
+                <li>
+                  <a class="essay-row" href={e.href}>
+                    <span class="essay-title">{e.title}</span>
+                    <span class="leader" aria-hidden="true"></span>
+                    <span class="mono essay-no">{e.no}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="references">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">04</span> 长期项目 — REFERENCE</h2>
+        <div class="ref-grid">
+          {references.map((r) => (
+            <a class="ref-card" href={r.href}>
+              <span class="tick tick-tl" aria-hidden="true">+</span>
+              <span class="tick tick-br" aria-hidden="true">+</span>
+              <p class="mono ref-label">{r.label}</p>
+              <p class="serif ref-title">{r.title}</p>
+              <p class="ref-desc">{r.desc}</p>
+              <span class="mono ref-go">阅读 <span class="arrow">→</span></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer dotgrid" id="contact">
+    <div class="wrap">
+      <h2 class="section-label"><span class="index-no">05</span> 在这些地方找到我 — FIND ME</h2>
+      <ul class="contact-list">
+        {contacts.map((c) => (
+          <li class="contact-item">
+            <span class="mono contact-label">{c.label}</span>
+            {c.href ? (
+              <a class="arrow-link contact-value" href={c.href}>{c.value} <span class="arrow">↗</span></a>
+            ) : (
+              <span class="contact-value">{c.value}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto}</p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+  .brand {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .site-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .site-nav a {
+    color: var(--ink-2);
+    transition: color 0.25s ease;
+    display: inline-block;
+  }
+  .site-nav a:hover {
+    color: var(--vermillion);
+  }
+
+  .hero {
+    position: relative;
+    padding: 110px 0 90px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .hero.gravity-on {
+    background-image: none;
+  }
+  #gravity-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .hero-inner {
+    position: relative;
+    pointer-events: none;
+  }
+  .hero-inner a,
+  .hero-inner p,
+  .hero-inner h1 {
+    pointer-events: auto;
+  }
+  .hero-kicker {
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.5vw, 54px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+  }
+  .cn-name {
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--vermillion);
+    margin-top: 10px;
+    letter-spacing: 0.12em;
+  }
+  .epigraph {
+    font-size: clamp(17px, 2.2vw, 21px);
+    font-style: italic;
+    color: var(--ink-2);
+    max-width: 520px;
+    margin-top: 36px;
+    line-height: 1.7;
+  }
+  .hero-intro {
+    max-width: 560px;
+    margin-top: 32px;
+    display: grid;
+    gap: 14px;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  .motto {
+    margin-top: 36px;
+    color: var(--ink-2);
+  }
+  .orbit {
+    position: absolute;
+    right: 4%;
+    top: 90px;
+    width: min(320px, 30vw);
+    color: var(--ink-3);
+    pointer-events: none;
+  }
+  .orbit-core {
+    fill: var(--vermillion);
+  }
+  .orbit-sat {
+    transform-origin: 150px 150px;
+    animation: orbit-spin linear infinite;
+  }
+  .orbit-sat-1 { animation-duration: 46s; }
+  .orbit-sat-2 { animation-duration: 30s; animation-direction: reverse; }
+  .orbit-sat-3 { animation-duration: 70s; }
+  @keyframes orbit-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .section-note {
+    max-width: 620px;
+    color: var(--ink-2);
+    font-size: 15px;
+    margin: -16px 0 44px;
+  }
+  .subscribe {
+    margin-left: 10px;
+    color: var(--ink);
+    border-bottom: 1px dotted var(--hairline-strong);
+    padding-bottom: 1px;
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 2% 0;
+  }
+  .timeline-rail {
+    position: absolute;
+    top: 13.5px;
+    left: 3%;
+    right: 3%;
+    border-top: 1px dashed var(--hairline-strong);
+  }
+  .timeline-node {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+  }
+  .node-dot {
+    box-sizing: border-box;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1.5px solid var(--ink-3);
+    transition: all 0.3s ease;
+  }
+  .node-year {
+    font-size: 14px;
+    color: var(--ink-2);
+    transition: color 0.25s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .node-tag {
+    position: absolute;
+    top: -26px;
+    font-size: 11px;
+    color: var(--vermillion);
+    letter-spacing: 0.14em;
+  }
+  .timeline-node.current .node-dot {
+    background: var(--vermillion);
+    border-color: var(--vermillion);
+  }
+  .timeline-node.current .node-year {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .timeline-node:hover .node-dot {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .timeline-node:hover .node-year {
+    color: var(--vermillion);
+    transform: translateY(3px);
+  }
+
+  .issue-list {
+    list-style: none;
+    padding: 0;
+  }
+  .issue-row {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--hairline);
+    transition: padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+  }
+  .issue-no {
+    color: var(--ink-3);
+    flex-shrink: 0;
+    transition: color 0.25s ease;
+  }
+  .issue-title {
+    flex: 1;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .issue-arrow {
+    color: var(--ink-3);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+  }
+  .issue-row:hover {
+    padding-left: 14px;
+  }
+  .issue-row:hover .issue-no {
+    color: var(--vermillion);
+  }
+  .issue-row:hover .issue-arrow {
+    color: var(--vermillion);
+    transform: translateX(5px);
+  }
+
+  .essay-group {
+    margin-bottom: 40px;
+  }
+  .essay-year {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+    letter-spacing: 0.14em;
+  }
+  .essay-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 4px 56px;
+  }
+  .essay-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    color: var(--ink-2);
+    position: relative;
+  }
+  .essay-row .essay-title {
+    transition: color 0.25s ease;
+  }
+  .leader {
+    flex: 1;
+    border-bottom: 1px dotted var(--hairline-strong);
+    position: relative;
+    top: -3px;
+    overflow: hidden;
+  }
+  .leader::after {
+    content: '';
+    position: absolute;
+    left: -6px;
+    bottom: -3px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--vermillion);
+    opacity: 0;
+  }
+  .essay-no {
+    color: var(--ink-3);
+    font-size: 11px;
+    transition: color 0.25s ease;
+  }
+  .essay-row:hover .essay-title {
+    color: var(--vermillion);
+  }
+  .essay-row:hover .essay-no {
+    color: var(--vermillion);
+  }
+  .essay-row:hover .leader::after {
+    opacity: 1;
+    animation: leader-travel 0.9s cubic-bezier(0.4, 0, 0.3, 1) forwards;
+  }
+  @keyframes leader-travel {
+    from { left: -6px; }
+    to { left: 100%; }
+  }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ref-card {
+    position: relative;
+    border: 1px dashed var(--hairline-strong);
+    padding: 26px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .tick {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-3);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .tick-tl { top: -7px; left: -5px; }
+  .tick-br { bottom: -7px; right: -5px; }
+  .ref-label {
+    letter-spacing: 0.16em;
+  }
+  .ref-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .ref-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .ref-go {
+    color: var(--ink-3);
+    margin-top: 8px;
+    transition: color 0.25s ease;
+  }
+  .ref-go .arrow {
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .ref-card:hover {
+    border-color: var(--vermillion);
+    transform: translateY(-3px);
+  }
+  .ref-card:hover .tick,
+  .ref-card:hover .ref-go {
+    color: var(--vermillion);
+  }
+  .ref-card:hover .ref-go .arrow {
+    transform: translateX(4px);
+  }
+
+  .footer {
+    border-top: 1px solid var(--hairline);
+    padding: 72px 0 48px;
+    --dot: color-mix(in srgb, var(--ink) 9%, transparent);
+  }
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px 32px;
+  }
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+  .contact-value {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .footer-motto {
+    margin-top: 56px;
+    color: var(--ink-3);
+  }
+
+  @media (max-width: 720px) {
+    .orbit {
+      display: none;
+    }
+    .hero {
+      padding: 72px 0 64px;
+    }
+    .section {
+      padding: 56px 0;
+    }
+    .site-nav {
+      gap: 16px;
+    }
+    .timeline {
+      padding-top: 30px;
+    }
+    .timeline-rail {
+      top: 35.5px;
+    }
+  }
+</style>
+
+<script>
+  import { initGravity } from '../scripts/gravity.js';
+  import { initMagnetic } from '../scripts/interactions.js';
+
+  initGravity(document.getElementById('hero'), document.getElementById('gravity-canvas'));
+  initMagnetic(document.querySelectorAll('.magnetic'));
+</script>
