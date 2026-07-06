@@ -13,7 +13,7 @@ export const profile = {
 
 export const products = [2021, 2022, 2023, 2024, 2025].map((year) => ({
   year,
-  href: `https://yishan.li/products/${year}`,
+  href: `/products/${year}`,
 }));
 
 export const newsletter = {
@@ -83,7 +83,7 @@ export const essays = {
     ...g,
     items: g.items.map((e) => ({
       ...e,
-      href: encodeURI(`https://yishan.li/essays/${essaySlug(e.no, e.title)}`),
+      href: encodeURI(`/essays/${essaySlug(e.no, e.title)}`),
     })),
   })),
 };
@@ -93,19 +93,19 @@ export const references = [
     label: 'REFERENCE',
     title: '用户体验定律',
     desc: '基于 Jon Yablonski 的 Laws of UX，结合工作经验整理的中文版本，并根据行业发展补充国内应用与服务的 UX 案例。',
-    href: encodeURI('https://yishan.li/UX/16-UX-Laws/用户体验定律'),
+    href: encodeURI('/UX/16-UX-Laws/用户体验定律'),
   },
   {
     label: 'REFERENCE',
     title: 'ADE 无障碍动态元素',
     desc: '8 种常见页面动态元素在可用性和易用性方面的问题，以及可参考的最佳实践 — COMPARE 项目资料的中文翻译整理。',
-    href: encodeURI('https://yishan.li/UX/ADE/什么是-ADE'),
+    href: encodeURI('/UX/ADE/什么是-ADE'),
   },
   {
     label: 'DATA',
     title: 'DataCamp 专业数据分析认证',
     desc: '拿到 DataCamp 数据分析专业认证的完整记录，对了解数据分析领域帮助很大。',
-    href: 'https://yishan.li/datacamp',
+    href: '/datacamp',
   },
 ];
 

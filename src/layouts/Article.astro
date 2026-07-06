@@ -1,0 +1,215 @@
+---
+import Base from './Base.astro';
+
+const { title, kicker, date, description } = Astro.props;
+const tags = Astro.props.tags ?? [];
+const dateStr = date
+  ? new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+---
+
+<Base title={`${title} — Yishan 壹山`} description={description}>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="/" class="mono brand">YISHAN.LI</a>
+      <nav class="mono site-nav" aria-label="主导航">
+        <a href="/#products">奇遇</a>
+        <a href="/#newsletter">启发</a>
+        <a href="/#essays">文章</a>
+        <a href="/#references">参考</a>
+        <a href="/#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article class="article">
+      <header class="article-head dotgrid">
+        {kicker && <p class="mono kicker">{kicker}</p>}
+        <h1 class="serif">{title}</h1>
+        {(dateStr || tags.length > 0) && (
+          <p class="mono article-meta">
+            {dateStr && <span>{dateStr}</span>}
+            {tags.map((t) => <span class="tag">#{t}</span>)}
+          </p>
+        )}
+      </header>
+      <div class="prose">
+        <slot />
+      </div>
+      <footer class="article-foot">
+        <a class="arrow-link mono" href="/">返回首页 <span class="arrow">→</span></a>
+      </footer>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+  .brand {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .site-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .site-nav a {
+    color: var(--ink-2);
+    transition: color 0.25s ease;
+  }
+  .site-nav a:hover {
+    color: var(--vermillion);
+  }
+
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 0 80px;
+  }
+  .article-head {
+    padding: 40px 0 36px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--hairline);
+    --dot: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+  .kicker {
+    color: var(--vermillion);
+    letter-spacing: 0.16em;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(28px, 4.5vw, 40px);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .article-meta {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .tag {
+    color: var(--ink-3);
+  }
+  .article-foot {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px dotted var(--hairline-strong);
+  }
+  .article-foot .arrow-link {
+    color: var(--ink-2);
+  }
+
+  .prose {
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4) {
+    font-family: var(--serif);
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 2.2em 0 0.8em;
+  }
+  .prose :global(h1) { font-size: 26px; }
+  .prose :global(h2) { font-size: 22px; }
+  .prose :global(h3) { font-size: 19px; }
+  .prose :global(h4) { font-size: 16px; }
+  .prose :global(p) {
+    margin: 0 0 1.2em;
+    line-height: 1.9;
+  }
+  .prose :global(a) {
+    color: var(--vermillion);
+    border-bottom: 1px dotted var(--hairline-strong);
+    transition: border-color 0.25s ease;
+  }
+  .prose :global(a:hover) {
+    border-bottom-color: var(--vermillion);
+  }
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2em auto;
+    border: 1px solid var(--hairline);
+  }
+  .prose :global(blockquote) {
+    margin: 1.8em 0;
+    padding: 14px 22px;
+    border-left: 2px solid var(--vermillion);
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
+    color: var(--ink-2);
+  }
+  .prose :global(blockquote p) {
+    margin: 0;
+  }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 1.2em;
+    padding-left: 1.4em;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+    line-height: 1.85;
+  }
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px dotted var(--hairline-strong);
+    margin: 2.5em 0;
+  }
+  .prose :global(code) {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .prose :global(pre) {
+    padding: 16px 20px;
+    overflow-x: auto;
+    border: 1px solid var(--hairline);
+    margin: 0 0 1.2em;
+  }
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+  .prose :global(table) {
+    border-collapse: collapse;
+    margin: 0 0 1.2em;
+    width: 100%;
+    font-size: 14px;
+  }
+  .prose :global(th),
+  .prose :global(td) {
+    border: 1px solid var(--hairline);
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  @media (max-width: 720px) {
+    .site-nav {
+      gap: 16px;
+    }
+    .article {
+      padding: 40px 0 64px;
+    }
+  }
+</style>

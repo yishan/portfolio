@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('ux');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const series = entry.id.startsWith('ADE/') ? 'ADE 无障碍动态元素' : '用户体验定律';
+---
+
+<Article
+  kicker={`长期项目 — ${series}`}
+  title={entry.data.title}
+  date={entry.data.latest ?? entry.data.date}
+  tags={entry.data.tags}
+  description={entry.data.description}
+>
+  <Content />
+</Article>

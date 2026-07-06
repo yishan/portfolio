@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('products');
+  return entries.map((entry) => ({ params: { year: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Article
+  kicker="产品奇遇 — ANNUAL REVIEW"
+  title={entry.data.title}
+  date={entry.data.latest ?? entry.data.date}
+  tags={entry.data.tags}
+  description={entry.data.description}
+>
+  <Content />
+</Article>
