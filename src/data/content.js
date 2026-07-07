@@ -18,7 +18,7 @@ export const products = [2021, 2022, 2023, 2024, 2025].map((year) => ({
 
 export const newsletter = {
   title: '有所启发',
-  subscribe: 'https://yishan.pro/',
+  subscribe: 'https://ai.yishan.li/',
   about:
     '关注令我产生好奇与兴趣的跨领域内容，包含但不限于科学技术、产品设计、人机交互，社会人文与现实生活中会遇到的问题。',
   issues: [
@@ -35,7 +35,7 @@ export const newsletter = {
     { no: '001', title: 'GPT store，Rabbit r1，Quora 以及超级 AI 的长期价值分歧' },
   ].map((i) => ({
     ...i,
-    href: `https://astra.yishan.li/p/astra-inspired-${i.no}?r=e6ngw`,
+    href: `https://ai.yishan.li/p/astra-inspired-${i.no}?r=e6ngw`,
   })),
 };
 
@@ -112,7 +112,7 @@ export const references = [
 export const contacts = [
   { label: '公众号', value: 'impm013', href: null },
   { label: 'Medium', value: 'm.yishan.li', href: 'https://m.yishan.li/' },
-  { label: 'Newsletter', value: 'yishan.pro', href: 'https://yishan.pro/' },
+  { label: 'Newsletter', value: 'ai.yishan.li', href: 'https://ai.yishan.li/' },
   {
     label: '小红书',
     value: 'Yishan 壹山',
