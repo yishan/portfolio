@@ -109,6 +109,37 @@ export const references = [
   },
 ];
 
+export const projects = {
+  title: '兴趣项目',
+  about: '一些兴趣使然做出来的在线小工具与小玩意。',
+  items: [
+    {
+      name: '图片拼接助手',
+      domain: 'tu.yishan.app',
+      desc: '在线将多张图片无缝拼接成一张长图，支持拖拽与粘贴上传，无需下载安装。',
+      href: 'https://tu.yishan.app',
+    },
+    {
+      name: '联行号查询工具',
+      domain: 'bank.yishan.app',
+      desc: '中国银行联行号（CNAPS）在线查询，支持按关键词与省、市、区县筛选。',
+      href: 'https://bank.yishan.app',
+    },
+    {
+      name: '随机账号生成器',
+      domain: 'random.yishan.app',
+      desc: '为开发测试环境随机生成姓名、身份证号、手机号与住址等虚拟身份信息。',
+      href: 'https://random.yishan.app',
+    },
+    {
+      name: '宝可即图鉴 Pokéji',
+      domain: 'pokeji.com',
+      desc: '把你的即刻主页变成一张宝可梦风格的收藏卡牌，捕捉属于你的专属宝可即。',
+      href: 'https://www.pokeji.com',
+    },
+  ],
+};
+
 export const contacts = [
   { label: '公众号', value: 'impm013', href: null },
   { label: 'Medium', value: 'm.yishan.li', href: 'https://m.yishan.li/' },

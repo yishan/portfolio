@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, products, newsletter, essays, references, contacts } from '../data/content.js';
+import { profile, products, newsletter, essays, references, projects, contacts } from '../data/content.js';
 
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
@@ -12,9 +12,10 @@ const timeline = [...products].reverse();
       <a href="/" class="mono brand">YISHAN.LI</a>
       <nav class="mono site-nav" aria-label="主导航">
         <a href="#products" class="magnetic">奇遇</a>
+        <a href="#projects" class="magnetic">项目</a>
+        <a href="#references" class="magnetic">参考</a>
         <a href="#newsletter" class="magnetic">启发</a>
         <a href="#essays" class="magnetic">文章</a>
-        <a href="#references" class="magnetic">参考</a>
         <a href="#contact" class="magnetic">联系</a>
       </nav>
     </div>
@@ -46,7 +47,7 @@ const timeline = [...products].reverse();
 
     <section class="section" id="products">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — ANNUAL REVIEW</h2>
+        <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — REVIEW</h2>
         <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
         <div class="timeline" role="list">
           <div class="timeline-rail" aria-hidden="true"></div>
@@ -61,9 +62,43 @@ const timeline = [...products].reverse();
       </div>
     </section>
 
+    <section class="section" id="projects">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">02</span> 兴趣项目 — SIDE PROJECTS</h2>
+        <p class="section-note">{projects.about}</p>
+        <div class="project-grid">
+          {projects.items.map((p) => (
+            <a class="project-card" href={p.href}>
+              <p class="mono project-domain">{p.domain} <span class="project-arrow" aria-hidden="true">↗</span></p>
+              <p class="serif project-name">{p.name}</p>
+              <p class="project-desc">{p.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="references">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">03</span> 参考文本 — REFERENCE</h2>
+        <div class="ref-grid">
+          {references.map((r) => (
+            <a class="ref-card" href={r.href}>
+              <span class="tick tick-tl" aria-hidden="true">+</span>
+              <span class="tick tick-br" aria-hidden="true">+</span>
+              <p class="mono ref-label">{r.label}</p>
+              <p class="serif ref-title">{r.title}</p>
+              <p class="ref-desc">{r.desc}</p>
+              <span class="mono ref-go">阅读 <span class="arrow">→</span></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="newsletter">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">02</span> 有所启发 — NEWSLETTER</h2>
+        <h2 class="section-label"><span class="index-no">04</span> 有所启发 — NEWSLETTER</h2>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -84,7 +119,7 @@ const timeline = [...products].reverse();
 
     <section class="section" id="essays">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">03</span> 但说无妨 — ESSAYS</h2>
+        <h2 class="section-label"><span class="index-no">05</span> 但说无妨 — ESSAYS</h2>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
           <div class="essay-group">
@@ -105,28 +140,11 @@ const timeline = [...products].reverse();
       </div>
     </section>
 
-    <section class="section" id="references">
-      <div class="wrap">
-        <h2 class="section-label"><span class="index-no">04</span> 长期项目 — REFERENCE</h2>
-        <div class="ref-grid">
-          {references.map((r) => (
-            <a class="ref-card" href={r.href}>
-              <span class="tick tick-tl" aria-hidden="true">+</span>
-              <span class="tick tick-br" aria-hidden="true">+</span>
-              <p class="mono ref-label">{r.label}</p>
-              <p class="serif ref-title">{r.title}</p>
-              <p class="ref-desc">{r.desc}</p>
-              <span class="mono ref-go">阅读 <span class="arrow">→</span></span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer dotgrid" id="contact">
     <div class="wrap">
-      <h2 class="section-label"><span class="index-no">05</span> 在这些地方找到我 — FIND ME</h2>
+      <h2 class="section-label"><span class="index-no">06</span> 在这些地方找到我 — FIND ME</h2>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -495,6 +513,50 @@ const timeline = [...products].reverse();
   }
   .ref-card:hover .ref-go .arrow {
     transform: translateX(4px);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    border: 1px solid var(--hairline);
+    padding: 24px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .project-domain {
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    transition: color 0.25s ease;
+  }
+  .project-arrow {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .project-name {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .project-card:hover {
+    border-color: var(--vermillion);
+    transform: translateY(-3px);
+  }
+  .project-card:hover .project-domain {
+    color: var(--vermillion);
+  }
+  .project-card:hover .project-arrow {
+    transform: translate(2px, -2px);
   }
 
   .footer {
