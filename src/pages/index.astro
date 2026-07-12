@@ -26,7 +26,7 @@ const timeline = [...products].reverse();
       <canvas id="gravity-canvas" aria-hidden="true"></canvas>
       <div class="wrap hero-inner">
         <p class="mono hero-kicker">PRODUCT · UX · DATA — SINCE {profile.since}</p>
-        <h1 class="serif">你好，我是 {profile.name} <span class="cn-name">{profile.cnName}</span></h1>
+        <h1 class="serif">你好，我是 {profile.name}</h1>
         <p class="hero-role">{profile.role}</p>
         <p class="serif epigraph">“{profile.epigraph}”</p>
         <div class="hero-intro">
@@ -227,10 +227,6 @@ const timeline = [...products].reverse();
     font-weight: 600;
     line-height: 1.25;
     letter-spacing: 0.01em;
-  }
-  .cn-name {
-    color: var(--ink-3);
-    font-weight: 500;
   }
   .hero-role {
     font-family: var(--mono);
