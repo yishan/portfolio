@@ -90,13 +90,13 @@ export const essays = {
 
 export const references = [
   {
-    label: 'REFERENCE',
+    label: 'UX',
     title: '用户体验定律',
     desc: '基于 Jon Yablonski 的 Laws of UX，结合工作经验整理的中文版本，并根据行业发展补充国内应用与服务的 UX 案例。',
     href: encodeURI('/UX/16-UX-Laws/用户体验定律'),
   },
   {
-    label: 'REFERENCE',
+    label: 'ACCESSIBILITY',
     title: 'ADE 无障碍动态元素',
     desc: '8 种常见页面动态元素在可用性和易用性方面的问题，以及可参考的最佳实践 — COMPARE 项目资料的中文翻译整理。',
     href: encodeURI('/UX/ADE/什么是-ADE'),
