@@ -137,6 +137,12 @@ export const projects = {
       desc: '把你的即刻主页变成一张宝可梦风格的收藏卡牌，捕捉属于你的专属宝可即。',
       href: 'https://www.pokeji.com',
     },
+    {
+      name: 'UPC Finder',
+      domain: 'upc.yishan.app',
+      desc: '音乐 UPC 编码查询工具，按专辑、艺人或发行名称搜索并比对不同版本，基于 Spotify 目录数据快速复制编码。',
+      href: 'https://upc.yishan.app',
+    },
   ],
 };
 
