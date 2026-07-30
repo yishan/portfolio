@@ -143,6 +143,18 @@ export const projects = {
       desc: '音乐 UPC 编码查询工具，按专辑、艺人或发行名称搜索并比对不同版本，基于 Spotify 目录数据快速复制编码。',
       href: 'https://upc.yishan.app',
     },
+    {
+      name: '粤拼转换器',
+      domain: 'jyut.yishan.app',
+      desc: '将繁简汉字即时转换为粤拼等 11 种广东话拼音方案，支持词语分词与多音字选字，全部在浏览器本地运算。',
+      href: 'https://jyut.yishan.app',
+    },
+    {
+      name: 'Doutify',
+      domain: 'doutify.yishan.app',
+      desc: '连接 Spotify 与豆瓣音乐的 Chrome 扩展，搜索专辑后一键将元数据与封面填入豆瓣提交表单。',
+      href: 'https://doutify.yishan.app',
+    },
   ],
 };
 
