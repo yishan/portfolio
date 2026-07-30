@@ -145,9 +145,9 @@ export const projects = {
     },
     {
       name: '粤拼转换器',
-      domain: 'jyut.yishan.app',
+      domain: 'jyutping.cc',
       desc: '将繁简汉字即时转换为粤拼等 11 种广东话拼音方案，支持词语分词与多音字选字，全部在浏览器本地运算。',
-      href: 'https://jyut.yishan.app',
+      href: 'https://jyutping.cc',
     },
     {
       name: 'Doutify',
