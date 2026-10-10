@@ -110,7 +110,8 @@ const navLinks = [
               <li>
                 <a class="lab-card" href={d.url}>
                   <div class="lab-thumb">
-                    {d.thumb && <img src={d.thumb} alt="" loading="lazy" decoding="async" />}
+                    {d.thumb && <img class:list={{ 'thumb-light': d.thumbDark }} src={d.thumb} alt="" loading="lazy" decoding="async" />}
+                    {d.thumb && d.thumbDark && <img class="thumb-dark" src={d.thumbDark} alt="" loading="lazy" decoding="async" />}
                   </div>
                   <p class="mono lab-date">
                     <time class="rel-date" datetime={d.date}>{fmtDate(d.date)}</time>
@@ -857,6 +858,16 @@ const navLinks = [
   .lab-card:hover .lab-thumb img {
     filter: none;
   }
+  /* 亮/暗两张截图按当前主题只显示一张；懒加载的图片在 display:none 时不会下载 */
+  .lab-thumb .thumb-dark {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-light { display: none; }
+    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-dark { display: block; }
+  }
+  :global(:root[data-theme='dark']) .lab-thumb .thumb-light { display: none; }
+  :global(:root[data-theme='dark']) .lab-thumb .thumb-dark { display: block; }
   .lab-date {
     display: flex;
     justify-content: space-between;
