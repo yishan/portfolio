@@ -114,6 +114,36 @@ export const projects = {
   about: '出于兴趣做的东西，有在线工具，也有浏览器扩展和硬件配套工具。',
   items: [
     {
+      name: 'Cover-Arts 玩法管理器',
+      domain: 'calm.yishan.app',
+      desc: '为 AI Passport 设备管理玩法库：在浏览器里连接设备，给每个玩法配置名称与封面，并按固件大小自动分配存储空间。',
+      href: 'https://calm.yishan.app',
+    },
+    {
+      name: 'Doutify',
+      domain: 'doutify.yishan.app',
+      desc: '连接 Spotify 与豆瓣音乐的 Chrome 扩展，搜索专辑后一键将元数据与封面填入豆瓣提交表单。',
+      href: 'https://doutify.yishan.app',
+    },
+    {
+      name: '粤拼转换器',
+      domain: 'jyutping.cc',
+      desc: '将繁简汉字即时转换为粤拼等 11 种广东话拼音方案，支持词语分词与多音字选字，全部在浏览器本地运算。',
+      href: 'https://jyutping.cc',
+    },
+    {
+      name: 'UPC Finder',
+      domain: 'upc.yishan.app',
+      desc: '音乐 UPC 编码查询工具，按专辑、艺人或发行名称搜索并比对不同版本，基于 Spotify 目录数据快速复制编码。',
+      href: 'https://upc.yishan.app',
+    },
+    {
+      name: '宝可即图鉴 Pokéji',
+      domain: 'pokeji.com',
+      desc: '把你的即刻主页变成一张宝可梦风格的收藏卡牌，捕捉属于你的专属宝可即。',
+      href: 'https://www.pokeji.com',
+    },
+    {
       name: '图片拼接助手',
       domain: 'tu.yishan.app',
       desc: '在线将多张图片无缝拼接成一张长图，支持拖拽与粘贴上传，无需下载安装。',
@@ -124,36 +154,6 @@ export const projects = {
       domain: 'bank.yishan.app',
       desc: '中国银行联行号（CNAPS）在线查询，支持按关键词与省、市、区县筛选。',
       href: 'https://bank.yishan.app',
-    },
-    {
-      name: '宝可即图鉴 Pokéji',
-      domain: 'pokeji.com',
-      desc: '把你的即刻主页变成一张宝可梦风格的收藏卡牌，捕捉属于你的专属宝可即。',
-      href: 'https://www.pokeji.com',
-    },
-    {
-      name: 'UPC Finder',
-      domain: 'upc.yishan.app',
-      desc: '音乐 UPC 编码查询工具，按专辑、艺人或发行名称搜索并比对不同版本，基于 Spotify 目录数据快速复制编码。',
-      href: 'https://upc.yishan.app',
-    },
-    {
-      name: '粤拼转换器',
-      domain: 'jyutping.cc',
-      desc: '将繁简汉字即时转换为粤拼等 11 种广东话拼音方案，支持词语分词与多音字选字，全部在浏览器本地运算。',
-      href: 'https://jyutping.cc',
-    },
-    {
-      name: 'Doutify',
-      domain: 'doutify.yishan.app',
-      desc: '连接 Spotify 与豆瓣音乐的 Chrome 扩展，搜索专辑后一键将元数据与封面填入豆瓣提交表单。',
-      href: 'https://doutify.yishan.app',
-    },
-    {
-      name: 'Cover-Arts 玩法管理器',
-      domain: 'calm.yishan.app',
-      desc: '为 AI Passport 设备管理玩法库：在浏览器里连接设备，给每个玩法配置名称与封面，并按固件大小自动分配存储空间。',
-      href: 'https://calm.yishan.app',
     },
   ],
 };
