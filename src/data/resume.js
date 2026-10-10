@@ -159,5 +159,8 @@ export const resume = {
     },
   ],
 
-  education: [{ school: '中南民族大学', degree: '本科 · 法学', period: '2004 — 2008' }],
+  education: [
+    { school: '中南民族大学', degree: '本科 · 新闻学', period: '2006 — 2008' },
+    { school: '中南民族大学', degree: '本科 · 法学', period: '2004 — 2008' },
+  ],
 };
