@@ -111,7 +111,7 @@ export const references = [
 
 export const projects = {
   title: '兴趣项目',
-  about: '一些兴趣使然做出来的在线小工具与小玩意。',
+  about: '出于兴趣做的东西，有在线工具，也有浏览器扩展和硬件配套工具。',
   items: [
     {
       name: '图片拼接助手',
@@ -148,6 +148,12 @@ export const projects = {
       domain: 'doutify.yishan.app',
       desc: '连接 Spotify 与豆瓣音乐的 Chrome 扩展，搜索专辑后一键将元数据与封面填入豆瓣提交表单。',
       href: 'https://doutify.yishan.app',
+    },
+    {
+      name: 'Cover-Arts 玩法管理器',
+      domain: 'calm.yishan.app',
+      desc: '为 AI Passport 设备管理玩法库：在浏览器里连接设备，给每个玩法配置名称与封面，并按固件大小自动分配存储空间。',
+      href: 'https://calm.yishan.app',
     },
   ],
 };
