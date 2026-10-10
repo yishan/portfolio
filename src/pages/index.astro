@@ -6,7 +6,6 @@ import Ascii from 'ascii.rest/astro';
 
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
-const latest = demos[0];
 const fmtDate = (d) => d.slice(5).replace('-', '.');
 // 随手试验区块在没有数据时隐藏，之后的区块编号随之前移
 const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
@@ -37,21 +36,13 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
         </div>
         <div class="hero-body">
           <div class="hero-text">
-            <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是 {profile.name}（{profile.cnName}）<span class="cursor" aria-hidden="true"></span></h1>
+            <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是{profile.cnName}。<span class="cursor" aria-hidden="true"></span></h1>
             <p class="hero-role">{profile.role}</p>
             <p class="epigraph">“{profile.epigraph}”</p>
             <div class="hero-intro">
               {profile.intro.map((p) => <p>{p}</p>)}
             </div>
             <p class="mono motto"># {profile.motto}</p>
-            {latest && (
-              <a class="mono latest" href={latest.url}>
-                <span class="latest-label">[LATEST]</span>
-                <span class="latest-title">{latest.title}</span>
-                <time class="latest-date rel-date" datetime={latest.date}>{fmtDate(latest.date)}</time>
-                <span class="latest-arrow" aria-hidden="true">→</span>
-              </a>
-            )}
           </div>
           <figure class="art-fit hero-art" style="--cols: 64">
             <Ascii piece="black-hole" fps={15} label="一个黑洞：吸积盘绕着中心旋转，光线被引力弯折" />
@@ -364,38 +355,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .hero-art figcaption {
     margin-top: 8px;
     font-size: 11px;
-  }
-  .latest {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 1ch;
-    margin-top: 14px;
-    padding: 2px 4px;
-    margin-left: -4px;
-    color: var(--ink-2);
-    max-width: 100%;
-  }
-  .latest-label {
-    color: var(--vermillion);
-  }
-  .latest-title {
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-  }
-  .latest-date {
-    color: var(--ink-3);
-    flex-shrink: 0;
-  }
-  .latest-arrow {
-    color: var(--ink-3);
-  }
-  .latest:hover,
-  .latest:hover * {
-    background: var(--ink);
-    color: var(--paper);
   }
   @media (prefers-reduced-motion: reduce) {
     .cursor { animation: none; }

@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Yishan',
-  cnName: '壹山',
+  cnName: '李壹山',
   role: '产品 & 用户体验设计',
   since: 2010,
   epigraph: 'Ambition is like mass. The more you have, the stronger your gravitational pull.',

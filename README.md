@@ -21,7 +21,7 @@ npm run preview  # 本地预览 dist/ 构建结果
 | 02 有所启发 | `newsletter.issues` | 新刊加到数组**最前**，`{ no: '012', title: '…' }`，链接由 `no` 自动生成 |
 | 03 但说无妨 | `essays.groups` | 每组 `{ year, items }`；新文章加进对应年份，新年份加一个新组到最前 |
 | 04 长期项目 | `references` | 每张卡片 `{ label, title, desc, href }`，增删自动重排 |
-| 随手试验 + 首屏 LATEST | `lab` + `src/data/demos.js` | 数据构建时从 `li.yishan.app/demos.json` 拉取，无需手改；读取失败时区块自动隐藏、后续编号前移 |
+| 随手试验 | `lab` + `src/data/demos.js` | 数据构建时从 `li.yishan.app/demos.json` 拉取，无需手改；读取失败时区块自动隐藏、后续编号前移 |
 | 05 联系方式 | `contacts` | `{ label, value, href }`，无链接时 `href: null` |
 
 注意：文章链接由 `no` + `title` 自动拼接（空格转 `-`），若与线上 URL 不一致，可在该项里直接写死 `href`。
