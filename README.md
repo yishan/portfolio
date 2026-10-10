@@ -1,6 +1,6 @@
 # yishan.li
 
-个人主页 — Astro + three.js。设计概念「引力场」：点阵为质量，光标为引力。
+个人主页 — Astro，纯 ASCII 风格。字符作品来自 [ascii.rest](https://ascii.rest)（MIT），线稿图形来自 [Hairline](https://github.com/lucasmarkes/hairline)（MIT）。
 
 ## 常用命令
 
@@ -40,14 +40,17 @@ npm run preview  # 本地预览 dist/ 构建结果
 src/
   data/content.js        # 全部内容数据（改这里）
   pages/index.astro      # 首页结构 + 样式
+  pages/404.astro        # 404 页（ascii.rest not-found）
   layouts/Base.astro     # HTML 外壳、字体、meta
-  styles/global.css      # 设计变量（--ink/--paper/--vermillion/--dot）与公共样式
-  scripts/gravity.js     # 首屏 three.js 粒子引力场
-  scripts/interactions.js # 磁性导航链接
+  styles/global.css      # 设计变量（--ink/--paper/--vermillion/--mono）与公共样式
+  scripts/ascii-field.js # 页脚 ASCII 引力网格
+  scripts/interactions.js # 导航悬停乱码解码
 ```
 
-## 首屏粒子调参（src/scripts/gravity.js）
+## 字符与线稿
 
-- `applyStyle()` 中 `dim` 混合比（0.07）= 静息点阵浓度；`bright`（0.6）= 交互高亮浓度
-- `RADIUS` = 光标影响半径；`STRENGTH` = 引力强度
-- 自动适配亮/暗模式（取自页面 `--ink`/`--paper`），`prefers-reduced-motion` 时回退为静态点阵
+- 首屏：`ascii.rest/astro` 的 `<Ascii>`，`big-text` 画名字、`black-hole` 配引言。构建时渲染第一帧，脚本加载后才动。
+- 字号按列数铺满容器：外层 `.art-fit` 设 `--cols`（作品列数），可选 `--max-px` 限制最大字号。
+- 区块右侧线稿：`<div class="hl-fig" data-figure="riffle">`，`data-figure` 取 `riffle` / `terminal` / `dish`，新增图形要在页面脚本的 `figures` 里一并导入。手机端隐藏。
+- 页脚网格（`src/scripts/ascii-field.js`）：`LX`/`LY` = 网格线间距（字符数），`masses()` = 质量位置与大小，`pull` 系数 = 网格弯曲程度；`prefers-reduced-motion` 时只画静止一帧。
+- 依赖版本精确锁定：`ascii.rest` 0.2.1、`@lucasmarkes/hairline` 0.2.0，与 xbm 中审过的版本一致。
