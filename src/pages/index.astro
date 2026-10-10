@@ -35,9 +35,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
           <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
         </div>
         <div class="hero-body">
-          <div class="hero-text">
+          <div class="hero-hello">
             <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是{profile.cnName}。<span class="cursor" aria-hidden="true"></span></h1>
             <p class="hero-role">{profile.role}</p>
+          </div>
+          <div class="hero-text">
             <p class="epigraph">“{profile.epigraph}”</p>
             <div class="hero-intro">
               {profile.intro.map((p) => <p>{p}</p>)}
@@ -293,12 +295,24 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     color: var(--ink);
     line-height: 1;
   }
+  /* 两行网格：第一行只放问候语；第二行左为引言与介绍、右为黑洞图，两者顶部对齐 */
   .hero-body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 48px;
+    gap: 28px 48px;
     margin-top: 40px;
     align-items: start;
+  }
+  .hero-hello {
+    grid-column: 1;
+  }
+  .hero-text {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .hero-art {
+    grid-column: 2;
+    grid-row: 2;
   }
   .hello {
     font-size: clamp(18px, 2.2vw, 22px);
@@ -332,7 +346,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     font-size: 15px;
     line-height: 1.7;
     color: var(--ink);
-    margin-top: 28px;
     padding-left: 2ch;
     border-left: 2px solid var(--vermillion);
   }
@@ -906,7 +919,13 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     }
     .hero-body {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 28px;
+    }
+    .hero-hello,
+    .hero-text,
+    .hero-art {
+      grid-column: 1;
+      grid-row: auto;
     }
     .section {
       padding: 56px 0;
