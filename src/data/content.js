@@ -153,7 +153,7 @@ export const projects = {
 };
 
 export const lab = {
-  about: '每个工作日从 X 书签里挑一个有意思的技术，当天做成可以打开的 demo。',
+  about: '从 X 书签和 GitHub 星标里挑出有意思的技术，动手做成可以打开的 demo。',
   href: 'https://li.yishan.app/',
   domain: 'li.yishan.app',
   limit: 6,

@@ -1,4 +1,4 @@
-// 每日实验数据：构建时从 li.yishan.app/demos.json 拉取。
+// 随手试验数据：构建时从 li.yishan.app/demos.json 拉取。
 // 格式：{ demos: [{ slug, title, desc, thumb, date: 'YYYY-MM-DD', url? }] }
 // 拉取失败时返回空数组，首页对应区块自动隐藏，不阻塞构建。
 // 本地调试可用环境变量 DEMOS_URL 指向其他 http(s) 地址。
@@ -20,7 +20,7 @@ async function load() {
       }))
       .sort((a, b) => b.date.localeCompare(a.date));
   } catch (err) {
-    console.warn(`[demos] 未能读取 ${SOURCE}：${err.message}，跳过每日实验区块`);
+    console.warn(`[demos] 未能读取 ${SOURCE}：${err.message}，跳过随手试验区块`);
     return [];
   }
 }

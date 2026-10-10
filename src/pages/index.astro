@@ -7,7 +7,7 @@ const current = products[products.length - 1];
 const timeline = [...products].reverse();
 const latest = demos[0];
 const fmtDate = (d) => d.slice(5).replace('-', '.');
-// 每日实验区块在没有数据时隐藏，之后的区块编号随之前移
+// 随手试验区块在没有数据时隐藏，之后的区块编号随之前移
 const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 ---
 
@@ -18,7 +18,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
       <nav class="mono site-nav" aria-label="主导航">
         <a href="#products" class="magnetic">奇遇</a>
         <a href="#projects" class="magnetic">项目</a>
-        {demos.length > 0 && <a href="#lab" class="magnetic">实验</a>}
+        {demos.length > 0 && <a href="#lab" class="magnetic">试验</a>}
         <a href="#references" class="magnetic">参考</a>
         <a href="#newsletter" class="magnetic">启发</a>
         <a href="#essays" class="magnetic">文章</a>
@@ -95,7 +95,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     {demos.length > 0 && (
       <section class="section" id="lab">
         <div class="wrap">
-          <h2 class="section-label"><span class="index-no">03</span> 每日实验 — DAILY LAB</h2>
+          <h2 class="section-label"><span class="index-no">03</span> 随手试验 — EXPERIMENTS</h2>
           <p class="section-note">{lab.about}</p>
           <ul class="lab-grid">
             {demos.slice(0, lab.limit).map((d) => (
