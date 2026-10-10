@@ -228,7 +228,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
       <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
-      <div class="fig fig-mailbox" data-fig="mailbox"></div>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -408,8 +407,8 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   /* 自绘等距线稿：浮在区块说明右侧；线宽与配色对齐 Hairline 的做法，颜色取站点变量 */
   .fig {
     float: right;
-    width: 260px;
-    margin: -24px 0 16px 32px;
+    width: var(--fig-w, 195px);
+    margin: -16px 0 16px 32px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     --fg-plate: var(--paper);
@@ -417,10 +416,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     --fg-edge: color-mix(in srgb, var(--ink) 55%, transparent);
     --fg-mid: color-mix(in srgb, var(--ink) 32%, transparent);
     --fg-lo: color-mix(in srgb, var(--ink) 16%, transparent);
-  }
-  .fig-mailbox {
-    width: 280px;
-    margin-top: -32px;
   }
   .fig :global(svg) {
     display: block;
@@ -988,13 +983,12 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   import { catalog } from '../scripts/figures/catalog.js';
   import { bulb } from '../scripts/figures/bulb.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
-  import { mailbox } from '../scripts/figures/mailbox.js';
 
   initScramble(document.querySelectorAll('.scramble'));
   initAsciiField(document.getElementById('ascii-field'));
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
-  const figures = { annual, toolbox, beaker, catalog, bulb, typewriter, mailbox };
+  const figures = { annual, toolbox, beaker, catalog, bulb, typewriter };
   document.querySelectorAll('.fig').forEach((el) => {
     const make = figures[el.dataset.fig];
     if (make) mount(el, make(), { trigger: el.closest('section, footer') });

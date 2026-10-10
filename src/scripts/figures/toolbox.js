@@ -59,7 +59,7 @@ export const toolbox = (intensity = 0.6) => {
     step(s, input) {
       let goal = input.pinned ? 1 : input.near;
       if (input.idle) goal = demo(input.t, 8000, 0.15, 0.45) ? 0.9 : 0;
-      return spring(s, 'open', goal, 0.05, 0.8);
+      return spring(s, 'open', goal, input.dt);
     },
     render(s, uid) {
       const open = clamp(s.open);

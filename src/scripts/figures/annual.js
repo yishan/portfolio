@@ -49,7 +49,7 @@ export const annual = (intensity = 0.6) => {
       let moving = false;
       s.out.forEach((_, i) => {
         const tmp = { o: s.out[i], oV: s[`v${i}`] ?? 0 };
-        moving = spring(tmp, 'o', i === s.sel ? goal : 0, 0.07, 0.78) || moving;
+        moving = spring(tmp, 'o', i === s.sel ? goal : 0, input.dt) || moving;
         s.out[i] = tmp.o;
         s[`v${i}`] = tmp.oV;
       });

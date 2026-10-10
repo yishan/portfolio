@@ -35,10 +35,10 @@ export const beaker = (intensity = 0.6) => {
     step(s, input) {
       let goal = input.pinned ? 1 : input.near;
       if (input.idle) goal = 0.15;
-      spring(s, 'level', goal, 0.04, 0.84);
+      spring(s, 'level', goal, input.dt, { k: 40, c: 12.6 });
       const h = 0.45 + clamp(s.level, 0, 1.1) * rise;
-      const speed = (0.12 + clamp(s.level) * 0.6) * (input.dt / 1000);
-      s.stir += speed * 1.2;
+      const speed = (0.08 + clamp(s.level) * 0.32) * (Math.min(input.dt, 64) / 1000);
+      s.stir += speed * 0.8;
       for (const b of s.bubbles) {
         b.z += speed * b.s;
         if (b.z > h - 0.04) {

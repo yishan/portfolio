@@ -96,13 +96,28 @@ export function clipped(id, shape, inner) {
   return `<clipPath id="${id}"><polygon points="${pts(shape)}"/></clipPath><g clip-path="url(#${id})">${inner}</g>`;
 }
 
-// 阻尼弹簧：返回是否仍在运动
-export function spring(s, key, goal, k = 0.06, damp = 0.82) {
+// 阻尼弹簧，按真实时间积分（与刷新率无关）。参照 Hairline 的做法：k 为刚度、c 为阻尼，
+// 默认 k=70、c=16，阻尼比约 0.96，几乎不回弹，约 0.6 秒稳定。dt 单位毫秒。返回是否仍在运动。
+export function spring(s, key, goal, dt, { k = 70, c = 16 } = {}) {
   const v = `${key}V`;
-  s[v] = ((s[v] ?? 0) + (goal - s[key]) * k) * damp;
-  s[key] += s[v];
-  return Math.abs(s[v]) > 1e-4 || Math.abs(goal - s[key]) > 1e-3;
+  const sec = Math.min(dt, 64) / 1000;
+  const n = Math.max(1, Math.ceil(sec * 240));
+  const h = sec / n;
+  let vel = s[v] ?? 0;
+  for (let i = 0; i < n; i++) {
+    vel += (-k * (s[key] - goal) - c * vel) * h;
+    s[key] += vel * h;
+  }
+  s[v] = vel;
+  if (Math.abs(s[key] - goal) < 1e-3 && Math.abs(vel) < 1e-2) {
+    s[key] = goal;
+    s[v] = 0;
+    return false;
+  }
+  return true;
 }
+// 按时间衰减：每过 tau 毫秒剩 1/e
+export const decay = (x, dt, tau) => x * Math.exp(-dt / tau);
 export const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 export const smooth = (a, b, x) => {
   const t = clamp((x - a) / (b - a));

@@ -1,6 +1,6 @@
 // 06 但说无妨：打字机。指针扫过键盘时，指针下的键按下、打出一个字，滑架随之移动；
 // 一行打满后换行，纸张往上送。正在打的这一行是红色的。
-import { prism, circle, rect, draw, line, proj, spring, clamp, demo } from './engine.js';
+import { prism, circle, rect, draw, line, proj, spring, decay, clamp, demo } from './engine.js';
 
 const BX = 1.5;
 const BY = 1.6;
@@ -56,7 +56,7 @@ export const typewriter = () => ({
     if ((input.pinned || (input.idle && demo(input.t, 9000, 0.2, 0.8))) && input.t > s.next) {
       hit = Math.floor(Math.random() * KEYS.length);
       s.last = -1;
-      s.next = input.t + 140 + Math.random() * 160;
+      s.next = input.t + 260 + Math.random() * 220;
     }
     if (hit >= 0 && hit !== s.last) {
       s.press[hit] = 1;
@@ -76,11 +76,11 @@ export const typewriter = () => ({
     let moving = false;
     s.press = s.press.map((p) => {
       if (p > 0.01) moving = true;
-      return p * 0.78;
+      return decay(p, input.dt, 70);
     });
-    s.spacePress *= 0.78;
-    s.feed *= 0.85;
-    moving = spring(s, 'carriage', 1.2 - s.len, 0.12, 0.7) || moving || s.feed > 0.01 || s.spacePress > 0.01;
+    s.spacePress = decay(s.spacePress, input.dt, 70);
+    s.feed = decay(s.feed, input.dt, 160);
+    moving = spring(s, 'carriage', 1.2 - s.len, input.dt, { k: 120, c: 21 }) || moving || s.feed > 0.01 || s.spacePress > 0.01;
     return moving;
   },
   render(s) {

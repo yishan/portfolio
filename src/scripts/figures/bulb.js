@@ -1,5 +1,5 @@
 // 05 有所启发：灯泡。靠近时灯丝变红发亮，四周出现光芒，偶尔闪烁。
-import { prism, circle, rect, draw, line, polyline, sphere, proj, SPHERE, spring, clamp, demo } from './engine.js';
+import { prism, circle, rect, draw, line, polyline, sphere, proj, SPHERE, spring, decay, clamp, demo } from './engine.js';
 
 const plinth = prism(rect(-0.6, 0.6, -0.6, 0.6), -0.06, 0, (a, b, e) => [a, b, e]);
 const up = (a, b, e) => [a, b, e];
@@ -37,10 +37,10 @@ export const bulb = (intensity = 0.6) => {
     step(s, input) {
       let goal = input.pinned ? 1 : clamp(input.near * 1.2);
       if (input.idle) goal = demo(input.t, 7000, 0.5, 0.75) ? 0.9 : 0;
-      const moving = spring(s, 'glow', goal, 0.05, 0.82);
-      // 亮着的时候偶尔闪一下
-      const target = s.glow > 0.3 && Math.random() < 0.03 ? 0.55 : 1;
-      s.flick += (target - s.flick) * 0.35;
+      const moving = spring(s, 'glow', goal, input.dt);
+      // 亮着的时候偶尔闪一下：平均约两秒一次
+      const target = s.glow > 0.3 && Math.random() < input.dt / 2000 ? 0.55 : 1;
+      s.flick = target + decay(s.flick - target, input.dt, 60);
       return moving || s.glow > 0.05;
     },
     render(s) {
