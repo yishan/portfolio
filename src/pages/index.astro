@@ -26,6 +26,7 @@ const navLinks = [
 
   <main>
     <section class="cover" aria-label="封面">
+      <canvas id="cover-rain" aria-hidden="true"></canvas>
       <div class="wrap">
         <div class="art-fit hero-name" style="--cols: 66">
           <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
@@ -252,10 +253,20 @@ const navLinks = [
     border-bottom: 1px solid var(--hairline);
   }
   .cover > .wrap {
+    position: relative;
     width: 100%;
+  }
+  #cover-rain {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
   }
   .scroll-cue {
     position: absolute;
+    z-index: 1;
     left: 50%;
     bottom: 28px;
     translate: -50% 0;
@@ -981,12 +992,14 @@ const navLinks = [
 <script>
   import { initScramble } from '../scripts/interactions.js';
   import { initAsciiField } from '../scripts/ascii-field.js';
+  import { initMatrixField } from '../scripts/matrix-field.js';
   import { mount } from '../scripts/figures/engine.js';
   import { annual } from '../scripts/figures/annual.js';
   import { beaker } from '../scripts/figures/beaker.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
 
   initScramble(document.querySelectorAll('.scramble'));
+  initMatrixField(document.getElementById('cover-rain'));
 
   // 封面：点提示或在封面上按回车，平滑滚到正文（不改地址栏）
   const toContent = () =>
