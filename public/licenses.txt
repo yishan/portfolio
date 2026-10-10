@@ -52,7 +52,7 @@ License: SIL Open Font License 1.1
 
 4. Hairline（风格参考 / design reference）
 -----------------------------------------
-各区块的等距线稿图形（书架、工具箱、烧杯、卡片柜、灯泡、打字机）为本站自绘，代码自写；
+各区块的等距线稿图形（书架、工具箱、烧杯、灯泡、打字机）为本站自绘，代码自写；
 配色分层与线宽的做法参考了 Hairline（© 2026 Lucas Marques，MIT），未使用其代码。
 The isometric line figures on this site are original drawings with original code. Their palette layering
 and stroke weight follow the approach of Hairline (© 2026 Lucas Marques, MIT); none of its code is used.

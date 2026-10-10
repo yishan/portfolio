@@ -132,7 +132,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="references">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(4)}</span> 参考文本 — REFERENCE</h2>
-        <div class="fig" data-fig="catalog"></div>
         <div class="ref-grid">
           {references.map((r) => (
             <a class="ref-card" href={r.href}>
@@ -188,7 +187,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="essays">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(6)}</span> 但说无妨 — ESSAYS</h2>
-        <div class="fig" data-fig="typewriter"></div>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
           <div class="essay-group">
@@ -219,6 +217,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
             )}
           </div>
         ))}
+        <div class="fig fig-end" data-fig="typewriter"></div>
       </div>
     </section>
 
@@ -441,6 +440,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .fig :global(.hi) { stroke: var(--fg-hi); }
   .fig :global(.accent) { stroke: var(--vermillion); }
   .fig :global(.fo.accent) { fill: var(--vermillion); }
+  /* 放在区块末尾、不与列表并排的图形：右对齐占一行 */
+  .fig-end {
+    float: none;
+    margin: 8px 0 0 auto;
+  }
   .timeline,
   .project-grid,
   .lab-grid,
@@ -980,7 +984,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   import { annual } from '../scripts/figures/annual.js';
   import { toolbox } from '../scripts/figures/toolbox.js';
   import { beaker } from '../scripts/figures/beaker.js';
-  import { catalog } from '../scripts/figures/catalog.js';
   import { bulb } from '../scripts/figures/bulb.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
 
@@ -988,7 +991,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   initAsciiField(document.getElementById('ascii-field'));
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
-  const figures = { annual, toolbox, beaker, catalog, bulb, typewriter };
+  const figures = { annual, toolbox, beaker, bulb, typewriter };
   document.querySelectorAll('.fig').forEach((el) => {
     const make = figures[el.dataset.fig];
     if (make) mount(el, make(), { trigger: el.closest('section, footer') });
