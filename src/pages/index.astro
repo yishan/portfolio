@@ -64,7 +64,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="products">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — REVIEW</h2>
-        <div class="hl-fig" data-figure="riffle" data-label="一托盘卡片，指针下的那张会立起来"></div>
+        <div class="fig" data-fig="annual"></div>
         <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
         <div class="timeline" role="list">
           <div class="timeline-rail" aria-hidden="true"></div>
@@ -82,6 +82,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="projects">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">02</span> 兴趣项目 — SIDE PROJECTS</h2>
+        <div class="fig" data-fig="toolbox"></div>
         <p class="section-note">{projects.about}</p>
         <div class="project-grid">
           {projects.items.map((p) => (
@@ -103,7 +104,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
       <section class="section" id="lab">
         <div class="wrap">
           <h2 class="section-label"><span class="index-no">03</span> 随手试验 — EXPERIMENTS</h2>
-          <div class="hl-fig" data-figure="terminal" data-label="一台终端，正在逐行输出"></div>
+          <div class="fig" data-fig="beaker"></div>
           <p class="section-note">{lab.about}</p>
           <ul class="lab-grid">
             {demos.slice(0, lab.limit).map((d) => (
@@ -131,6 +132,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="references">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(4)}</span> 参考文本 — REFERENCE</h2>
+        <div class="fig" data-fig="catalog"></div>
         <div class="ref-grid">
           {references.map((r) => (
             <a class="ref-card" href={r.href}>
@@ -151,7 +153,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="newsletter">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(5)}</span> 有所启发 — NEWSLETTER</h2>
-        <div class="hl-fig" data-figure="dish" data-label="一面卫星天线，朝着指针转动接收信号"></div>
+        <div class="fig" data-fig="bulb"></div>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -186,6 +188,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="essays">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(6)}</span> 但说无妨 — ESSAYS</h2>
+        <div class="fig" data-fig="typewriter"></div>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
           <div class="essay-group">
@@ -225,7 +228,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
       <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
-      <div class="mailbox" id="mailbox" data-label="一个信箱：靠近时前门打开、信件滑出、红旗升起"></div>
+      <div class="fig fig-mailbox" data-fig="mailbox"></div>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -238,7 +241,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
           </li>
         ))}
       </ul>
-      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto}</p>
+      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto} · <a class="licenses" href="/licenses.txt">第三方许可</a></p>
     </div>
   </footer>
 </Base>
@@ -402,21 +405,55 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     .cursor { animation: none; }
   }
 
-  /* Hairline 线稿：浮在区块说明右侧，下一个块清除浮动 */
-  .hl-fig {
+  /* 自绘等距线稿：浮在区块说明右侧；线宽与配色对齐 Hairline 的做法，颜色取站点变量 */
+  .fig {
     float: right;
     width: 260px;
-    height: 190px;
     margin: -24px 0 16px 32px;
-    color: var(--ink);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    --fg-plate: var(--paper);
+    --fg-hi: var(--ink);
+    --fg-edge: color-mix(in srgb, var(--ink) 55%, transparent);
+    --fg-mid: color-mix(in srgb, var(--ink) 32%, transparent);
+    --fg-lo: color-mix(in srgb, var(--ink) 16%, transparent);
   }
+  .fig-mailbox {
+    width: 280px;
+    margin-top: -32px;
+  }
+  .fig :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .fig :global(:is(polygon, polyline, line, circle)) {
+    fill: var(--fg-plate);
+    stroke: var(--fg-mid);
+    stroke-width: 0.9;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .fig :global(.fo) {
+    stroke: var(--fg-plate);
+    stroke-width: 0.6;
+  }
+  .fig :global(.nf) { fill: none; }
+  .fig :global(.sil) { stroke: var(--fg-edge); }
+  .fig :global(.lo) { stroke: var(--fg-lo); }
+  .fig :global(.hi) { stroke: var(--fg-hi); }
+  .fig :global(.accent) { stroke: var(--vermillion); }
+  .fig :global(.fo.accent) { fill: var(--vermillion); }
   .timeline,
+  .project-grid,
   .lab-grid,
   .issue-list {
     clear: both;
   }
   @media (max-width: 720px) {
-    .hl-fig { display: none; }
+    .fig { display: none; }
   }
 
   .section-note {
@@ -872,53 +909,15 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .footer-motto {
     width: fit-content;
   }
+  .licenses {
+    white-space: nowrap;
+    border-bottom: 1px dotted var(--hairline-strong);
+  }
+  .licenses:hover {
+    color: var(--vermillion);
+  }
   .footer .wrap {
     position: relative;
-  }
-  /* 自绘线稿信箱：配色取站点变量，线宽与 Hairline 一致 */
-  .mailbox {
-    float: right;
-    width: 280px;
-    aspect-ratio: 1;
-    margin: -32px 0 8px 32px;
-    position: relative;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    --mb-plate: var(--paper);
-    --mb-hi: var(--ink);
-    --mb-edge: color-mix(in srgb, var(--ink) 55%, transparent);
-    --mb-mid: color-mix(in srgb, var(--ink) 32%, transparent);
-    --mb-lo: color-mix(in srgb, var(--ink) 16%, transparent);
-  }
-  .mailbox :global(svg) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .mailbox :global(:is(polygon, polyline, line)) {
-    fill: var(--mb-plate);
-    stroke: var(--mb-mid);
-    stroke-width: 0.9;
-    vector-effect: non-scaling-stroke;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
-  .mailbox :global(.fo) {
-    stroke: var(--mb-plate);
-    stroke-width: 0.6;
-  }
-  .mailbox :global(.nf) { fill: none; }
-  .mailbox :global(.sil) { stroke: var(--mb-edge); }
-  .mailbox :global(.lo) { stroke: var(--mb-lo); }
-  .mailbox :global(.hi) { stroke: var(--mb-hi); }
-  .mailbox :global(.fo.flag) {
-    fill: var(--vermillion);
-    stroke: var(--vermillion);
-  }
-  .mailbox :global(line.flag) { stroke: var(--vermillion); }
-  @media (max-width: 720px) {
-    .mailbox { display: none; }
   }
   .contact-list {
     list-style: none;
@@ -980,25 +979,26 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 </style>
 
 <script>
-  import { riffle, terminal, dish } from '@lucasmarkes/hairline';
   import { initScramble } from '../scripts/interactions.js';
   import { initAsciiField } from '../scripts/ascii-field.js';
-  import { initMailbox } from '../scripts/mailbox.js';
+  import { mount } from '../scripts/figures/engine.js';
+  import { annual } from '../scripts/figures/annual.js';
+  import { toolbox } from '../scripts/figures/toolbox.js';
+  import { beaker } from '../scripts/figures/beaker.js';
+  import { catalog } from '../scripts/figures/catalog.js';
+  import { bulb } from '../scripts/figures/bulb.js';
+  import { typewriter } from '../scripts/figures/typewriter.js';
+  import { mailbox } from '../scripts/figures/mailbox.js';
 
   initScramble(document.querySelectorAll('.scramble'));
   initAsciiField(document.getElementById('ascii-field'));
-  initMailbox(document.getElementById('mailbox'), { trigger: document.getElementById('contact') });
 
-  // Hairline 线稿图形：进入视口才挂载，离开不卸载
-  const figures = { riffle, terminal, dish };
-  const figObserver = new IntersectionObserver((entries) => {
-    entries.forEach(({ isIntersecting, target }) => {
-      if (!isIntersecting) return;
-      figObserver.unobserve(target);
-      figures[target.dataset.figure]?.(target, { intensity: 0.55, label: target.dataset.label });
-    });
-  }, { rootMargin: '200px' });
-  document.querySelectorAll('.hl-fig').forEach((el) => figObserver.observe(el));
+  // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
+  const figures = { annual, toolbox, beaker, catalog, bulb, typewriter, mailbox };
+  document.querySelectorAll('.fig').forEach((el) => {
+    const make = figures[el.dataset.fig];
+    if (make) mount(el, make(), { trigger: el.closest('section, footer') });
+  });
 
   // 构建时只写入日期，访问时换成相对时间，避免两次构建之间“2 天前”过期
   const today = new Date();

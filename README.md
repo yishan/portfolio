@@ -1,6 +1,6 @@
 # yishan.li
 
-个人主页 — Astro，纯 ASCII 风格。字符作品来自 [ascii.rest](https://ascii.rest)（MIT），线稿图形来自 [Hairline](https://github.com/lucasmarkes/hairline)（MIT）。
+个人主页 — Astro，纯 ASCII 风格。字符作品来自 [ascii.rest](https://ascii.rest)（MIT）；各区块的等距线稿为自绘（风格参考 [Hairline](https://github.com/lucasmarkes/hairline)，未用其代码）。第三方许可见 `public/licenses.txt`，页脚有链接。
 
 ## 常用命令
 
@@ -51,6 +51,7 @@ src/
 
 - 首屏：`ascii.rest/astro` 的 `<Ascii>`，`big-text` 画名字、`black-hole` 配引言。构建时渲染第一帧，脚本加载后才动。
 - 字号按列数铺满容器：外层 `.art-fit` 设 `--cols`（作品列数），可选 `--max-px` 限制最大字号。
-- 区块右侧线稿：`<div class="hl-fig" data-figure="riffle">`，`data-figure` 取 `riffle` / `terminal` / `dish`，新增图形要在页面脚本的 `figures` 里一并导入。手机端隐藏。
+- 区块右侧线稿：`<div class="fig" data-fig="annual">`，`data-fig` 对应 `src/scripts/figures/` 下的文件（annual / toolbox / beaker / catalog / bulb / typewriter / mailbox），新增图形要在页面脚本的 `figures` 里一并导入。手机端隐藏。
+- 线稿引擎（`src/scripts/figures/engine.js`）：x 朝右下、y 朝左下、z 朝上；部件用 `prism()` 建成凸棱柱，`draw()` 只描轮廓与折角；部件间靠绘制先后遮挡。每个图形导出 `{ bounds, init, step, render, still }`，`mount()` 负责视口、指针接近度、无人操作演示与减弱动态。
 - 页脚网格（`src/scripts/ascii-field.js`）：`LX`/`LY` = 网格线间距（字符数），`masses()` = 质量位置与大小，`pull` 系数 = 网格弯曲程度；`prefers-reduced-motion` 时只画静止一帧。
-- 依赖版本精确锁定：`ascii.rest` 0.2.1、`@lucasmarkes/hairline` 0.2.0，与 xbm 中审过的版本一致。
+- 依赖版本精确锁定：`ascii.rest` 0.2.1，与 xbm 中审过的版本一致。新增第三方依赖时同步更新 `public/licenses.txt`。
