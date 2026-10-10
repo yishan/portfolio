@@ -1,8 +1,10 @@
 // 简历内容（来自 2024 版 PDF 简历）。公开页面只保留邮箱，不放电话、薪资等私人信息
+import { profile } from './content.js';
+
 export const resume = {
   name: '李一山',
-  // 从 2008 年算起，每年构建时自动加一年
-  headline: `${new Date().getFullYear() - 2008} 年工作经验`,
+  // 与首页 SINCE 同一个起始年，每年构建时自动加一年
+  headline: `${new Date().getFullYear() - profile.since} 年工作经验`,
   email: 'work@yishan.li',
 
   strengths: [
