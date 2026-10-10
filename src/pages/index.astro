@@ -225,6 +225,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
       <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
+      <div class="mailbox" id="mailbox" data-label="一个信箱：靠近时前门打开、信件滑出、红旗升起"></div>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -874,6 +875,51 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .footer .wrap {
     position: relative;
   }
+  /* 自绘线稿信箱：配色取站点变量，线宽与 Hairline 一致 */
+  .mailbox {
+    float: right;
+    width: 280px;
+    aspect-ratio: 1;
+    margin: -32px 0 8px 32px;
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    --mb-plate: var(--paper);
+    --mb-hi: var(--ink);
+    --mb-edge: color-mix(in srgb, var(--ink) 55%, transparent);
+    --mb-mid: color-mix(in srgb, var(--ink) 32%, transparent);
+    --mb-lo: color-mix(in srgb, var(--ink) 16%, transparent);
+  }
+  .mailbox :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .mailbox :global(:is(polygon, polyline, line)) {
+    fill: var(--mb-plate);
+    stroke: var(--mb-mid);
+    stroke-width: 0.9;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .mailbox :global(.fo) {
+    stroke: var(--mb-plate);
+    stroke-width: 0.6;
+  }
+  .mailbox :global(.nf) { fill: none; }
+  .mailbox :global(.sil) { stroke: var(--mb-edge); }
+  .mailbox :global(.lo) { stroke: var(--mb-lo); }
+  .mailbox :global(.hi) { stroke: var(--mb-hi); }
+  .mailbox :global(.fo.flag) {
+    fill: var(--vermillion);
+    stroke: var(--vermillion);
+  }
+  .mailbox :global(line.flag) { stroke: var(--vermillion); }
+  @media (max-width: 720px) {
+    .mailbox { display: none; }
+  }
   .contact-list {
     list-style: none;
     padding: 0;
@@ -937,9 +983,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   import { riffle, terminal, dish } from '@lucasmarkes/hairline';
   import { initScramble } from '../scripts/interactions.js';
   import { initAsciiField } from '../scripts/ascii-field.js';
+  import { initMailbox } from '../scripts/mailbox.js';
 
   initScramble(document.querySelectorAll('.scramble'));
   initAsciiField(document.getElementById('ascii-field'));
+  initMailbox(document.getElementById('mailbox'), { trigger: document.getElementById('contact') });
 
   // Hairline 线稿图形：进入视口才挂载，离开不卸载
   const figures = { riffle, terminal, dish };
