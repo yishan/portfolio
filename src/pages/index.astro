@@ -3,29 +3,26 @@ import Base from '../layouts/Base.astro';
 import { profile, products, newsletter, essays, references, projects, lab, contacts } from '../data/content.js';
 import { demos } from '../data/demos.js';
 import Ascii from 'ascii.rest/astro';
+import SiteHeader from '../components/SiteHeader.astro';
 
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
 const fmtDate = (d) => d.slice(5).replace('-', '.');
 // 随手试验区块在没有数据时隐藏，之后的区块编号随之前移
 const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
+const navLinks = [
+  { href: '#products', label: '奇遇' },
+  { href: '#projects', label: '项目' },
+  ...(demos.length > 0 ? [{ href: '#lab', label: '试验' }] : []),
+  { href: '#references', label: '参考' },
+  { href: '#newsletter', label: '启发' },
+  { href: '#essays', label: '文章' },
+  { href: '#contact', label: '联系' },
+];
 ---
 
 <Base>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a href="/" class="mono brand scramble">YISHAN.LI</a>
-      <nav class="mono site-nav" aria-label="主导航">
-        <a href="#products" class="scramble">奇遇</a>
-        <a href="#projects" class="scramble">项目</a>
-        {demos.length > 0 && <a href="#lab" class="scramble">试验</a>}
-        <a href="#references" class="scramble">参考</a>
-        <a href="#newsletter" class="scramble">启发</a>
-        <a href="#essays" class="scramble">文章</a>
-        <a href="#contact" class="scramble">联系</a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader links={navLinks} scramble />
 
   <main>
     <section class="hero" id="hero">
@@ -236,37 +233,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 </Base>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: color-mix(in srgb, var(--paper) 82%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--hairline);
-  }
-  .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
-  }
-  .brand {
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .site-nav {
-    display: flex;
-    gap: 28px;
-  }
-  .site-nav a {
-    color: var(--ink-2);
-    transition: color 0.25s ease;
-    display: inline-block;
-  }
-  .site-nav a:hover {
-    color: var(--vermillion);
-  }
-
   .hero {
     position: relative;
     padding: 56px 0 80px;
@@ -930,20 +896,8 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     .section {
       padding: 56px 0;
     }
-    .site-nav {
-      gap: 16px;
-    }
-    .site-nav a {
-      white-space: nowrap;
-    }
   }
   @media (max-width: 480px) {
-    .site-nav {
-      gap: 10px;
-    }
-    .brand {
-      letter-spacing: 0.02em;
-    }
     .timeline {
       padding-top: 30px;
     }

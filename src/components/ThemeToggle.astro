@@ -1,0 +1,41 @@
+<!-- 主题切换：按钮文字由 CSS 变量 --theme-label 给出，页面一出来就是对的，不等脚本 -->
+<button class="mono theme-toggle" type="button" aria-label="切换亮色 / 暗色主题"></button>
+
+<style>
+  .theme-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-2);
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+  .theme-toggle::before {
+    content: '[' var(--theme-label) ']';
+  }
+  .theme-toggle:hover {
+    color: var(--vermillion);
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  const current = () => root.dataset.theme ?? (system.matches ? 'dark' : 'light');
+
+  document.querySelectorAll('.theme-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      // 切回与系统一致的主题时清掉手动选择，恢复跟随系统
+      if (next === (system.matches ? 'dark' : 'light')) {
+        delete root.dataset.theme;
+        try { localStorage.removeItem('theme'); } catch {}
+      } else {
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+      }
+      document.dispatchEvent(new Event('themechange'));
+    });
+  });
+</script>

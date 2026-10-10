@@ -1,5 +1,15 @@
 ---
 import Base from './Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const navLinks = [
+  { href: '/#products', label: '奇遇' },
+  { href: '/#projects', label: '项目' },
+  { href: '/#references', label: '参考' },
+  { href: '/#newsletter', label: '启发' },
+  { href: '/#essays', label: '文章' },
+  { href: '/#contact', label: '联系' },
+];
 
 const { title, kicker, date, description } = Astro.props;
 const tags = Astro.props.tags ?? [];
@@ -9,19 +19,7 @@ const dateStr = date
 ---
 
 <Base title={`${title} — Yishan`} description={description}>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a href="/" class="mono brand">YISHAN.LI</a>
-      <nav class="mono site-nav" aria-label="主导航">
-        <a href="/#products">奇遇</a>
-        <a href="/#projects">项目</a>
-        <a href="/#references">参考</a>
-        <a href="/#newsletter">启发</a>
-        <a href="/#essays">文章</a>
-        <a href="/#contact">联系</a>
-      </nav>
-    </div>
-  </header>
+  <SiteHeader links={navLinks} />
 
   <main class="wrap">
     <article class="article">
@@ -46,36 +44,6 @@ const dateStr = date
 </Base>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: color-mix(in srgb, var(--paper) 82%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--hairline);
-  }
-  .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
-  }
-  .brand {
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .site-nav {
-    display: flex;
-    gap: 28px;
-  }
-  .site-nav a {
-    color: var(--ink-2);
-    transition: color 0.25s ease;
-  }
-  .site-nav a:hover {
-    color: var(--vermillion);
-  }
-
   .article {
     max-width: 720px;
     margin: 0 auto;
@@ -206,9 +174,6 @@ const dateStr = date
   }
 
   @media (max-width: 720px) {
-    .site-nav {
-      gap: 16px;
-    }
     .article {
       padding: 40px 0 64px;
     }

@@ -127,10 +127,12 @@ export function initAsciiField(canvas) {
   }).observe(canvas);
 
   new ResizeObserver(resize).observe(canvas);
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  const recolor = () => {
     readColors();
     if (still) draw(0);
-  });
+  };
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', recolor);
+  document.addEventListener('themechange', recolor);
   resize();
 
   if (still) return;

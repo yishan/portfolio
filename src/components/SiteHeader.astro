@@ -1,0 +1,150 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+// links: [{ href, label }]；scramble 只在首页开启（悬停时字符乱序动效）
+const { links, scramble = false } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class:list={['mono brand', { scramble }]}>YISHAN.LI</a>
+    <div class="header-actions">
+      <nav class="mono site-nav" id="site-nav" aria-label="主导航">
+        {links.map((l) => <a href={l.href} class:list={{ scramble }}>{l.label}</a>)}
+      </nav>
+      <ThemeToggle />
+      <button
+        class="mono menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="打开导航"
+      ></button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+  }
+  .brand {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .site-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .site-nav a {
+    color: var(--ink-2);
+    transition: color 0.25s ease;
+    display: inline-block;
+  }
+  .site-nav a:hover {
+    color: var(--vermillion);
+  }
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-2);
+  }
+  .menu-toggle::before {
+    content: '[=]';
+  }
+  .menu-toggle[aria-expanded='true'] {
+    color: var(--vermillion);
+  }
+  .menu-toggle[aria-expanded='true']::before {
+    content: '[x]';
+  }
+
+  /* 手机上导航收进菜单：顶栏只留主题切换和菜单按钮，点开后在顶栏下方展开整宽列表 */
+  @media (max-width: 720px) {
+    .header-actions {
+      gap: 16px;
+    }
+    .menu-toggle {
+      display: inline-block;
+    }
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 0 24px 12px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--hairline);
+    }
+    .site-header.open .site-nav {
+      display: flex;
+      animation: nav-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .site-nav a {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      font-size: 14px;
+      color: var(--ink);
+      border-bottom: 1px dashed var(--hairline-strong);
+    }
+    .site-nav a:last-child {
+      border-bottom: none;
+    }
+    .site-nav a::after {
+      content: '→';
+      color: var(--ink-3);
+    }
+  }
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.site-header').forEach((header) => {
+    const btn = header.querySelector('.menu-toggle');
+    const setOpen = (open) => {
+      header.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+    };
+    btn.addEventListener('click', () => setOpen(!header.classList.contains('open')));
+    // 点了链接、点到顶栏以外或按 Esc 都收起
+    header.querySelectorAll('.site-nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', (e) => {
+      if (!header.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && header.classList.contains('open')) {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+  });
+</script>
