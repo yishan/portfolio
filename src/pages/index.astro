@@ -1,9 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, products, newsletter, essays, references, projects, contacts } from '../data/content.js';
+import { profile, products, newsletter, essays, references, projects, lab, contacts } from '../data/content.js';
+import { demos } from '../data/demos.js';
 
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
+const latest = demos[0];
+const fmtDate = (d) => d.slice(5).replace('-', '.');
+// 每日实验区块在没有数据时隐藏，之后的区块编号随之前移
+const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 ---
 
 <Base>
@@ -13,6 +18,7 @@ const timeline = [...products].reverse();
       <nav class="mono site-nav" aria-label="主导航">
         <a href="#products" class="magnetic">奇遇</a>
         <a href="#projects" class="magnetic">项目</a>
+        {demos.length > 0 && <a href="#lab" class="magnetic">实验</a>}
         <a href="#references" class="magnetic">参考</a>
         <a href="#newsletter" class="magnetic">启发</a>
         <a href="#essays" class="magnetic">文章</a>
@@ -32,6 +38,15 @@ const timeline = [...products].reverse();
           {profile.intro.map((p) => <p>{p}</p>)}
         </div>
         <p class="mono motto">{profile.motto} 🙆🏻‍♂️</p>
+        {latest && (
+          <a class="mono latest" href={latest.url}>
+            <span class="latest-dot" aria-hidden="true"></span>
+            <span class="latest-label">LATEST</span>
+            <span class="latest-title">{latest.title}</span>
+            <time class="latest-date rel-date" datetime={latest.date}>{fmtDate(latest.date)}</time>
+            <span class="latest-arrow" aria-hidden="true">→</span>
+          </a>
+        )}
       </div>
       <svg class="orbit" viewBox="0 0 300 300" aria-hidden="true">
         <circle cx="150" cy="150" r="130" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 8" opacity="0.4"></circle>
@@ -77,9 +92,37 @@ const timeline = [...products].reverse();
       </div>
     </section>
 
+    {demos.length > 0 && (
+      <section class="section" id="lab">
+        <div class="wrap">
+          <h2 class="section-label"><span class="index-no">03</span> 每日实验 — DAILY LAB</h2>
+          <p class="section-note">{lab.about}</p>
+          <ul class="lab-grid">
+            {demos.slice(0, lab.limit).map((d) => (
+              <li>
+                <a class="lab-card" href={d.url}>
+                  <div class="lab-thumb">
+                    {d.thumb && <img src={d.thumb} alt="" loading="lazy" decoding="async" />}
+                  </div>
+                  <p class="mono lab-date">
+                    <time class="rel-date" datetime={d.date}>{fmtDate(d.date)}</time>
+                    <span class="lab-arrow" aria-hidden="true">↗</span>
+                  </p>
+                  <p class="serif lab-title">{d.title}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a class="mono arrow-link lab-all" href={lab.href}>
+            全部 {demos.length} 个 demo · {lab.domain} <span class="arrow">→</span>
+          </a>
+        </div>
+      </section>
+    )}
+
     <section class="section" id="references">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">03</span> 参考文本 — REFERENCE</h2>
+        <h2 class="section-label"><span class="index-no">{no(4)}</span> 参考文本 — REFERENCE</h2>
         <div class="ref-grid">
           {references.map((r) => (
             <a class="ref-card" href={r.href}>
@@ -97,7 +140,7 @@ const timeline = [...products].reverse();
 
     <section class="section" id="newsletter">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">04</span> 有所启发 — NEWSLETTER</h2>
+        <h2 class="section-label"><span class="index-no">{no(5)}</span> 有所启发 — NEWSLETTER</h2>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -131,7 +174,7 @@ const timeline = [...products].reverse();
 
     <section class="section" id="essays">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">05</span> 但说无妨 — ESSAYS</h2>
+        <h2 class="section-label"><span class="index-no">{no(6)}</span> 但说无妨 — ESSAYS</h2>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
           <div class="essay-group">
@@ -170,7 +213,7 @@ const timeline = [...products].reverse();
   <footer class="footer dotgrid" id="contact">
     <canvas id="gravity-canvas" aria-hidden="true"></canvas>
     <div class="wrap">
-      <h2 class="section-label"><span class="index-no">06</span> 在这些地方找到我 — FIND ME</h2>
+      <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -264,6 +307,59 @@ const timeline = [...products].reverse();
   .motto {
     margin-top: 36px;
     color: var(--ink-2);
+  }
+  .latest {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 6px 0;
+    color: var(--ink-2);
+    border-bottom: 1px dotted var(--hairline-strong);
+    max-width: 100%;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .latest-dot {
+    align-self: center;
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--vermillion);
+    animation: latest-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes latest-pulse {
+    50% { opacity: 0.25; }
+  }
+  .latest-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--vermillion);
+  }
+  .latest-title {
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .latest-date {
+    color: var(--ink-3);
+    flex-shrink: 0;
+  }
+  .latest-arrow {
+    color: var(--ink-3);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+  }
+  .latest:hover {
+    border-bottom-color: var(--vermillion);
+  }
+  .latest:hover .latest-arrow {
+    color: var(--vermillion);
+    transform: translateX(4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .latest-dot { animation: none; }
   }
   .orbit {
     position: absolute;
@@ -610,6 +706,76 @@ const timeline = [...products].reverse();
     transform: translate(2px, -2px);
   }
 
+  .lab-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+  }
+  @media (max-width: 860px) {
+    .lab-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .lab-grid { grid-template-columns: 1fr; }
+  }
+  .lab-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lab-thumb {
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--hairline);
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
+    overflow: hidden;
+    margin-bottom: 6px;
+    transition: border-color 0.3s ease;
+  }
+  .lab-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .lab-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12px;
+    color: var(--ink-3);
+    transition: color 0.25s ease;
+  }
+  .lab-arrow {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .lab-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .lab-card:hover .lab-thumb {
+    border-color: var(--vermillion);
+  }
+  .lab-card:hover .lab-thumb img {
+    transform: scale(1.03);
+  }
+  .lab-card:hover .lab-date {
+    color: var(--vermillion);
+  }
+  .lab-card:hover .lab-arrow {
+    transform: translate(2px, -2px);
+  }
+  .lab-all {
+    display: inline-block;
+    margin-top: 32px;
+    color: var(--ink-2);
+    border-bottom: 1px dotted var(--hairline-strong);
+    padding-bottom: 2px;
+  }
+
   .footer {
     position: relative;
     overflow: hidden;
@@ -683,6 +849,17 @@ const timeline = [...products].reverse();
 
   initGravity(document.getElementById('contact'), document.getElementById('gravity-canvas'));
   initMagnetic(document.querySelectorAll('.magnetic'));
+
+  // 构建时只写入日期，访问时换成相对时间，避免两次构建之间“2 天前”过期
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  document.querySelectorAll('.rel-date').forEach((el) => {
+    const [y, m, d] = el.getAttribute('datetime').split('-').map(Number);
+    const days = Math.round((today - new Date(y, m - 1, d)) / 86400000);
+    if (days === 0) el.textContent = '今天';
+    else if (days === 1) el.textContent = '昨天';
+    else if (days > 1 && days < 7) el.textContent = `${days} 天前`;
+  });
 
   document.querySelectorAll('.list-toggle').forEach((btn) => {
     const list = document.getElementById(btn.getAttribute('aria-controls'));

@@ -158,6 +158,13 @@ export const projects = {
   ],
 };
 
+export const lab = {
+  about: '每个工作日从 X 书签里挑一个有意思的技术，当天做成可以打开的 demo。',
+  href: 'https://li.yishan.app/',
+  domain: 'li.yishan.app',
+  limit: 6,
+};
+
 export const contacts = [
   { label: '公众号', value: 'impm013', href: null },
   { label: 'Medium', value: 'm.yishan.li', href: 'https://m.yishan.li/' },
