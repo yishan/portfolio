@@ -82,7 +82,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="projects">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">02</span> 兴趣项目 — SIDE PROJECTS</h2>
-        <div class="fig" data-fig="toolbox"></div>
         <p class="section-note">{projects.about}</p>
         <div class="project-grid">
           {projects.items.map((p) => (
@@ -152,7 +151,6 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="newsletter">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(5)}</span> 有所启发 — NEWSLETTER</h2>
-        <div class="fig" data-fig="bulb"></div>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -982,16 +980,14 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   import { initAsciiField } from '../scripts/ascii-field.js';
   import { mount } from '../scripts/figures/engine.js';
   import { annual } from '../scripts/figures/annual.js';
-  import { toolbox } from '../scripts/figures/toolbox.js';
   import { beaker } from '../scripts/figures/beaker.js';
-  import { bulb } from '../scripts/figures/bulb.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
 
   initScramble(document.querySelectorAll('.scramble'));
   initAsciiField(document.getElementById('ascii-field'));
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
-  const figures = { annual, toolbox, beaker, bulb, typewriter };
+  const figures = { annual, beaker, typewriter };
   document.querySelectorAll('.fig').forEach((el) => {
     const make = figures[el.dataset.fig];
     if (make) mount(el, make(), { trigger: el.closest('section, footer') });
