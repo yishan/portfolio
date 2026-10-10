@@ -231,14 +231,14 @@ const navLinks = [
           <li class="contact-item">
             <span class="mono contact-label">{c.label}</span>
             {c.href ? (
-              <a class="arrow-link contact-value" href={c.href}>{c.value} <span class="arrow">{c.href.startsWith('/') ? '→' : '↗'}</span></a>
+              <a class="arrow-link contact-value" href={c.href}>{c.value} <span class="arrow">↗</span></a>
             ) : (
               <span class="contact-value">{c.value}</span>
             )}
           </li>
         ))}
       </ul>
-      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto} · <a class="licenses" href="/licenses.txt">第三方许可</a></p>
+      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto} · <a class="licenses" href="/resume">Resume</a> · <a class="licenses" href="/licenses.txt">第三方许可</a></p>
     </div>
   </footer>
 </Base>

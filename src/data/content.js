@@ -174,5 +174,4 @@ export const contacts = [
     value: 'Yishan 壹山',
     href: 'https://www.xiaohongshu.com/user/profile/5c0cd528f7e8b95f0e136e35',
   },
-  { label: '简历', value: 'yishan.li/resume', href: '/resume' },
 ];
