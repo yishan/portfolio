@@ -25,12 +25,21 @@ const navLinks = [
   <SiteHeader links={navLinks} scramble />
 
   <main>
-    <section class="hero" id="hero">
+    <section class="cover" aria-label="封面">
       <div class="wrap">
-        <p class="mono hero-kicker">PRODUCT · UX · DATA · AI — SINCE {profile.since}</p>
         <div class="art-fit hero-name" style="--cols: 66">
           <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
         </div>
+      </div>
+      <a class="mono scroll-cue" href="#hero" id="scroll-cue">
+        <span class="cue-label">scroll<span class="cue-key"> <span class="cue-or">or</span> [ENTER]</span></span>
+        <span class="cue-drop" aria-hidden="true"><span>│</span><span>│</span><span>↓</span></span>
+      </a>
+    </section>
+
+    <section class="hero" id="hero">
+      <div class="wrap">
+        <p class="mono hero-kicker">PRODUCT · UX · DATA · AI — SINCE {profile.since}</p>
         <div class="hero-body">
           <div class="hero-hello">
             <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是{profile.cnName}。<span class="cursor" aria-hidden="true"></span></h1>
@@ -233,9 +242,68 @@ const navLinks = [
 </Base>
 
 <style>
+  /* 封面：占满首屏，只放大字；底部是向下滚动的提示 */
+  .cover {
+    position: relative;
+    min-height: calc(100svh - 58px);
+    display: flex;
+    align-items: center;
+    padding: 48px 0 120px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .cover > .wrap {
+    width: 100%;
+  }
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    translate: -50% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    color: var(--ink-2);
+    letter-spacing: 0.16em;
+  }
+  .cue-or {
+    color: var(--ink-3);
+  }
+  /* 触屏设备没有回车键，只提示滑动 */
+  @media (hover: none) {
+    .cue-key { display: none; }
+  }
+  .cue-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    font-size: 14px;
+  }
+  /* 三格字符依次点亮，像一个往下掉的点 */
+  .cue-drop span {
+    color: var(--ink-3);
+    animation: cue-fall 1.8s steps(1) infinite;
+  }
+  .cue-drop span:nth-child(2) { animation-delay: 0.3s; }
+  .cue-drop span:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes cue-fall {
+    0% { color: var(--vermillion); }
+    17% { color: var(--ink-3); }
+  }
+  .scroll-cue:hover,
+  .scroll-cue:hover .cue-or {
+    color: var(--vermillion);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cue-drop span { animation: none; }
+    .cue-drop span:last-child { color: var(--vermillion); }
+  }
+
   .hero {
     position: relative;
-    padding: 56px 0 80px;
+    padding: 80px 0 80px;
     border-bottom: 1px solid var(--hairline);
   }
   .hero-kicker {
@@ -883,6 +951,9 @@ const navLinks = [
     .hero {
       padding: 36px 0 56px;
     }
+    .cover {
+      padding-bottom: 110px;
+    }
     .hero-body {
       grid-template-columns: 1fr;
       gap: 28px;
@@ -916,6 +987,22 @@ const navLinks = [
   import { typewriter } from '../scripts/figures/typewriter.js';
 
   initScramble(document.querySelectorAll('.scramble'));
+
+  // 封面：点提示或在封面上按回车，平滑滚到正文（不改地址栏）
+  const toContent = () =>
+    document.getElementById('hero').scrollIntoView({
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+    });
+  document.getElementById('scroll-cue').addEventListener('click', (e) => {
+    e.preventDefault();
+    toContent();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' || e.target !== document.body) return;
+    if (scrollY > innerHeight / 2) return;
+    e.preventDefault();
+    toContent();
+  });
   initAsciiField(document.getElementById('ascii-field'));
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
