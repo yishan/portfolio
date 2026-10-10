@@ -27,7 +27,7 @@ const dateStr = date
     <article class="article">
       <header class="article-head dotgrid">
         {kicker && <p class="mono kicker">{kicker}</p>}
-        <h1 class="serif">{title}</h1>
+        <h1 class="display">{title}</h1>
         {(dateStr || tags.length > 0) && (
           <p class="mono article-meta">
             {dateStr && <span>{dateStr}</span>}
@@ -123,7 +123,7 @@ const dateStr = date
   .prose :global(h2),
   .prose :global(h3),
   .prose :global(h4) {
-    font-family: var(--serif);
+    font-family: var(--display);
     font-weight: 600;
     line-height: 1.4;
     margin: 2.2em 0 0.8em;

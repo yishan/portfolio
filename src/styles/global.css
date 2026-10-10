@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   --paper: #faf9f5;
   --ink: #1a1917;
   --ink-2: #6b6862;
@@ -7,8 +8,9 @@
   --hairline-strong: rgba(26, 25, 23, 0.32);
   --dot: rgba(26, 25, 23, 0.22);
   --vermillion: #c63c26;
-  --serif: 'Noto Serif SC', 'Songti SC', serif;
-  --mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  /* 等宽优先；box-drawing 字形缺失时由 ascii.rest mono 补齐，中文回退到系统黑体 */
+  --mono: 'IBM Plex Mono', 'SF Mono', Menlo, 'ascii.rest mono', 'PingFang SC', monospace;
+  --display: var(--mono);
   --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Segoe UI',
     'Microsoft YaHei', sans-serif;
   --max: 1080px;
@@ -80,8 +82,9 @@ a {
   color: var(--ink-3);
 }
 
-.serif {
-  font-family: var(--serif);
+.display {
+  font-family: var(--display);
+  font-weight: 600;
 }
 
 .dotgrid {
@@ -104,17 +107,29 @@ a {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.14em;
-  color: var(--ink-3);
+  color: var(--ink-2);
   margin-bottom: 40px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 1ch;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* 区块标题画成一条字符线：── 01 产品奇遇 — REVIEW ─────── */
+.section-label::before {
+  content: '──';
+  color: var(--ink-3);
+  letter-spacing: 0;
 }
 
 .section-label::after {
-  content: '';
+  content: '────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────';
   flex: 1;
-  border-top: 1px dotted var(--hairline-strong);
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-3);
+  letter-spacing: 0;
 }
 
 .arrow-link {

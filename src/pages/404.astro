@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Ascii from 'ascii.rest/astro';
+---
+
+<Base title="404 — Yishan">
+  <main class="wrap nf">
+    <div class="nf-art">
+      <Ascii
+        piece="not-found"
+        options={{ code: '404', title: 'page not found', message: 'this page has moved or never existed' }}
+        label="404：页面不存在"
+      />
+    </div>
+    <p class="mono nf-line">$ cd ~ <span class="nf-hint"># 这个页面不存在或已经搬走</span></p>
+    <a class="mono arrow-link nf-home" href="/">返回首页 <span class="arrow">→</span></a>
+  </main>
+</Base>
+
+<style>
+  .nf {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .nf-art {
+    container-type: inline-size;
+    max-width: 720px;
+  }
+  .nf-art :global(ascii-art) {
+    display: block;
+    font-family: var(--mono);
+    font-size: min(14px, calc(100cqw / (60 * 0.61)));
+    line-height: 1.15;
+  }
+  .nf-art :global(pre) {
+    margin: 0;
+    font: inherit;
+  }
+  .nf-line {
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .nf-hint {
+    color: var(--ink-3);
+  }
+  .nf-home {
+    font-size: 13px;
+    color: var(--vermillion);
+  }
+</style>

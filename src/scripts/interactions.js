@@ -18,3 +18,32 @@ export function initMagnetic(elements) {
     });
   });
 }
+
+// 悬停时字符先乱码再逐位还原。全角字符用全角符号乱码，宽度不跳动
+const HALF = '#%&*+=/<>@$?!';
+const FULL = '＃％＆＊＋＝／＜＞＠＄？';
+
+export function initScramble(elements) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  elements.forEach((el) => {
+    const text = el.textContent;
+    let raf = 0;
+    el.addEventListener('pointerenter', () => {
+      cancelAnimationFrame(raf);
+      const start = performance.now();
+      const tick = (now) => {
+        const done = Math.floor((now - start) / 45);
+        el.textContent = [...text]
+          .map((ch, i) => {
+            if (i < done || ch === ' ') return ch;
+            const pool = ch.charCodeAt(0) > 0x2e80 ? FULL : HALF;
+            return pool[Math.floor(Math.random() * pool.length)];
+          })
+          .join('');
+        if (done < text.length) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    });
+  });
+}

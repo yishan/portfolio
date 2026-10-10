@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { profile, products, newsletter, essays, references, projects, lab, contacts } from '../data/content.js';
 import { demos } from '../data/demos.js';
+import Ascii from 'ascii.rest/astro';
 
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
@@ -14,54 +15,56 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 <Base>
   <header class="site-header">
     <div class="wrap header-inner">
-      <a href="/" class="mono brand">YISHAN.LI</a>
+      <a href="/" class="mono brand scramble">YISHAN.LI</a>
       <nav class="mono site-nav" aria-label="主导航">
-        <a href="#products" class="magnetic">奇遇</a>
-        <a href="#projects" class="magnetic">项目</a>
-        {demos.length > 0 && <a href="#lab" class="magnetic">试验</a>}
-        <a href="#references" class="magnetic">参考</a>
-        <a href="#newsletter" class="magnetic">启发</a>
-        <a href="#essays" class="magnetic">文章</a>
-        <a href="#contact" class="magnetic">联系</a>
+        <a href="#products" class="scramble">奇遇</a>
+        <a href="#projects" class="scramble">项目</a>
+        {demos.length > 0 && <a href="#lab" class="scramble">试验</a>}
+        <a href="#references" class="scramble">参考</a>
+        <a href="#newsletter" class="scramble">启发</a>
+        <a href="#essays" class="scramble">文章</a>
+        <a href="#contact" class="scramble">联系</a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="hero" id="hero">
-      <div class="wrap hero-inner">
+      <div class="wrap">
         <p class="mono hero-kicker">PRODUCT · UX · DATA — SINCE {profile.since}</p>
-        <h1 class="serif">你好，我是 {profile.name}</h1>
-        <p class="hero-role">{profile.role}</p>
-        <p class="serif epigraph">“{profile.epigraph}”</p>
-        <div class="hero-intro">
-          {profile.intro.map((p) => <p>{p}</p>)}
+        <div class="art-fit hero-name" style="--cols: 66">
+          <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
         </div>
-        <p class="mono motto">{profile.motto} 🙆🏻‍♂️</p>
-        {latest && (
-          <a class="mono latest" href={latest.url}>
-            <span class="latest-dot" aria-hidden="true"></span>
-            <span class="latest-label">LATEST</span>
-            <span class="latest-title">{latest.title}</span>
-            <time class="latest-date rel-date" datetime={latest.date}>{fmtDate(latest.date)}</time>
-            <span class="latest-arrow" aria-hidden="true">→</span>
-          </a>
-        )}
+        <div class="hero-body">
+          <div class="hero-text">
+            <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是 {profile.name}（{profile.cnName}）<span class="cursor" aria-hidden="true"></span></h1>
+            <p class="hero-role">{profile.role}</p>
+            <p class="epigraph">“{profile.epigraph}”</p>
+            <div class="hero-intro">
+              {profile.intro.map((p) => <p>{p}</p>)}
+            </div>
+            <p class="mono motto"># {profile.motto}</p>
+            {latest && (
+              <a class="mono latest" href={latest.url}>
+                <span class="latest-label">[LATEST]</span>
+                <span class="latest-title">{latest.title}</span>
+                <time class="latest-date rel-date" datetime={latest.date}>{fmtDate(latest.date)}</time>
+                <span class="latest-arrow" aria-hidden="true">→</span>
+              </a>
+            )}
+          </div>
+          <figure class="art-fit hero-art" style="--cols: 64">
+            <Ascii piece="black-hole" fps={15} label="一个黑洞：吸积盘绕着中心旋转，光线被引力弯折" />
+            <figcaption class="mono">fig. 1 — mass &amp; pull · ascii.rest</figcaption>
+          </figure>
+        </div>
       </div>
-      <svg class="orbit" viewBox="0 0 300 300" aria-hidden="true">
-        <circle cx="150" cy="150" r="130" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 8" opacity="0.4"></circle>
-        <circle cx="150" cy="150" r="88" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 7" opacity="0.55"></circle>
-        <circle cx="150" cy="150" r="48" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 6" opacity="0.7"></circle>
-        <circle cx="150" cy="150" r="5" class="orbit-core"></circle>
-        <g class="orbit-sat orbit-sat-1"><circle cx="238" cy="150" r="3" fill="currentColor"></circle></g>
-        <g class="orbit-sat orbit-sat-2"><circle cx="150" cy="62" r="2.5" fill="currentColor" opacity="0.7"></circle></g>
-        <g class="orbit-sat orbit-sat-3"><circle cx="150" cy="280" r="2" fill="currentColor" opacity="0.5"></circle></g>
-      </svg>
     </section>
 
     <section class="section" id="products">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — REVIEW</h2>
+        <div class="hl-fig" data-figure="riffle" data-label="一托盘卡片，指针下的那张会立起来"></div>
         <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
         <div class="timeline" role="list">
           <div class="timeline-rail" aria-hidden="true"></div>
@@ -83,8 +86,12 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
         <div class="project-grid">
           {projects.items.map((p) => (
             <a class="project-card" href={p.href}>
+              <span class="tick tick-tl" aria-hidden="true">+</span>
+              <span class="tick tick-tr" aria-hidden="true">+</span>
+              <span class="tick tick-bl" aria-hidden="true">+</span>
+              <span class="tick tick-br" aria-hidden="true">+</span>
               <p class="mono project-domain">{p.domain} <span class="project-arrow" aria-hidden="true">↗</span></p>
-              <p class="serif project-name">{p.name}</p>
+              <p class="display project-name">{p.name}</p>
               <p class="project-desc">{p.desc}</p>
             </a>
           ))}
@@ -96,6 +103,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
       <section class="section" id="lab">
         <div class="wrap">
           <h2 class="section-label"><span class="index-no">03</span> 随手试验 — EXPERIMENTS</h2>
+          <div class="hl-fig" data-figure="terminal" data-label="一台终端，正在逐行输出"></div>
           <p class="section-note">{lab.about}</p>
           <ul class="lab-grid">
             {demos.slice(0, lab.limit).map((d) => (
@@ -108,7 +116,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
                     <time class="rel-date" datetime={d.date}>{fmtDate(d.date)}</time>
                     <span class="lab-arrow" aria-hidden="true">↗</span>
                   </p>
-                  <p class="serif lab-title">{d.title}</p>
+                  <p class="display lab-title">{d.title}</p>
                 </a>
               </li>
             ))}
@@ -127,9 +135,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
           {references.map((r) => (
             <a class="ref-card" href={r.href}>
               <span class="tick tick-tl" aria-hidden="true">+</span>
+              <span class="tick tick-tr" aria-hidden="true">+</span>
+              <span class="tick tick-bl" aria-hidden="true">+</span>
               <span class="tick tick-br" aria-hidden="true">+</span>
               <p class="mono ref-label">{r.label}</p>
-              <p class="serif ref-title">{r.title}</p>
+              <p class="display ref-title">{r.title}</p>
               <p class="ref-desc">{r.desc}</p>
               <span class="mono ref-go">阅读 <span class="arrow">→</span></span>
             </a>
@@ -141,6 +151,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     <section class="section" id="newsletter">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(5)}</span> 有所启发 — NEWSLETTER</h2>
+        <div class="hl-fig" data-figure="dish" data-label="一面卫星天线，朝着指针转动接收信号"></div>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -210,8 +221,8 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 
   </main>
 
-  <footer class="footer dotgrid" id="contact">
-    <canvas id="gravity-canvas" aria-hidden="true"></canvas>
+  <footer class="footer" id="contact">
+    <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
       <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
       <ul class="contact-list">
@@ -265,75 +276,106 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 
   .hero {
     position: relative;
-    padding: 110px 0 90px;
-    overflow: hidden;
+    padding: 56px 0 80px;
     border-bottom: 1px solid var(--hairline);
   }
-  .hero-inner {
-    position: relative;
-  }
   .hero-kicker {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
-  h1 {
-    font-size: clamp(34px, 5.5vw, 54px);
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: 0.01em;
+  /* 字符作品按列数铺满容器：字号 = 容器宽 / (列数 × 字宽) */
+  .art-fit {
+    container-type: inline-size;
+    margin: 0;
+  }
+  .art-fit :global(ascii-art) {
+    display: block;
+    font-family: var(--mono);
+    font-size: min(var(--max-px, 26px), calc(100cqw / (var(--cols) * 0.61)));
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .art-fit :global(pre) {
+    margin: 0;
+    font: inherit;
+  }
+  .hero-name :global(ascii-art) {
+    color: var(--ink);
+    line-height: 1;
+  }
+  .hero-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    margin-top: 40px;
+    align-items: start;
+  }
+  .hello {
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.5;
+  }
+  .prompt {
+    color: var(--vermillion);
+    margin-right: 0.4ch;
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    margin-left: 0.3ch;
+    vertical-align: -0.15em;
+    background: var(--vermillion);
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
   }
   .hero-role {
     font-family: var(--mono);
-    font-size: 14px;
+    font-size: 13px;
     color: var(--vermillion);
-    margin-top: 10px;
+    margin-top: 6px;
     letter-spacing: 0.12em;
   }
   .epigraph {
-    font-size: clamp(17px, 2.2vw, 21px);
-    font-style: italic;
-    color: var(--ink-2);
-    max-width: 520px;
-    margin-top: 36px;
+    font-family: var(--mono);
+    font-size: 15px;
     line-height: 1.7;
+    color: var(--ink);
+    margin-top: 28px;
+    padding-left: 2ch;
+    border-left: 2px solid var(--vermillion);
   }
   .hero-intro {
-    max-width: 560px;
-    margin-top: 32px;
+    margin-top: 24px;
     display: grid;
-    gap: 14px;
+    gap: 12px;
     color: var(--ink-2);
-    font-size: 15px;
+    font-size: 14px;
   }
   .motto {
-    margin-top: 36px;
+    margin-top: 24px;
     color: var(--ink-2);
+  }
+  .hero-art {
+    --max-px: 12px;
+    padding: 8px;
+    border: 1px dashed var(--hairline-strong);
+  }
+  .hero-art figcaption {
+    margin-top: 8px;
+    font-size: 11px;
   }
   .latest {
     display: inline-flex;
     align-items: baseline;
-    gap: 10px;
+    gap: 1ch;
     margin-top: 14px;
-    padding: 6px 0;
+    padding: 2px 4px;
+    margin-left: -4px;
     color: var(--ink-2);
-    border-bottom: 1px dotted var(--hairline-strong);
     max-width: 100%;
-    transition: color 0.25s ease, border-color 0.25s ease;
-  }
-  .latest-dot {
-    align-self: center;
-    flex-shrink: 0;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--vermillion);
-    animation: latest-pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes latest-pulse {
-    50% { opacity: 0.25; }
   }
   .latest-label {
-    font-size: 11px;
-    letter-spacing: 0.16em;
     color: var(--vermillion);
   }
   .latest-title {
@@ -349,38 +391,31 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   }
   .latest-arrow {
     color: var(--ink-3);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
   }
-  .latest:hover {
-    border-bottom-color: var(--vermillion);
-  }
-  .latest:hover .latest-arrow {
-    color: var(--vermillion);
-    transform: translateX(4px);
+  .latest:hover,
+  .latest:hover * {
+    background: var(--ink);
+    color: var(--paper);
   }
   @media (prefers-reduced-motion: reduce) {
-    .latest-dot { animation: none; }
+    .cursor { animation: none; }
   }
-  .orbit {
-    position: absolute;
-    right: 4%;
-    top: 90px;
-    width: min(320px, 30vw);
-    color: var(--ink-3);
-    pointer-events: none;
+
+  /* Hairline 线稿：浮在区块说明右侧，下一个块清除浮动 */
+  .hl-fig {
+    float: right;
+    width: 260px;
+    height: 190px;
+    margin: -24px 0 16px 32px;
+    color: var(--ink);
   }
-  .orbit-core {
-    fill: var(--vermillion);
+  .timeline,
+  .lab-grid,
+  .issue-list {
+    clear: both;
   }
-  .orbit-sat {
-    transform-origin: 150px 150px;
-    animation: orbit-spin linear infinite;
-  }
-  .orbit-sat-1 { animation-duration: 46s; }
-  .orbit-sat-2 { animation-duration: 30s; animation-direction: reverse; }
-  .orbit-sat-3 { animation-duration: 70s; }
-  @keyframes orbit-spin {
-    to { transform: rotate(360deg); }
+  @media (max-width: 720px) {
+    .hl-fig { display: none; }
   }
 
   .section-note {
@@ -404,10 +439,18 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   }
   .timeline-rail {
     position: absolute;
-    top: 13.5px;
+    top: 8px;
     left: 3%;
     right: 3%;
-    border-top: 1px dashed var(--hairline-strong);
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1;
+    color: var(--ink-3);
+  }
+  .timeline-rail::before {
+    content: '──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────';
   }
   .timeline-node {
     position: relative;
@@ -418,13 +461,18 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     padding: 0 10px;
   }
   .node-dot {
-    box-sizing: border-box;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 4px;
     background: var(--paper);
-    border: 1.5px solid var(--ink-3);
-    transition: all 0.3s ease;
+    color: var(--ink-3);
+  }
+  .node-dot::before {
+    content: '[ ]';
+  }
+  .timeline-node.current .node-dot::before {
+    content: '[*]';
   }
   .node-year {
     font-size: 14px;
@@ -439,16 +487,17 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     letter-spacing: 0.14em;
   }
   .timeline-node.current .node-dot {
-    background: var(--vermillion);
-    border-color: var(--vermillion);
+    color: var(--vermillion);
   }
   .timeline-node.current .node-year {
     color: var(--ink);
     font-weight: 500;
   }
   .timeline-node:hover .node-dot {
-    background: var(--ink);
-    border-color: var(--ink);
+    color: var(--vermillion);
+  }
+  .timeline-node:hover .node-dot::before {
+    content: '[x]';
   }
   .timeline-node:hover .node-year {
     color: var(--vermillion);
@@ -463,9 +512,10 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     display: flex;
     align-items: baseline;
     gap: 18px;
-    padding: 14px 4px;
-    border-bottom: 1px solid var(--hairline);
-    transition: padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+    padding: 12px 4px;
+    border-bottom: 1px dashed var(--hairline-strong);
+    padding-left: 8px;
+    padding-right: 8px;
   }
   .issue-no {
     color: var(--ink-3);
@@ -481,8 +531,22 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     color: var(--ink-3);
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
   }
+  .issue-row::before {
+    content: '>';
+    font-family: var(--mono);
+    width: 0;
+    overflow: hidden;
+    color: var(--vermillion);
+    transition: width 0.15s steps(2);
+  }
   .issue-row:hover {
-    padding-left: 14px;
+    background: var(--ink);
+  }
+  .issue-row:hover::before {
+    width: 1ch;
+  }
+  .issue-row:hover .issue-title {
+    color: var(--paper);
   }
   .issue-row:hover .issue-no {
     color: var(--vermillion);
@@ -523,21 +587,15 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   }
   .leader {
     flex: 1;
-    border-bottom: 1px dotted var(--hairline-strong);
-    position: relative;
-    top: -3px;
+    min-width: 2ch;
     overflow: hidden;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
   }
-  .leader::after {
-    content: '';
-    position: absolute;
-    left: -6px;
-    bottom: -3px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--vermillion);
-    opacity: 0;
+  .leader::before {
+    content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .';
   }
   .essay-no {
     color: var(--ink-3);
@@ -550,13 +608,8 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .essay-row:hover .essay-no {
     color: var(--vermillion);
   }
-  .essay-row:hover .leader::after {
-    opacity: 1;
-    animation: leader-travel 0.9s cubic-bezier(0.4, 0, 0.3, 1) forwards;
-  }
-  @keyframes leader-travel {
-    from { left: -6px; }
-    to { left: 100%; }
+  .essay-row:hover .leader {
+    color: var(--vermillion);
   }
 
   .list-extra {
@@ -586,8 +639,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     color: var(--ink-2);
     transition: color 0.25s ease, border-color 0.25s ease;
   }
+  .toggle-plus::before { content: '['; }
+  .toggle-plus::after { content: ']'; }
   .toggle-plus {
     display: inline-block;
+    font-family: var(--mono);
     font-size: 14px;
     line-height: 1;
     color: var(--ink-3);
@@ -601,7 +657,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     color: var(--vermillion);
   }
   .expanded + .list-toggle .toggle-plus {
-    transform: rotate(45deg);
+    font-size: 0;
+  }
+  .expanded + .list-toggle .toggle-plus::before {
+    content: '[-]';
+    font-size: 14px;
   }
 
   .ref-grid {
@@ -612,11 +672,12 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   .ref-card {
     position: relative;
     border: 1px dashed var(--hairline-strong);
+    background-clip: padding-box;
     padding: 26px 24px 22px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: background-color 0.12s steps(2), border-color 0.12s steps(2);
   }
   .tick {
     position: absolute;
@@ -627,13 +688,14 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     transition: color 0.3s ease;
   }
   .tick-tl { top: -7px; left: -5px; }
+  .tick-tr { top: -7px; right: -5px; }
+  .tick-bl { bottom: -7px; left: -5px; }
   .tick-br { bottom: -7px; right: -5px; }
   .ref-label {
     letter-spacing: 0.16em;
   }
   .ref-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
   }
   .ref-desc {
     font-size: 13px;
@@ -650,12 +712,17 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     display: inline-block;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  .ref-card:hover {
-    border-color: var(--vermillion);
-    transform: translateY(-3px);
+  .ref-card:hover,
+  .project-card:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+  .ref-card:hover *,
+  .project-card:hover * {
+    color: var(--paper);
   }
   .ref-card:hover .tick,
-  .ref-card:hover .ref-go {
+  .project-card:hover .tick {
     color: var(--vermillion);
   }
   .ref-card:hover .ref-go .arrow {
@@ -668,12 +735,13 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     gap: 20px;
   }
   .project-card {
-    border: 1px solid var(--hairline);
+    position: relative;
+    border: 1px dashed var(--hairline-strong);
     padding: 24px 22px 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: background-color 0.12s steps(2), border-color 0.12s steps(2);
   }
   .project-domain {
     letter-spacing: 0.1em;
@@ -686,8 +754,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .project-name {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
   }
   .project-desc {
     font-size: 13px;
@@ -695,13 +762,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     line-height: 1.7;
     flex: 1;
   }
-  .project-card:hover {
-    border-color: var(--vermillion);
-    transform: translateY(-3px);
-  }
-  .project-card:hover .project-domain {
-    color: var(--vermillion);
-  }
+
   .project-card:hover .project-arrow {
     transform: translate(2px, -2px);
   }
@@ -726,7 +787,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   }
   .lab-thumb {
     aspect-ratio: 16 / 10;
-    border: 1px solid var(--hairline);
+    border: 1px dashed var(--hairline-strong);
     background: color-mix(in srgb, var(--ink) 4%, transparent);
     overflow: hidden;
     margin-bottom: 6px;
@@ -738,7 +799,11 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     height: 100%;
     object-fit: cover;
     object-position: top;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+  }
+  .lab-card:hover .lab-thumb img {
+    filter: none;
   }
   .lab-date {
     display: flex;
@@ -752,8 +817,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .lab-title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
     line-height: 1.45;
   }
   .lab-card:hover .lab-thumb {
@@ -783,15 +847,29 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
     padding: 72px 0 48px;
     --dot: color-mix(in srgb, var(--ink) 5%, transparent);
   }
-  .footer.gravity-on {
-    background-image: none;
-  }
-  #gravity-canvas {
+  #ascii-field {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: block;
+    color: var(--ink);
+    opacity: 0.35;
+  }
+  /* 文字在字符场里"挖"出一块纸面 */
+  .contact-label,
+  .contact-value,
+  .footer-motto,
+  .footer .section-label .index-no,
+  .footer .section-label {
+    background: var(--paper);
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+  .contact-item {
+    align-items: flex-start;
+  }
+  .footer-motto {
+    width: fit-content;
   }
   .footer .wrap {
     position: relative;
@@ -822,17 +900,29 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   }
 
   @media (max-width: 720px) {
-    .orbit {
-      display: none;
-    }
     .hero {
-      padding: 72px 0 64px;
+      padding: 36px 0 56px;
+    }
+    .hero-body {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
     .section {
       padding: 56px 0;
     }
     .site-nav {
       gap: 16px;
+    }
+    .site-nav a {
+      white-space: nowrap;
+    }
+  }
+  @media (max-width: 480px) {
+    .site-nav {
+      gap: 10px;
+    }
+    .brand {
+      letter-spacing: 0.02em;
     }
     .timeline {
       padding-top: 30px;
@@ -844,11 +934,23 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
 </style>
 
 <script>
-  import { initGravity } from '../scripts/gravity.js';
-  import { initMagnetic } from '../scripts/interactions.js';
+  import { riffle, terminal, dish } from '@lucasmarkes/hairline';
+  import { initScramble } from '../scripts/interactions.js';
+  import { initAsciiField } from '../scripts/ascii-field.js';
 
-  initGravity(document.getElementById('contact'), document.getElementById('gravity-canvas'));
-  initMagnetic(document.querySelectorAll('.magnetic'));
+  initScramble(document.querySelectorAll('.scramble'));
+  initAsciiField(document.getElementById('ascii-field'));
+
+  // Hairline 线稿图形：进入视口才挂载，离开不卸载
+  const figures = { riffle, terminal, dish };
+  const figObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (!isIntersecting) return;
+      figObserver.unobserve(target);
+      figures[target.dataset.figure]?.(target, { intensity: 0.55, label: target.dataset.label });
+    });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('.hl-fig').forEach((el) => figObserver.observe(el));
 
   // 构建时只写入日期，访问时换成相对时间，避免两次构建之间“2 天前”过期
   const today = new Date();
