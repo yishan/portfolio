@@ -126,12 +126,6 @@ export const projects = {
       href: 'https://bank.yishan.app',
     },
     {
-      name: '随机账号生成器',
-      domain: 'random.yishan.app',
-      desc: '为开发测试环境随机生成姓名、身份证号、手机号与住址等虚拟身份信息。',
-      href: 'https://random.yishan.app',
-    },
-    {
       name: '宝可即图鉴 Pokéji',
       domain: 'pokeji.com',
       desc: '把你的即刻主页变成一张宝可梦风格的收藏卡牌，捕捉属于你的专属宝可即。',
