@@ -1,13 +1,13 @@
 export const profile = {
   name: 'Yishan',
-  cnName: '李壹山',
+  cnName: '李一山',
   role: '产品 & 用户体验设计',
   since: 2010,
   epigraph: 'Ambition is like mass. The more you have, the stronger your gravitational pull.',
   motto: '持续阅读，持续思考',
   intro: [
-    '从 2010 年开始接触网页设计，并延展到更多互联产品设计项目，逐渐对用户体验设计与用户研究感兴趣，同时也在工作中带领团队完成多个项目。',
-    '在过程中我认为自己对消费者行为习惯、产品生命周期以及供应链等方面积累了稍多的经验。这两年我开始接触数据分析与可视化方面的内容，也在观察 AI 行业的发展与相关的机会。',
+    '2004 年起，我从在线社区的运营与治理开始接触互联网，逐渐走向网页设计。2010 年正式以设计为职业，此后延展到更多互联网产品与用户体验设计项目，在用户体验与用户研究上持续积累。多年来，我带领团队完成了不同行业、不同业态的项目，其中不少是从 0 到 1 搭建起来的。',
+    '在这个过程中，我在消费者行为、行业调研、产品生命周期与供应链方面积累了较多经验，在数据分析与可视化上也有一些心得。近几年，我第一时间投入 AI 领域，探索它的应用场景，并在实际工作与项目中持续实践。',
   ],
 };
 
@@ -174,4 +174,5 @@ export const contacts = [
     value: 'Yishan 壹山',
     href: 'https://www.xiaohongshu.com/user/profile/5c0cd528f7e8b95f0e136e35',
   },
+  { label: '简历', value: 'yishan.li/resume', href: '/resume' },
 ];

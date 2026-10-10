@@ -30,7 +30,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
   <main>
     <section class="hero" id="hero">
       <div class="wrap">
-        <p class="mono hero-kicker">PRODUCT · UX · DATA — SINCE {profile.since}</p>
+        <p class="mono hero-kicker">PRODUCT · UX · DATA · AI — SINCE {profile.since}</p>
         <div class="art-fit hero-name" style="--cols: 66">
           <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
         </div>
@@ -223,7 +223,7 @@ const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
           <li class="contact-item">
             <span class="mono contact-label">{c.label}</span>
             {c.href ? (
-              <a class="arrow-link contact-value" href={c.href}>{c.value} <span class="arrow">↗</span></a>
+              <a class="arrow-link contact-value" href={c.href}>{c.value} <span class="arrow">{c.href.startsWith('/') ? '→' : '↗'}</span></a>
             ) : (
               <span class="contact-value">{c.value}</span>
             )}
