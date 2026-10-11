@@ -2,6 +2,9 @@
 import '../styles/global.css';
 
 const { title = 'Yishan — 产品 & 用户体验设计', description = '产品与用户体验设计，数据分析与 AI 观察。持续阅读，持续思考。' } = Astro.props;
+// 分享图由 npm run og 生成（模板在 src/pages/og.astro）；社交平台要求绝对地址
+const ogImage = new URL('/og.png', Astro.site).href;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -11,6 +14,17 @@ const { title = 'Yishan — 产品 & 用户体验设计', description = '产品�
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yishan" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="YISHAN — 持续阅读，持续思考" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <!-- 首帧之前套用访客手动选的主题，避免先闪一下系统主题 -->
     <script is:inline>

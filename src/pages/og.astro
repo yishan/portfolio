@@ -1,0 +1,161 @@
+---
+// 社交分享图模板（1200×630，深色）。不进导航；scripts/og.mjs 把它截图成 public/og.png。
+import '../styles/global.css';
+import bigText from 'ascii.rest/pieces/big-text';
+import { profile } from '../data/content.js';
+
+// 只取第 0 帧（扫光停在画面外），深色底用 paper: false 的密排字形
+const banner = bigText({ text: profile.name.toUpperCase() })(0, { paper: false });
+
+const [lead, ...rest] = profile.epigraph.split('. ');
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200" />
+    <meta name="robots" content="noindex" />
+    <title>OG · {profile.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="card">
+      <canvas id="og-rain" width="1200" height="630" aria-hidden="true"></canvas>
+      <div class="stack">
+        <div class="name">
+          <pre role="img" aria-label={profile.name}>{banner}</pre>
+        </div>
+        <p class="mono motto"><span class="prompt">$</span> {profile.motto}<span class="cursor"></span></p>
+        <p class="mono epigraph">“{lead}.<br />{rest.join('. ')}”</p>
+      </div>
+      <p class="mono domain">yishan.li</p>
+    </main>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+  }
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+  }
+  #og-rain {
+    position: absolute;
+    inset: 0;
+  }
+  .stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -8px;
+  }
+  .name pre {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 19px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .motto {
+    margin-top: 44px;
+    font-family: var(--mono);
+    font-size: 34px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+  .prompt {
+    margin-right: 0.5em;
+    color: var(--ink-3);
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 0.3em;
+    vertical-align: -0.12em;
+    background: var(--vermillion);
+  }
+  .epigraph {
+    margin-top: 48px;
+    font-family: var(--mono);
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+  .domain {
+    position: absolute;
+    right: 56px;
+    bottom: 40px;
+    font-family: var(--mono);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+  }
+</style>
+
+<script>
+  // 静止的一帧字符雨：和封面的 matrix-field 同一套字符与网格，越靠近中心越淡。
+  // 用固定种子，每次生成的图都一样。
+  const CHARS = '01<>/\\|=+-*#%$@&{}[]()~^;:.,abcdefxyz';
+  const CELL_W = 11;
+  const CELL_H = 18;
+
+  let seed = 20101011;
+  const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const pick = () => CHARS[Math.floor(rand() * CHARS.length)];
+
+  const canvas = document.getElementById('og-rain') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const w = canvas.width;
+  const h = canvas.height;
+  const cols = Math.ceil(w / CELL_W);
+  const rows = Math.ceil(h / CELL_H);
+  const ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+
+  // 文字块比封面宽得多：中间一大片几乎留空，往四周才渐渐显出字符；右下角给域名让位
+  const centerFade = (x: number, y: number) => {
+    if (x > w - 200 && y > h - 90) return 0;
+    const dx = (x - w / 2) / (w * 0.43);
+    const dy = (y - h / 2) / (h * 0.5);
+    return Math.min(1, Math.hypot(dx, dy)) ** 3;
+  };
+
+  document.fonts.ready.then(() => {
+    ctx.font = `12px 'IBM Plex Mono', monospace`;
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = ink;
+    for (let c = 0; c < cols; c++) {
+      if (rand() < 0.45) continue;
+      const head = Math.floor(rand() * (rows + 12));
+      const len = 8 + Math.floor(rand() * 14);
+      for (let k = 0; k < len; k++) {
+        const r = head - k;
+        if (r < 0 || r >= rows) continue;
+        const a = (k === 0 ? 0.22 : 0.14 * (1 - k / len)) * centerFade(c * CELL_W, r * CELL_H);
+        if (a < 0.01) continue;
+        ctx.globalAlpha = a;
+        ctx.fillText(pick(), c * CELL_W, r * CELL_H);
+      }
+    }
+    ctx.globalAlpha = 1;
+    document.documentElement.dataset.ready = '';
+  });
+</script>
