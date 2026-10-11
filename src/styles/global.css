@@ -118,8 +118,8 @@ a {
   font-weight: 500;
 }
 
+/* 区块之间不再画分割线：每个区块的标题行本身就是分界，再加横线会重复 */
 .section {
-  border-top: 1px solid var(--hairline);
   padding: 72px 0;
   position: relative;
 }
