@@ -15,6 +15,8 @@
     'Microsoft YaHei', sans-serif;
   --max: 1080px;
   --theme-label: '亮';
+  /* 悬停底色：墨色混进纸色 5%，浅色主题下略深、深色主题下略亮 */
+  --tint: color-mix(in srgb, var(--ink) 5%, var(--paper));
 }
 
 /* 默认跟随系统；html[data-theme] 是访客手动选的主题，优先于系统设置 */

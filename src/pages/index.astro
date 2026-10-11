@@ -568,6 +568,10 @@ const navLinks = [
     border-bottom: 1px dashed var(--hairline-strong);
     padding-left: 8px;
     padding-right: 8px;
+    transition: background-color 0.2s ease;
+  }
+  .issue-title {
+    transition: color 0.2s ease;
   }
   .issue-no {
     color: var(--ink-3);
@@ -592,13 +596,13 @@ const navLinks = [
     transition: width 0.15s steps(2);
   }
   .issue-row:hover {
-    background: var(--ink);
+    background: var(--tint);
   }
   .issue-row:hover::before {
     width: 1ch;
   }
   .issue-row:hover .issue-title {
-    color: var(--paper);
+    color: var(--vermillion);
   }
   .issue-row:hover .issue-no {
     color: var(--vermillion);
@@ -729,7 +733,7 @@ const navLinks = [
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: background-color 0.12s steps(2), border-color 0.12s steps(2);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
   .tick {
     position: absolute;
@@ -764,17 +768,14 @@ const navLinks = [
     display: inline-block;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
+  /* 卡片悬停：淡底色 + 标题、角标、箭头变红，其余文字保持原色 */
   .ref-card:hover,
   .project-card:hover {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--tint);
+    border-color: var(--ink-3);
   }
-  .ref-card:hover *,
-  .project-card:hover * {
-    color: var(--paper);
-  }
-  .ref-card:hover .tick,
-  .project-card:hover .tick {
+  .ref-card:hover :is(.tick, .ref-title, .ref-go),
+  .project-card:hover :is(.tick, .project-name, .project-domain) {
     color: var(--vermillion);
   }
   .ref-card:hover .ref-go .arrow {
@@ -793,7 +794,7 @@ const navLinks = [
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: background-color 0.12s steps(2), border-color 0.12s steps(2);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
   }
   .project-domain {
     letter-spacing: 0.1em;
@@ -962,6 +963,9 @@ const navLinks = [
   .contact-value {
     font-size: 15px;
     color: var(--ink);
+  }
+  a.contact-value:hover {
+    color: var(--vermillion);
   }
   .footer-motto {
     margin-top: 56px;
