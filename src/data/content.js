@@ -39,67 +39,19 @@ export const newsletter = {
   })),
 };
 
-const essaySlug = (no, title) => `${no}-${title.replaceAll(' ', '-')}`;
-
+// 站内文章的列表由 src/content/essays/ 自动生成（见 src/data/essays.js），这里只放文案和站外发布的文章
 export const essays = {
   title: '但说无妨',
   about: '关于产品、交互、用户体验、项目管理以及阅读内容的一些见解。',
-  // Items with their own `href` link out to posts published elsewhere;
-  // `via` names the platform and `date` (MM-DD) stands in for the number.
-  groups: [
+  // 发在别处的文章：`via` 是平台，`date` 写完整日期（首页显示 MM-DD，并按年份归组）
+  external: [
     {
-      year: 2026,
-      items: [
-        {
-          title: '我让 K3、Sol 和 Fable 将游戏原型做成了游戏，它们玩了一百万局后说：不好玩',
-          date: '07-24',
-          via: '公众号',
-          href: 'https://mp.weixin.qq.com/s/E3A2_O5_ylSv9-4TO2eUZQ',
-        },
-      ],
+      title: '我让 K3、Sol 和 Fable 将游戏原型做成了游戏，它们玩了一百万局后说：不好玩',
+      date: '2026-07-24',
+      via: '公众号',
+      href: 'https://mp.weixin.qq.com/s/E3A2_O5_ylSv9-4TO2eUZQ',
     },
-    {
-      year: 2023,
-      items: [
-        { no: '024', title: '语言是连接过去、现在和未来的纽带' },
-        { no: '023', title: '边缘用例与 Poka-Yoke' },
-        { no: '022', title: '产品管理的第一性原则' },
-      ],
-    },
-    {
-      year: 2022,
-      items: [
-        { no: '021', title: '问题背后的问题' },
-        { no: '020', title: '提出好的问题' },
-        { no: '019', title: '心流' },
-        { no: '018', title: '能力模型' },
-        { no: '017', title: '观点与实践' },
-        { no: '016', title: '过时的书籍' },
-        { no: '015', title: '放弃与止损' },
-        { no: '014', title: '信息会找到属于它的媒介' },
-        { no: '013', title: 'Job-ready 教学框架' },
-        { no: '012', title: '社区生态与竞争力' },
-        { no: '011', title: '以教促学' },
-        { no: '010', title: '分享与交流' },
-        { no: '009', title: 'Power & Points' },
-        { no: '008', title: '产品经理培训与从业' },
-        { no: '007', title: '个人与组织进化' },
-        { no: '006', title: '独特性与真实性' },
-        { no: '005', title: '用户与策略' },
-        { no: '004', title: '奖赏你的好奇心' },
-        { no: '003', title: '练习，能力边界与原则' },
-        { no: '002', title: '流程与交付' },
-        { no: '001', title: '项目管理' },
-      ],
-    },
-  ].map((g) => ({
-    ...g,
-    items: g.items.map((e) => ({
-      ...e,
-      external: Boolean(e.href),
-      href: e.href ?? encodeURI(`/essays/${essaySlug(e.no, e.title)}`),
-    })),
-  })),
+  ],
 };
 
 export const references = [
