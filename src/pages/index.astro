@@ -179,7 +179,7 @@ const navLinks = [
     </section>
 
     <section class="section" id="essays">
-      <div class="wrap">
+      <div class="wrap" data-reveal>
         <h2 class="section-label"><span class="index-no">{no(6)}</span> 但说无妨 — ESSAYS</h2>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
@@ -211,12 +211,11 @@ const navLinks = [
             )}
           </div>
         ))}
-        <div class="fig fig-end" data-fig="typewriter"></div>
       </div>
     </section>
 
     <section class="section" id="newsletter">
-      <div class="wrap">
+      <div class="wrap" data-reveal>
         <h2 class="section-label"><span class="index-no">{no(7)}</span> 有所启发 — NEWSLETTER</h2>
         <p class="section-note">
           {newsletter.about}
@@ -246,6 +245,7 @@ const navLinks = [
             <span class="toggle-text">展开其余 {newsletter.issues.length - 5} 期</span>
           </button>
         )}
+        <div class="fig fig-end" data-fig="typewriter"></div>
       </div>
     </section>
 
@@ -498,6 +498,23 @@ const navLinks = [
   }
   @media (max-width: 1100px) {
     .fig-gutter { display: none; }
+  }
+  /* 文章与启发列表：进入视野后逐条从淡、微糊里浮现，节奏与「灵光」一致。
+     只有脚本加上 .rv 才隐藏，没有脚本或减弱动态时内容照常显示 */
+  .rv :is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra)) {
+    opacity: 0;
+    filter: blur(3px);
+    translate: 0 4px;
+  }
+  .rv.rv-in :is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra)) {
+    opacity: 1;
+    filter: none;
+    translate: 0 0;
+    transition:
+      opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+      filter 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
+      translate 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-delay: var(--d, 0s);
   }
   .fig-end {
     float: none;
@@ -1165,6 +1182,26 @@ const navLinks = [
     toContent();
   });
   initAsciiField(document.getElementById('ascii-field'));
+
+  // 文章与启发：列表进入视野后逐条浮现，每条错开 0.12 秒
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = ':is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra))';
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(({ isIntersecting, target }) => {
+          if (!isIntersecting) return;
+          io.unobserve(target);
+          target.classList.add('rv-in');
+        });
+      },
+      { threshold: 0.15 },
+    );
+    document.querySelectorAll('[data-reveal]').forEach((wrap) => {
+      wrap.querySelectorAll(items).forEach((el, i) => el.style.setProperty('--d', `${Math.min(i, 12) * 0.12}s`));
+      wrap.classList.add('rv');
+      io.observe(wrap);
+    });
+  }
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
   const figures = { annual, beaker, typewriter, prism };
