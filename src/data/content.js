@@ -44,7 +44,20 @@ const essaySlug = (no, title) => `${no}-${title.replaceAll(' ', '-')}`;
 export const essays = {
   title: '但说无妨',
   about: '关于产品、交互、用户体验、项目管理以及阅读内容的一些见解。',
+  // Items with their own `href` link out to posts published elsewhere;
+  // `via` names the platform and `date` (MM-DD) stands in for the number.
   groups: [
+    {
+      year: 2026,
+      items: [
+        {
+          title: '我让 K3、Sol 和 Fable 将游戏原型做成了游戏，它们玩了一百万局后说：不好玩',
+          date: '07-24',
+          via: '公众号',
+          href: 'https://mp.weixin.qq.com/s/E3A2_O5_ylSv9-4TO2eUZQ',
+        },
+      ],
+    },
     {
       year: 2023,
       items: [
@@ -83,7 +96,8 @@ export const essays = {
     ...g,
     items: g.items.map((e) => ({
       ...e,
-      href: encodeURI(`/essays/${essaySlug(e.no, e.title)}`),
+      external: Boolean(e.href),
+      href: e.href ?? encodeURI(`/essays/${essaySlug(e.no, e.title)}`),
     })),
   })),
 };

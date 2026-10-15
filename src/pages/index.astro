@@ -188,10 +188,14 @@ const navLinks = [
             <ul class="essay-list" id={`essay-list-${g.year}`}>
               {g.items.map((e, idx) => (
                 <li class:list={{ 'list-extra': idx >= 5 }} style={idx >= 5 ? `--i: ${idx - 5}` : undefined}>
-                  <a class="essay-row" href={e.href}>
+                  <a
+                    class="essay-row"
+                    href={e.href}
+                    {...(e.external && { target: '_blank', rel: 'noopener' })}
+                  >
                     <span class="essay-title">{e.title}</span>
                     <span class="leader" aria-hidden="true"></span>
-                    <span class="mono essay-no">{e.no}</span>
+                    <span class="mono essay-no">{e.external ? `${e.via} ${e.date} ↗` : e.no}</span>
                   </a>
                 </li>
               ))}
@@ -806,6 +810,7 @@ const navLinks = [
   .essay-no {
     color: var(--ink-3);
     font-size: 11px;
+    white-space: nowrap;
     transition: color 0.25s ease;
   }
   .essay-row:hover .essay-title {
