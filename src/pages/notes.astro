@@ -23,6 +23,27 @@ if (first && last) {
     key = `${y}-${String(m).padStart(2, '0')}`;
   }
 }
+// 连续 3 个月以上没有短记就折叠成一列「⋯」，跨年断档时点阵不会被拉得很长
+const cols = [];
+for (let i = 0; i < months.length; ) {
+  let j = i;
+  while (j < months.length && months[j].count === 0) j++;
+  if (j - i >= 3) {
+    cols.push({ gap: true, from: months[i], to: months[j - 1] });
+    i = j;
+  } else {
+    cols.push(months[i]);
+    i += 1;
+  }
+}
+// 年份标在每一年出现的第一列下面
+let shownYear = null;
+for (const c of cols) {
+  if (c.gap) continue;
+  c.showYear = c.y !== shownYear;
+  shownYear = c.y;
+}
+const pad = (m) => String(m).padStart(2, '0');
 const peak = Math.max(1, ...months.map((x) => x.count));
 const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-', '.')}` : '';
 ---
@@ -37,15 +58,23 @@ const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-',
 
   <figure class="density" aria-label={`按月分布：${span}，共 ${notes.length} 条`}>
     <div class="density-cols" style={`--peak: ${peak}`}>
-      {months.map((x) => {
+      {cols.map((x) => {
+        if (x.gap) {
+          return (
+            <span class="mono density-col density-gap" title={`${x.from.y}.${pad(x.from.m)} — ${x.to.y}.${pad(x.to.m)} · 无`}>
+              <span class="density-dots" aria-hidden="true"></span>
+              <span class="density-m">⋯</span>
+            </span>
+          );
+        }
         const Tag = x.href ? 'a' : 'span';
         return (
-          <Tag class="mono density-col" href={x.href} title={`${x.y}.${String(x.m).padStart(2, '0')} · ${x.count} 条`}>
+          <Tag class="mono density-col" href={x.href} title={`${x.y}.${pad(x.m)} · ${x.count} 条`}>
             <span class="density-dots" aria-hidden="true">
               {x.count ? Array.from({ length: x.count }, () => <i>•</i>) : <i class="empty">·</i>}
             </span>
-            <span class="density-m">{String(x.m).padStart(2, '0')}</span>
-            {(x.m === 1 || x === months[0]) && <span class="density-y">{x.y}</span>}
+            <span class="density-m">{pad(x.m)}</span>
+            {x.showYear && <span class="density-y">{x.y}</span>}
           </Tag>
         );
       })}
@@ -230,7 +259,16 @@ const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-',
       --gutter: 54px;
     }
     .density-col {
-      flex-basis: 18px;
+      flex-basis: 12px;
+      min-width: 0;
+    }
+    .density-cols {
+      gap: 1px;
+      overflow-x: hidden;
+    }
+    /* 手机上一列太窄，月份数字会挤成一串：只留年份和断档标记 */
+    .density-col:not(.density-gap) .density-m {
+      visibility: hidden;
     }
     :global(.prose) a.note-date {
       font-size: 12px;
