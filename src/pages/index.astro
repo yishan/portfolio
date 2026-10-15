@@ -69,14 +69,17 @@ const navLinks = [
     <section class="section" id="notes">
       <div class="wrap">
         <h2 class="section-label"><span class="index-no">{no(1)}</span> 灵光 — NOTES</h2>
-        <ol class="draw-list" id="draw-list">
-          {notes.slice(0, drawCount).map((n) => (
-            <li class="draw-note">
-              <a class="mono draw-date" href={`/notes#${n.id}`}><time datetime={n.date}>{n.date.replaceAll('-', '.')}</time></a>
-              <div class="draw-body" set:html={n.body} />
-            </li>
-          ))}
-        </ol>
+        <div class="draw-wrap">
+          <div class="fig fig-gutter" data-fig="prism"></div>
+          <ol class="draw-list" id="draw-list">
+            {notes.slice(0, drawCount).map((n) => (
+              <li class="draw-note">
+                <a class="mono draw-date" href={`/notes#${n.id}`}><time datetime={n.date}>{n.date.replaceAll('-', '.')}</time></a>
+                <div class="draw-body" set:html={n.body} />
+              </li>
+            ))}
+          </ol>
+        </div>
         <div class="draw-actions">
           <button class="mono draw-more" type="button" id="draw-more" hidden>
             <span class="draw-icon" aria-hidden="true">↻</span> 看看别的
@@ -482,6 +485,20 @@ const navLinks = [
   .fig :global(.accent) { stroke: var(--vermillion); }
   .fig :global(.fo.accent) { fill: var(--vermillion); }
   /* 放在区块末尾、不与列表并排的图形：右对齐占一行 */
+  /* 放在列表右侧空白里的图形：不浮动、不挤压列表；空白不够宽时隐藏 */
+  .draw-wrap {
+    position: relative;
+  }
+  .fig-gutter {
+    position: absolute;
+    right: 0;
+    top: 0;
+    float: none;
+    margin: 0;
+  }
+  @media (max-width: 1100px) {
+    .fig-gutter { display: none; }
+  }
   .fig-end {
     float: none;
     margin: 8px 0 0 auto;
@@ -1127,6 +1144,7 @@ const navLinks = [
   import { annual } from '../scripts/figures/annual.js';
   import { beaker } from '../scripts/figures/beaker.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
+  import { prism } from '../scripts/figures/prism.js';
 
   initScramble(document.querySelectorAll('.scramble'));
   initMatrixField(document.getElementById('cover-rain'));
@@ -1149,7 +1167,7 @@ const navLinks = [
   initAsciiField(document.getElementById('ascii-field'));
 
   // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
-  const figures = { annual, beaker, typewriter };
+  const figures = { annual, beaker, typewriter, prism };
   document.querySelectorAll('.fig').forEach((el) => {
     const make = figures[el.dataset.fig];
     if (make) mount(el, make(), { trigger: el.closest('section, footer') });
