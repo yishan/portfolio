@@ -1,13 +1,7 @@
 ---
-permalink: thoughts-in-ksana
-title: 灵光闪现 Ksana
-aliases:
-  - ksana
-latest: 2024-01-05
+title: 灵光闪现 Notes
 publish: true
 ---
-这是我在社交平台上的较短发言，觉得有需要汇总记录的部分。
-
 ## 24-09-24
 
 NotebookLM 给生成的对谈语音添加了大量语气助词和“口水话”为了让语音听起来更生动，与此同时也有不少专门工具用来删除真人录制的播客语音中的语气助词 😄 我喜欢这种状态下人们对 AI 的宽容和鼓励。
