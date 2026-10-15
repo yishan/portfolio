@@ -1,0 +1,265 @@
+---
+import { getEntry } from 'astro:content';
+import Article from '../layouts/Article.astro';
+
+const entry = await getEntry('pages', 'notes');
+const html = entry.rendered?.html ?? '';
+
+// 正文里每条短记以 "## YY-MM-DD"（早期是 ###）开头：按日期标题切成条目，写作方式不变
+const heading = /<h([23])[^>]*>\s*(\d{2})-(\d{2})-(\d{2})\s*<\/h\1>/g;
+const marks = [...html.matchAll(heading)];
+// 第一个日期标题之前的内容作为开头说明，留空则不显示
+const intro = (marks.length ? html.slice(0, marks[0].index) : html).trim();
+const notes = marks.map((m, i) => {
+  const [, , yy, mm, dd] = m;
+  const end = i + 1 < marks.length ? marks[i + 1].index : html.length;
+  return {
+    id: `${yy}-${mm}-${dd}`,
+    year: `20${yy}`,
+    month: `20${yy}-${mm}`,
+    label: `${mm}.${dd}`,
+    date: `20${yy}-${mm}-${dd}`,
+    body: html.slice(m.index + m[0].length, end),
+  };
+});
+notes.sort((a, b) => b.date.localeCompare(a.date));
+
+const years = [...new Set(notes.map((n) => n.year))].map((year) => ({
+  year,
+  items: notes.filter((n) => n.year === year),
+}));
+
+// 月份密度：从最早一条到最近一条逐月排开，每条记一个点；点击跳到该月最近的一条
+const first = notes.at(-1)?.month;
+const last = notes[0]?.month;
+const months = [];
+if (first && last) {
+  let [y, m] = first.split('-').map(Number);
+  for (let key = first; key <= last; ) {
+    const items = notes.filter((n) => n.month === key);
+    months.push({ key, y, m, count: items.length, href: items[0] && `#${items[0].id}` });
+    m += 1;
+    if (m > 12) { m = 1; y += 1; }
+    key = `${y}-${String(m).padStart(2, '0')}`;
+  }
+}
+const peak = Math.max(1, ...months.map((x) => x.count));
+const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-', '.')}` : '';
+---
+
+<Article
+  title={entry.data.title}
+  kicker="NOTES — 短记"
+  date={notes[0]?.date ?? entry.data.latest}
+  description={entry.data.description}
+>
+  {intro && <div class="notes-intro" set:html={intro} />}
+
+  <figure class="density" aria-label={`按月分布：${span}，共 ${notes.length} 条`}>
+    <div class="density-cols" style={`--peak: ${peak}`}>
+      {months.map((x) => {
+        const Tag = x.href ? 'a' : 'span';
+        return (
+          <Tag class="mono density-col" href={x.href} title={`${x.y}.${String(x.m).padStart(2, '0')} · ${x.count} 条`}>
+            <span class="density-dots" aria-hidden="true">
+              {x.count ? Array.from({ length: x.count }, () => <i>•</i>) : <i class="empty">·</i>}
+            </span>
+            <span class="density-m">{String(x.m).padStart(2, '0')}</span>
+            {(x.m === 1 || x === months[0]) && <span class="density-y">{x.y}</span>}
+          </Tag>
+        );
+      })}
+    </div>
+    <figcaption class="mono density-cap">{notes.length} 条 · {span}</figcaption>
+  </figure>
+
+  {years.map((g) => (
+    <section class="year" aria-labelledby={`y-${g.year}`}>
+      <h2 class="mono year-label" id={`y-${g.year}`}>{g.year} →</h2>
+      <ol class="notes">
+        {g.items.map((n) => (
+          <li class="note" id={n.id}>
+            <a class="mono note-date" href={`#${n.id}`} aria-label={`${n.date} 的短记链接`}>
+              <time datetime={n.date}>{n.label}</time>
+            </a>
+            <span class="note-node" aria-hidden="true"></span>
+            <div class="note-body" set:html={n.body} />
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+</Article>
+
+<style>
+  .notes-intro {
+    color: var(--ink-2);
+  }
+
+  /* 月份密度：一列一个月，点数即条数，像手画的 ASCII 柱状图 */
+  .density {
+    margin: 8px 0 56px;
+  }
+  .density-cols {
+    display: flex;
+    gap: 2px;
+    padding-bottom: 22px;
+    border-bottom: 1px dotted var(--hairline-strong);
+    overflow-x: auto;
+  }
+  .density-col {
+    position: relative;
+    flex: 1 0 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: calc(var(--peak) * 11px + 28px);
+    font-size: 12px;
+    color: var(--ink-3);
+    border-bottom: none;
+  }
+  .density-dots {
+    display: flex;
+    flex-direction: column-reverse;
+    line-height: 11px;
+    font-size: 16px;
+    font-style: normal;
+  }
+  .density-dots i {
+    font-style: normal;
+  }
+  a.density-col .density-dots {
+    color: var(--ink-2);
+  }
+  .density-m {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+  .density-y {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 11px;
+    color: var(--ink-2);
+    letter-spacing: 0.06em;
+  }
+  :global(.prose) a.density-col {
+    color: var(--ink-3);
+    border-bottom: none;
+    transition: color 0.25s ease;
+  }
+  :global(.prose) a.density-col:hover,
+  :global(.prose) a.density-col:hover .density-dots {
+    color: var(--vermillion);
+  }
+  .density-cap {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+  }
+
+  /* 年份分组 + 左侧时间轨 */
+  .year + .year {
+    margin-top: 56px;
+  }
+  .year h2.year-label {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+    margin: 0 0 20px;
+  }
+  :global(.prose) .notes {
+    --gutter: 72px;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .notes::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 0;
+    left: var(--gutter);
+    border-left: 1px solid var(--hairline);
+  }
+  :global(.prose) .note {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--gutter) 1fr;
+    margin: 0;
+    padding: 4px 0 18px;
+    scroll-margin-top: 80px;
+  }
+  :global(.prose) a.note-date {
+    padding-top: 4px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-3);
+    border-bottom: none;
+    transition: color 0.25s ease;
+  }
+  :global(.prose) a.note-date::after {
+    content: ' ¶';
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .note-node {
+    position: absolute;
+    left: var(--gutter);
+    top: 13px;
+    width: 7px;
+    height: 7px;
+    translate: -3px 0;
+    border-radius: 50%;
+    border: 1px solid var(--ink-3);
+    background: var(--paper);
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .note-body {
+    padding: 4px 0 0 24px;
+    min-width: 0;
+  }
+  :global(.prose) .note-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  :global(.prose) .note:hover a.note-date,
+  :global(.prose) .note:target a.note-date {
+    color: var(--vermillion);
+  }
+  :global(.prose) .note:hover a.note-date::after,
+  :global(.prose) .note:target a.note-date::after {
+    opacity: 1;
+  }
+  .note:hover .note-node,
+  .note:target .note-node {
+    border-color: var(--vermillion);
+  }
+  .note:target .note-node {
+    background: var(--vermillion);
+  }
+  .note:target .note-body {
+    background: linear-gradient(to right, var(--tint), transparent 80%);
+  }
+
+  @media (max-width: 720px) {
+    :global(.prose) .notes {
+      --gutter: 54px;
+    }
+    .density-col {
+      flex-basis: 18px;
+    }
+    :global(.prose) a.note-date {
+      font-size: 12px;
+    }
+    .note-body {
+      padding-left: 16px;
+    }
+    :global(.prose) a.note-date::after {
+      content: none;
+    }
+  }
+</style>
