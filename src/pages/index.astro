@@ -499,7 +499,7 @@ const navLinks = [
   @media (max-width: 1100px) {
     .fig-gutter { display: none; }
   }
-  /* 文章与启发列表：进入视野后逐条从淡、微糊里浮现，节奏与「灵光」一致。
+  /* 文章与启发列表：进入视野后逐条从淡、微糊里浮现，每条 0.6 秒。
      只有脚本加上 .rv 才隐藏，没有脚本或减弱动态时内容照常显示 */
   .rv :is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra)) {
     opacity: 0;
@@ -511,9 +511,9 @@ const navLinks = [
     filter: none;
     translate: 0 0;
     transition:
-      opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-      filter 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-      translate 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+      opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+      filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+      translate 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
     transition-delay: var(--d, 0s);
   }
   .fig-end {
