@@ -530,17 +530,19 @@ const navLinks = [
     color: var(--vermillion);
     border-bottom: 1px dotted var(--hairline-strong);
   }
-  /* 打字时：还没打出来的字先占好位置但不可见，版面不跳动 */
-  .draw-list :global(.draw-body .ghost) {
-    color: transparent;
+  /* 浮现：三条依次从淡、微糊里慢慢清晰，不抢注意力 */
+  .draw-list :global(.draw-note) {
+    transition:
+      opacity 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+      filter 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+      translate 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
-  .draw-list :global(.draw-body .draw-caret) {
-    display: inline-block;
-    width: 0.55em;
-    height: 1.1em;
-    margin-right: -0.55em;
-    vertical-align: -0.18em;
-    background: var(--vermillion);
+  .draw-list.veiled :global(.draw-note) {
+    opacity: 0;
+    filter: blur(3px);
+    translate: 0 4px;
+    transition-duration: 0.6s;
+    transition-delay: 0s !important;
   }
   .draw-actions {
     display: flex;
@@ -1154,7 +1156,7 @@ const navLinks = [
   });
 
 
-  // 灵光：随机抽三条短记，进入视野后逐字打出来；「看看别的」从没看过的里继续抽，抽完一轮再洗牌
+  // 灵光：随机抽三条短记，进入视野后依次慢慢浮现；「看看别的」先淡出再换上没看过的三条，抽完一轮再洗牌
   {
     const list = document.getElementById('draw-list');
     const more = document.getElementById('draw-more');
@@ -1163,7 +1165,7 @@ const navLinks = [
     const COUNT = 3;
     let deck = [];
     let shown = [];
-    let run = 0;
+    let swap = 0;
 
     const shuffle = (a) => {
       for (let i = a.length - 1; i > 0; i--) {
@@ -1183,9 +1185,10 @@ const navLinks = [
 
     const render = (items) => {
       list.innerHTML = '';
-      for (const n of items) {
+      items.forEach((n, i) => {
         const li = document.createElement('li');
         li.className = 'draw-note';
+        if (!reduce) li.style.transitionDelay = `${i * 0.45}s`;
         const a = document.createElement('a');
         a.className = 'mono draw-date';
         a.href = `/notes#${n.id}`;
@@ -1195,69 +1198,30 @@ const navLinks = [
         body.innerHTML = n.body;
         li.append(a, body);
         list.append(li);
-      }
-    };
-
-    // 把每段文字拆成「已打出 + 占位」两半，逐字把占位挪到前面
-    const prepare = () =>
-      [...list.querySelectorAll('.draw-body')].map((body) => {
-        const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
-        const parts = [];
-        while (walker.nextNode()) {
-          const node = walker.currentNode;
-          if (!node.data.trim()) continue;
-          parts.push({ node, chars: Array.from(node.data) });
-        }
-        for (const p of parts) {
-          p.ghost = document.createElement('span');
-          p.ghost.className = 'ghost';
-          p.ghost.textContent = p.node.data;
-          p.node.data = '';
-          p.node.after(p.ghost);
-        }
-        return parts;
       });
-
-    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-    const type = async () => {
-      const id = ++run;
-      if (reduce) return;
-      const notes = prepare();
-      const caret = document.createElement('span');
-      caret.className = 'draw-caret';
-      caret.setAttribute('aria-hidden', 'true');
-      for (const parts of notes) {
-        const total = parts.reduce((t, p) => t + p.chars.length, 0);
-        // 慢慢打：短句每字约 45ms，长段落压到 4 秒内打完
-        const step = Math.max(12, Math.min(45, 4000 / total));
-        for (const p of parts) {
-          p.node.after(caret);
-          for (let i = 1; i <= p.chars.length; i++) {
-            if (id !== run) return;
-            p.node.data = p.chars.slice(0, i).join('');
-            p.ghost.textContent = p.chars.slice(i).join('');
-            await sleep(step);
-          }
-          p.ghost.remove();
-        }
-        await sleep(240);
-      }
-      caret.remove();
+    };
+    const reveal = () => {
+      list.offsetHeight; // 先让「隐去」状态生效，过渡才会发生
+      list.classList.remove('veiled');
     };
 
+    list.classList.add('veiled');
     render(draw());
-    if (!reduce) prepare(); // 打字开始前先整体隐去，避免先闪一下全文
     more.hidden = false;
     more.addEventListener('click', () => {
-      render(draw());
-      type();
+      const id = ++swap;
+      list.classList.add('veiled');
+      setTimeout(() => {
+        if (id !== swap) return;
+        render(draw());
+        reveal();
+      }, reduce ? 0 : 600);
     });
     const io = new IntersectionObserver(
       ([e]) => {
         if (!e.isIntersecting) return;
         io.disconnect();
-        render(shown);
-        type();
+        reveal();
       },
       { threshold: 0.25 },
     );
