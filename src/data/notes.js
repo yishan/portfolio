@@ -1,8 +1,8 @@
 import { getEntry } from 'astro:content';
 
-// notes.md 里每条短记以 "## YY-MM-DD"（早期是 ###）开头：按日期标题切成条目，写作方式不变。
+// notes.md 里每条短记以日期标题 "YY-MM-DD" 开头（## / ### / #### 都行，同步工具会改级别）：按日期标题切成条目，写作方式不变。
 // 首页「灵光」和 /notes 共用这一份解析结果，新增短记两处同时出现。
-const heading = /<h([23])[^>]*>\s*(\d{2})-(\d{2})-(\d{2})\s*<\/h\1>/g;
+const heading = /<h([2-6])[^>]*>\s*(\d{2})-(\d{2})-(\d{2})\s*<\/h\1>/g;
 
 export async function getNotes() {
   const entry = await getEntry('pages', 'notes');
