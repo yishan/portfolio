@@ -2,21 +2,26 @@
 import Base from '../layouts/Base.astro';
 import { profile, products, newsletter, essays, references, projects, lab, contacts } from '../data/content.js';
 import { demos } from '../data/demos.js';
+import { getNotes } from '../data/notes.js';
 import Ascii from 'ascii.rest/astro';
 import SiteHeader from '../components/SiteHeader.astro';
 
+const { notes } = await getNotes();
+// 灵光：没有脚本时显示最近三条；有脚本时访问时随机换成三条
+const drawCount = 3;
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
 const fmtDate = (d) => d.slice(5).replace('-', '.');
-// 随手试验区块在没有数据时隐藏，之后的区块编号随之前移
-const no = (n) => String(demos.length > 0 ? n : n - 1).padStart(2, '0');
+// 随手试验区块（04）在没有数据时隐藏，之后的区块编号随之前移
+const no = (n) => String(demos.length > 0 || n < 4 ? n : n - 1).padStart(2, '0');
 const navLinks = [
+  { href: '#notes', label: '灵光' },
   { href: '#products', label: '奇遇' },
   { href: '#projects', label: '项目' },
   ...(demos.length > 0 ? [{ href: '#lab', label: '试验' }] : []),
   { href: '#references', label: '参考' },
-  { href: '#newsletter', label: '启发' },
   { href: '#essays', label: '文章' },
+  { href: '#newsletter', label: '启发' },
   { href: '#contact', label: '联系' },
 ];
 ---
@@ -61,9 +66,30 @@ const navLinks = [
       </div>
     </section>
 
+    <section class="section" id="notes">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">{no(1)}</span> 灵光 — NOTES</h2>
+        <ol class="draw-list" id="draw-list">
+          {notes.slice(0, drawCount).map((n) => (
+            <li class="draw-note">
+              <a class="mono draw-date" href={`/notes#${n.id}`}><time datetime={n.date}>{n.date.replaceAll('-', '.')}</time></a>
+              <div class="draw-body" set:html={n.body} />
+            </li>
+          ))}
+        </ol>
+        <div class="draw-actions">
+          <button class="mono draw-more" type="button" id="draw-more" hidden>
+            <span class="draw-icon" aria-hidden="true">↻</span> 看看别的
+          </button>
+          <a class="mono arrow-link draw-all" href="/notes">全部 {notes.length} 条 <span class="arrow">→</span></a>
+        </div>
+        <script is:inline type="application/json" id="notes-data" set:html={JSON.stringify(notes.map(({ id, date, body }) => ({ id, date, body }))).replaceAll('<', '\\u003c')} />
+      </div>
+    </section>
+
     <section class="section" id="products">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">01</span> 产品奇遇 — REVIEW</h2>
+        <h2 class="section-label"><span class="index-no">{no(2)}</span> 产品奇遇 — REVIEW</h2>
         <div class="fig" data-fig="annual"></div>
         <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
         <div class="timeline" role="list">
@@ -81,7 +107,7 @@ const navLinks = [
 
     <section class="section" id="projects">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">02</span> 兴趣项目 — SIDE PROJECTS</h2>
+        <h2 class="section-label"><span class="index-no">{no(3)}</span> 兴趣项目 — SIDE PROJECTS</h2>
         <p class="section-note">{projects.about}</p>
         <div class="project-grid">
           {projects.items.map((p) => (
@@ -102,7 +128,7 @@ const navLinks = [
     {demos.length > 0 && (
       <section class="section" id="lab">
         <div class="wrap">
-          <h2 class="section-label"><span class="index-no">03</span> 随手试验 — EXPERIMENTS</h2>
+          <h2 class="section-label"><span class="index-no">{no(4)}</span> 随手试验 — EXPERIMENTS</h2>
           <div class="fig" data-fig="beaker"></div>
           <p class="section-note">{lab.about}</p>
           <ul class="lab-grid">
@@ -131,7 +157,7 @@ const navLinks = [
 
     <section class="section" id="references">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(4)}</span> 参考文本 — REFERENCE</h2>
+        <h2 class="section-label"><span class="index-no">{no(5)}</span> 参考文本 — REFERENCE</h2>
         <div class="ref-grid">
           {references.map((r) => (
             <a class="ref-card" href={r.href}>
@@ -146,40 +172,6 @@ const navLinks = [
             </a>
           ))}
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="newsletter">
-      <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(5)}</span> 有所启发 — NEWSLETTER</h2>
-        <p class="section-note">
-          {newsletter.about}
-          <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
-        </p>
-        <ul class="issue-list" id="issue-list">
-          {newsletter.issues.map((i, idx) => (
-            <li class:list={{ 'list-extra': idx >= 5 }} style={idx >= 5 ? `--i: ${idx - 5}` : undefined}>
-              <a class="issue-row" href={i.href}>
-                <span class="mono issue-no">#{i.no}</span>
-                <span class="issue-title">{i.title}</span>
-                <span class="mono issue-arrow" aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        {newsletter.issues.length > 5 && (
-          <button
-            class="mono list-toggle"
-            type="button"
-            aria-expanded="false"
-            aria-controls="issue-list"
-            data-count={newsletter.issues.length - 5}
-            data-unit="期"
-          >
-            <span class="toggle-plus" aria-hidden="true">+</span>
-            <span class="toggle-text">展开其余 {newsletter.issues.length - 5} 期</span>
-          </button>
-        )}
       </div>
     </section>
 
@@ -220,12 +212,46 @@ const navLinks = [
       </div>
     </section>
 
+    <section class="section" id="newsletter">
+      <div class="wrap">
+        <h2 class="section-label"><span class="index-no">{no(7)}</span> 有所启发 — NEWSLETTER</h2>
+        <p class="section-note">
+          {newsletter.about}
+          <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
+        </p>
+        <ul class="issue-list" id="issue-list">
+          {newsletter.issues.map((i, idx) => (
+            <li class:list={{ 'list-extra': idx >= 5 }} style={idx >= 5 ? `--i: ${idx - 5}` : undefined}>
+              <a class="issue-row" href={i.href}>
+                <span class="mono issue-no">#{i.no}</span>
+                <span class="issue-title">{i.title}</span>
+                <span class="mono issue-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        {newsletter.issues.length > 5 && (
+          <button
+            class="mono list-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="issue-list"
+            data-count={newsletter.issues.length - 5}
+            data-unit="期"
+          >
+            <span class="toggle-plus" aria-hidden="true">+</span>
+            <span class="toggle-text">展开其余 {newsletter.issues.length - 5} 期</span>
+          </button>
+        )}
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer" id="contact">
     <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
-      <h2 class="section-label"><span class="index-no">{no(7)}</span> 在这些地方找到我 — FIND ME</h2>
+      <h2 class="section-label"><span class="index-no">{no(8)}</span> 在这些地方找到我 — FIND ME</h2>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -468,6 +494,94 @@ const navLinks = [
   }
   @media (max-width: 720px) {
     .fig { display: none; }
+  }
+
+  /* 灵光：三条短记，左边日期，右边全文 */
+  .draw-list {
+    list-style: none;
+    padding: 0;
+    max-width: 820px;
+  }
+  .draw-list :global(.draw-note) {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 24px;
+    padding: 18px 8px;
+    border-bottom: 1px dashed var(--hairline-strong);
+  }
+  .draw-list :global(.draw-date) {
+    padding-top: 3px;
+    font-size: 13px;
+    color: var(--ink-3);
+    transition: color 0.25s ease;
+  }
+  .draw-list :global(.draw-note:hover .draw-date) {
+    color: var(--vermillion);
+  }
+  .draw-list :global(.draw-body) {
+    font-size: 15px;
+    line-height: 1.9;
+    min-width: 0;
+  }
+  .draw-list :global(.draw-body p + p) {
+    margin-top: 0.7em;
+  }
+  .draw-list :global(.draw-body a) {
+    color: var(--vermillion);
+    border-bottom: 1px dotted var(--hairline-strong);
+  }
+  /* 打字时：还没打出来的字先占好位置但不可见，版面不跳动 */
+  .draw-list :global(.draw-body .ghost) {
+    color: transparent;
+  }
+  .draw-list :global(.draw-body .draw-caret) {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    margin-right: -0.55em;
+    vertical-align: -0.18em;
+    background: var(--vermillion);
+  }
+  .draw-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+    margin-top: 24px;
+  }
+  .draw-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    background: none;
+    border: none;
+    border-bottom: 1px dotted var(--hairline-strong);
+    cursor: pointer;
+    color: var(--ink);
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .draw-more:hover {
+    color: var(--vermillion);
+    border-bottom-color: var(--vermillion);
+  }
+  .draw-icon {
+    display: inline-block;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .draw-more:hover .draw-icon {
+    transform: rotate(180deg);
+  }
+  .draw-all {
+    color: var(--ink-2);
+    border-bottom: 1px dotted var(--hairline-strong);
+    padding-bottom: 2px;
+  }
+  @media (max-width: 720px) {
+    .draw-list :global(.draw-note) {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
   }
 
   .section-note {
@@ -1038,6 +1152,117 @@ const navLinks = [
     const make = figures[el.dataset.fig];
     if (make) mount(el, make(), { trigger: el.closest('section, footer') });
   });
+
+
+  // 灵光：随机抽三条短记，进入视野后逐字打出来；「看看别的」从没看过的里继续抽，抽完一轮再洗牌
+  {
+    const list = document.getElementById('draw-list');
+    const more = document.getElementById('draw-more');
+    const pool = JSON.parse(document.getElementById('notes-data').textContent);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COUNT = 3;
+    let deck = [];
+    let shown = [];
+    let run = 0;
+
+    const shuffle = (a) => {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+    const draw = () => {
+      if (deck.length < COUNT) {
+        const rest = pool.filter((n) => !shown.includes(n) && !deck.includes(n));
+        deck = deck.concat(shuffle(rest));
+      }
+      shown = deck.splice(0, COUNT);
+      return shown;
+    };
+
+    const render = (items) => {
+      list.innerHTML = '';
+      for (const n of items) {
+        const li = document.createElement('li');
+        li.className = 'draw-note';
+        const a = document.createElement('a');
+        a.className = 'mono draw-date';
+        a.href = `/notes#${n.id}`;
+        a.innerHTML = `<time datetime="${n.date}">${n.date.replaceAll('-', '.')}</time>`;
+        const body = document.createElement('div');
+        body.className = 'draw-body';
+        body.innerHTML = n.body;
+        li.append(a, body);
+        list.append(li);
+      }
+    };
+
+    // 把每段文字拆成「已打出 + 占位」两半，逐字把占位挪到前面
+    const prepare = () =>
+      [...list.querySelectorAll('.draw-body')].map((body) => {
+        const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+        const parts = [];
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          if (!node.data.trim()) continue;
+          parts.push({ node, chars: Array.from(node.data) });
+        }
+        for (const p of parts) {
+          p.ghost = document.createElement('span');
+          p.ghost.className = 'ghost';
+          p.ghost.textContent = p.node.data;
+          p.node.data = '';
+          p.node.after(p.ghost);
+        }
+        return parts;
+      });
+
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const type = async () => {
+      const id = ++run;
+      if (reduce) return;
+      const notes = prepare();
+      const caret = document.createElement('span');
+      caret.className = 'draw-caret';
+      caret.setAttribute('aria-hidden', 'true');
+      for (const parts of notes) {
+        const total = parts.reduce((t, p) => t + p.chars.length, 0);
+        // 慢慢打：短句每字约 45ms，长段落压到 4 秒内打完
+        const step = Math.max(12, Math.min(45, 4000 / total));
+        for (const p of parts) {
+          p.node.after(caret);
+          for (let i = 1; i <= p.chars.length; i++) {
+            if (id !== run) return;
+            p.node.data = p.chars.slice(0, i).join('');
+            p.ghost.textContent = p.chars.slice(i).join('');
+            await sleep(step);
+          }
+          p.ghost.remove();
+        }
+        await sleep(240);
+      }
+      caret.remove();
+    };
+
+    render(draw());
+    if (!reduce) prepare(); // 打字开始前先整体隐去，避免先闪一下全文
+    more.hidden = false;
+    more.addEventListener('click', () => {
+      render(draw());
+      type();
+    });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        render(shown);
+        type();
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(list);
+  }
 
   // 构建时只写入日期，访问时换成相对时间，避免两次构建之间“2 天前”过期
   const today = new Date();
