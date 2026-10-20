@@ -1,14 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
-import { profile, products, newsletter, references, projects, lab, contacts } from '../data/content.js';
+import { profile, products, references, projects, lab, contacts } from '../data/content.js';
 import { demos } from '../data/demos.js';
 import { getNotes } from '../data/notes.js';
 import { getEssays } from '../data/essays.js';
+import { getNewsletter } from '../data/newsletter.js';
 import Ascii from 'ascii.rest/astro';
 import SiteHeader from '../components/SiteHeader.astro';
 
 const { notes } = await getNotes();
 const essays = await getEssays();
+const newsletter = await getNewsletter();
 // 灵光：没有脚本时显示最近三条；有脚本时访问时随机换成三条
 const drawCount = 3;
 const current = products[products.length - 1];

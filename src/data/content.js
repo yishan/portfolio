@@ -21,7 +21,10 @@ export const newsletter = {
   subscribe: 'https://ai.yishan.li/',
   about:
     '关注令我产生好奇与兴趣的跨领域内容，包含但不限于科学技术、产品设计、人机交互，社会人文与现实生活中会遇到的问题。',
-  issues: [
+  // 期目在构建时从 Substack RSS 读取（见 src/data/newsletter.js），这里的列表只在拉取失败时兜底
+  feed: 'https://ai.yishan.li/feed',
+  fallback: [
+    { no: '012', title: 'AI 的交互方式，先画图的论文，以及被替代的能力', href: 'https://ai.yishan.li/p/012-ai?r=e6ngw' },
     { no: '011', title: '三体，群星，扁平化的算法与 Spotify' },
     { no: '010', title: 'AI 足球战术，Inflection AI 转型，网络重复内容，失去色彩的世界是对个性化的告别' },
     { no: '009', title: 'Midjourney，Devin，Apple & Google，AI 时代的交互设计，以及更喜欢你使用鼻呼吸的大脑' },
@@ -35,7 +38,7 @@ export const newsletter = {
     { no: '001', title: 'GPT store，Rabbit r1，Quora 以及超级 AI 的长期价值分歧' },
   ].map((i) => ({
     ...i,
-    href: `https://ai.yishan.li/p/astra-inspired-${i.no}?r=e6ngw`,
+    href: i.href ?? `https://ai.yishan.li/p/astra-inspired-${i.no}?r=e6ngw`,
   })),
 };
 
