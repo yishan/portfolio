@@ -13,13 +13,15 @@ const navLinks = [
 ];
 
 const { title, kicker, date, description } = Astro.props;
+// 浏览器标签页标题：默认在页面标题后加「 — Yishan」，页面已经带名字时可以传 docTitle 覆盖
+const docTitle = Astro.props.docTitle ?? `${title} — Yishan`;
 const tags = Astro.props.tags ?? [];
 const dateStr = date
   ? new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
 ---
 
-<Base title={`${title} — Yishan`} description={description}>
+<Base title={docTitle} description={description}>
   <SiteHeader links={navLinks} />
 
   <main class="wrap">
