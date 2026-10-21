@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-20T16:10:10.950Z",
+ "generated_at": "2026-10-21T16:10:10.397Z",
  "since": "2026-10-16",
- "until": "2026-10-21",
- "plays": 77,
- "tracks": 72,
- "artists": 99,
+ "until": "2026-10-22",
+ "plays": 112,
+ "tracks": 106,
+ "artists": 146,
  "sources": {
-  "playlist": 54,
-  "direct": 21,
+  "playlist": 81,
+  "direct": 29,
   "album": 2
  },
  "daily": [
@@ -33,6 +33,10 @@
   },
   {
    "date": "2026-10-21",
+   "count": 35
+  },
+  {
+   "date": "2026-10-22",
    "count": 0
   }
  ],
@@ -97,19 +101,19 @@
    0,
    0,
    0,
+   5,
+   0,
+   0,
+   0,
+   2,
    0,
    0,
    0,
    0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
+   1,
+   7,
+   10,
+   10,
    0,
    0,
    0,
@@ -227,9 +231,34 @@
    "count": 5
   },
   {
+   "id": "0Kekt6CKSo0m5mivKcoH51",
+   "name": "Sergei Rachmaninoff",
+   "count": 4
+  },
+  {
    "id": "3SXwqSqAoBz9WCI9PDQzY6",
    "name": "Fontaines D.C.",
    "count": 3
+  },
+  {
+   "id": "12Chz98pHFMPJEknJQMWvI",
+   "name": "Muse",
+   "count": 3
+  },
+  {
+   "id": "33qOK5uJ8AR2xuQQAhHump",
+   "name": "Teddy Swims",
+   "count": 3
+  },
+  {
+   "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+   "name": "The Weeknd",
+   "count": 3
+  },
+  {
+   "id": "3ShO8tPKqXUUpOA0urOWW7",
+   "name": "Acid Arab",
+   "count": 2
   },
   {
    "id": "0US6t3wOzabccOupxTHl2S",
@@ -242,8 +271,23 @@
    "count": 2
   },
   {
+   "id": "4tZwfgrHOc3mvqYlEYSvVi",
+   "name": "Daft Punk",
+   "count": 2
+  },
+  {
    "id": "1Cs0zKBU1kc0i8ypK3B9ai",
    "name": "David Guetta",
+   "count": 2
+  },
+  {
+   "id": "0jIWKlfmD4Ew7HeVVrq03g",
+   "name": "Elyanna",
+   "count": 2
+  },
+  {
+   "id": "6bDWAcdtVR3WHz2xtiIPUi",
+   "name": "Fujii Kaze",
    "count": 2
   },
   {
@@ -252,49 +296,9 @@
    "count": 2
   },
   {
-   "id": "0elWFr7TW8piilVRYJUe4P",
-   "name": "Natanael Cano",
+   "id": "1sA8l5SduxaoYAcU4kdP5P",
+   "name": "Lunak",
    "count": 2
-  },
-  {
-   "id": "1UjxAZqzphB1tsMb1aWBj0",
-   "name": "Omega",
-   "count": 2
-  },
-  {
-   "id": "7ltDVBr6mKbRvohxheJ9h1",
-   "name": "ROSALÍA",
-   "count": 2
-  },
-  {
-   "id": "33qOK5uJ8AR2xuQQAhHump",
-   "name": "Teddy Swims",
-   "count": 2
-  },
-  {
-   "id": "0epOFNiUfyON9EYx7Tpr6V",
-   "name": "The Strokes",
-   "count": 2
-  },
-  {
-   "id": "1Xyo4u8uXC1ZmMpatF05PJ",
-   "name": "The Weeknd",
-   "count": 2
-  },
-  {
-   "id": "3Tq2hRlRrQzA4Zq2ncYiiA",
-   "name": "17 Hippies",
-   "count": 1
-  },
-  {
-   "id": "5OFLwoxk5jmOkgjxbgAWOO",
-   "name": "Ablozé",
-   "count": 1
-  },
-  {
-   "id": "3ShO8tPKqXUUpOA0urOWW7",
-   "name": "Acid Arab",
-   "count": 1
   }
  ],
  "top": {
@@ -307,33 +311,33 @@
     },
     {
      "rank": 2,
-     "id": "3ShO8tPKqXUUpOA0urOWW7",
-     "name": "Acid Arab"
-    },
-    {
-     "rank": 3,
      "id": "11wRdbnoYqRddKBrpHt4Ue",
      "name": "Kasabian"
     },
     {
+     "rank": 3,
+     "id": "12Chz98pHFMPJEknJQMWvI",
+     "name": "Muse"
+    },
+    {
      "rank": 4,
+     "id": "3ShO8tPKqXUUpOA0urOWW7",
+     "name": "Acid Arab"
+    },
+    {
+     "rank": 5,
      "id": "586uxXMyD5ObPuzjtrzO1Q",
      "name": "SOFI TUKKER"
     },
     {
-     "rank": 5,
+     "rank": 6,
      "id": "1Xyo4u8uXC1ZmMpatF05PJ",
      "name": "The Weeknd"
     },
     {
-     "rank": 6,
+     "rank": 7,
      "id": "1l6pQ0SDItjXzbG9zloE2n",
      "name": "MESTIZA"
-    },
-    {
-     "rank": 7,
-     "id": "12Chz98pHFMPJEknJQMWvI",
-     "name": "Muse"
     },
     {
      "rank": 8,
@@ -342,78 +346,78 @@
     },
     {
      "rank": 9,
-     "id": "0jIWKlfmD4Ew7HeVVrq03g",
-     "name": "Elyanna"
-    },
-    {
-     "rank": 10,
      "id": "1294QqYm1VuxxjRiL9M0h9",
      "name": "UPSAHL"
     },
     {
-     "rank": 11,
+     "rank": 10,
      "id": "246dkjvS1zLTtiykXe5h60",
      "name": "Post Malone"
     },
     {
-     "rank": 12,
+     "rank": 11,
      "id": "43ZHCT0cAZBISjO8DG9PnE",
      "name": "Elvis Presley"
     },
     {
-     "rank": 13,
+     "rank": 12,
      "id": "5bt1p0ybrvQPJwt4YINGTF",
      "name": "Renato Carosone"
     },
     {
-     "rank": 14,
+     "rank": 13,
      "id": "33qOK5uJ8AR2xuQQAhHump",
      "name": "Teddy Swims"
     },
     {
-     "rank": 15,
+     "rank": 14,
      "id": "5OFLwoxk5jmOkgjxbgAWOO",
      "name": "Ablozé"
     },
     {
+     "rank": 15,
+     "id": "7nFb95Ufz3MkdXP4bnlSES",
+     "name": "Henri Texier"
+    },
+    {
      "rank": 16,
+     "id": "6bDWAcdtVR3WHz2xtiIPUi",
+     "name": "Fujii Kaze"
+    },
+    {
+     "rank": 17,
+     "id": "0jIWKlfmD4Ew7HeVVrq03g",
+     "name": "Elyanna"
+    },
+    {
+     "rank": 18,
      "id": "165ZgPlLkK7bf5bDoFc6Sb",
      "name": "Limp Bizkit"
     },
     {
-     "rank": 17,
+     "rank": 19,
      "id": "0epOFNiUfyON9EYx7Tpr6V",
      "name": "The Strokes"
     },
     {
-     "rank": 18,
+     "rank": 20,
      "id": "4yvcSjfu4PC0CYQyLy4wSq",
      "name": "Glass Animals"
     },
     {
-     "rank": 19,
-     "id": "5j4HeCoUlzhfWtjAfM1acR",
-     "name": "Stromae"
-    },
-    {
-     "rank": 20,
-     "id": "3SXwqSqAoBz9WCI9PDQzY6",
-     "name": "Fontaines D.C."
-    },
-    {
      "rank": 21,
-     "id": "5ahmcjOOZ9FkOwTZqTRAZ8",
-     "name": "Lorien Testard"
-    },
-    {
-     "rank": 22,
      "id": "65EXuYHVoehCKqp0kOS6px",
      "name": "Parov Stelar"
     },
     {
+     "rank": 22,
+     "id": "3SXwqSqAoBz9WCI9PDQzY6",
+     "name": "Fontaines D.C."
+    },
+    {
      "rank": 23,
-     "id": "6bDWAcdtVR3WHz2xtiIPUi",
-     "name": "Fujii Kaze"
+     "id": "5ahmcjOOZ9FkOwTZqTRAZ8",
+     "name": "Lorien Testard"
     },
     {
      "rank": 24,
@@ -432,8 +436,8 @@
     },
     {
      "rank": 27,
-     "id": "5ZZsFnpO7frU8h5xH1wtjT",
-     "name": "Saint Levant"
+     "id": "5j4HeCoUlzhfWtjAfM1acR",
+     "name": "Stromae"
     }
    ],
    "medium_term": [
@@ -634,28 +638,28 @@
     },
     {
      "rank": 40,
-     "id": "586uxXMyD5ObPuzjtrzO1Q",
-     "name": "SOFI TUKKER"
-    },
-    {
-     "rank": 41,
-     "id": "6bDWAcdtVR3WHz2xtiIPUi",
-     "name": "Fujii Kaze"
-    },
-    {
-     "rank": 42,
-     "id": "1Xyo4u8uXC1ZmMpatF05PJ",
-     "name": "The Weeknd"
-    },
-    {
-     "rank": 43,
      "id": "3yfDRplDZh03Y0fEeCd6B0",
      "name": "my little airport"
     },
     {
-     "rank": 44,
+     "rank": 41,
+     "id": "586uxXMyD5ObPuzjtrzO1Q",
+     "name": "SOFI TUKKER"
+    },
+    {
+     "rank": 42,
+     "id": "6bDWAcdtVR3WHz2xtiIPUi",
+     "name": "Fujii Kaze"
+    },
+    {
+     "rank": 43,
      "id": "1LTFJvVvRw7ghAyThxYmnF",
      "name": "Glass Beams"
+    },
+    {
+     "rank": 44,
+     "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+     "name": "The Weeknd"
     },
     {
      "rank": 45,
@@ -806,23 +810,23 @@
     },
     {
      "rank": 24,
-     "id": "6NQwuxgsebzIzixLkAHDCT",
-     "name": "五條人"
-    },
-    {
-     "rank": 25,
      "id": "2HOMW1liAxI3URnEq95SMS",
      "name": "MISSIO"
     },
     {
-     "rank": 26,
+     "rank": 25,
      "id": "3yfDRplDZh03Y0fEeCd6B0",
      "name": "my little airport"
     },
     {
-     "rank": 27,
+     "rank": 26,
      "id": "5ahmcjOOZ9FkOwTZqTRAZ8",
      "name": "Lorien Testard"
+    },
+    {
+     "rank": 27,
+     "id": "6NQwuxgsebzIzixLkAHDCT",
+     "name": "五條人"
     },
     {
      "rank": 28,
@@ -846,48 +850,48 @@
     },
     {
      "rank": 32,
-     "id": "790FomKkXshlbRYZFtlgla",
-     "name": "KAROL G"
-    },
-    {
-     "rank": 33,
      "id": "7E2aQQjErJocovYFjYLzWU",
      "name": "Emei"
     },
     {
-     "rank": 34,
+     "rank": 33,
      "id": "6RgbIwWiBcHtDEk77uNjrA",
      "name": "Patrik Andrén"
     },
     {
-     "rank": 35,
+     "rank": 34,
      "id": "2LRoIwlKmHjgvigdNGBHNo",
      "name": "Feid"
     },
     {
-     "rank": 36,
+     "rank": 35,
      "id": "3FhrihEyNnYtuoNTaYA1xG",
      "name": "ZionRay"
     },
     {
-     "rank": 37,
+     "rank": 36,
      "id": "4gzpq5DPGxSnKTe4SA8HAU",
      "name": "Coldplay"
     },
     {
+     "rank": 37,
+     "id": "790FomKkXshlbRYZFtlgla",
+     "name": "KAROL G"
+    },
+    {
      "rank": 38,
+     "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+     "name": "The Weeknd"
+    },
+    {
+     "rank": 39,
      "id": "4NJhFmfw43RLBLjQvxDuRS",
      "name": "Wolfgang Amadeus Mozart"
     },
     {
-     "rank": 39,
+     "rank": 40,
      "id": "7CzURHjIfP0ClUnjVRyF1i",
      "name": "Derik Fein"
-    },
-    {
-     "rank": 40,
-     "id": "1Xyo4u8uXC1ZmMpatF05PJ",
-     "name": "The Weeknd"
     },
     {
      "rank": 41,
@@ -1020,6 +1024,16 @@
     },
     {
      "rank": 8,
+     "id": "5U1ekX3gtDjqIsJ9Ves4cT",
+     "name": "World's Greatest!",
+     "artists": [
+      "Lil Nas X"
+     ],
+     "year": 2026,
+     "cc": "US"
+    },
+    {
+     "rank": 9,
      "id": "2SdWRiVgpaejWhHzA6R2YA",
      "name": "Somewhere I Belong - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1029,7 +1043,7 @@
      "cc": "US"
     },
     {
-     "rank": 9,
+     "rank": 10,
      "id": "3SfwhRb2CzGGuyUYF64wYR",
      "name": "I Want to Break Free",
      "artists": [
@@ -1039,7 +1053,7 @@
      "cc": "GB"
     },
     {
-     "rank": 10,
+     "rank": 11,
      "id": "5DfIHwL3RtTf6xmUVrL4tX",
      "name": "Casualty - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1049,7 +1063,17 @@
      "cc": "US"
     },
     {
-     "rank": 11,
+     "rank": 12,
+     "id": "6ycsfY3nZ9ozsSoCSuMwUj",
+     "name": "Montagem Nada",
+     "artists": [
+      "Lunak"
+     ],
+     "year": 2026,
+     "cc": "CN"
+    },
+    {
+     "rank": 13,
      "id": "2GYHyAoLWpkxLVa4oYTVko",
      "name": "Alors on danse - Radio Edit",
      "artists": [
@@ -1059,7 +1083,7 @@
      "cc": "FR"
     },
     {
-     "rank": 12,
+     "rank": 14,
      "id": "4HTtgqe4J9bxX0bkyE4j9C",
      "name": "Creation/Interlude - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1069,7 +1093,7 @@
      "cc": "US"
     },
     {
-     "rank": 13,
+     "rank": 15,
      "id": "54xHIXi2a2BOi7m5Xox142",
      "name": "The Emptiness Machine - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1079,7 +1103,7 @@
      "cc": "US"
     },
     {
-     "rank": 14,
+     "rank": 16,
      "id": "7Ki2fTfTdDhqY2AY8muY5z",
      "name": "Making Love to Morgan Wallen",
      "artists": [
@@ -1089,7 +1113,7 @@
      "cc": "US"
     },
     {
-     "rank": 15,
+     "rank": 17,
      "id": "3hVJUMGRQFH2fh13E99N6j",
      "name": "Buzq Blues",
      "artists": [
@@ -1099,7 +1123,7 @@
      "cc": "BE"
     },
     {
-     "rank": 16,
+     "rank": 18,
      "id": "0YP7z2pu53bik6uX7tfWPL",
      "name": "Two Faced - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1109,7 +1133,7 @@
      "cc": "US"
     },
     {
-     "rank": 17,
+     "rank": 19,
      "id": "6mU75LC9PLlmf2aBxqfM14",
      "name": "The Catalyst - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1119,7 +1143,7 @@
      "cc": "US"
     },
     {
-     "rank": 18,
+     "rank": 20,
      "id": "3YyHZVPdRXgSsqT98FK7Vs",
      "name": "Bosa",
      "artists": [
@@ -1129,7 +1153,7 @@
      "cc": "US"
     },
     {
-     "rank": 19,
+     "rank": 21,
      "id": "5zj2jOK0gGYvo3ae4Vas5z",
      "name": "Paint the town red",
      "artists": [
@@ -1140,37 +1164,7 @@
      "cc": "FR"
     },
     {
-     "rank": 20,
-     "id": "5U1ekX3gtDjqIsJ9Ves4cT",
-     "name": "World's Greatest!",
-     "artists": [
-      "Lil Nas X"
-     ],
-     "year": 2026,
-     "cc": "US"
-    },
-    {
-     "rank": 21,
-     "id": "0Sz34vbxPeboL84ZknpvYo",
-     "name": "Galbi",
-     "artists": [
-      "Saint Levant"
-     ],
-     "year": 2024,
-     "cc": "US"
-    },
-    {
      "rank": 22,
-     "id": "1Neey2oqU4yz7yRsfQoLn7",
-     "name": "Dulce Perro",
-     "artists": [
-      "Kovacs"
-     ],
-     "year": 2025,
-     "cc": "NL"
-    },
-    {
-     "rank": 23,
      "id": "02rMAu7hazKhd64yb6zgKU",
      "name": "Hotel California - 2013 Remaster",
      "artists": [
@@ -1180,7 +1174,7 @@
      "cc": "US"
     },
     {
-     "rank": 24,
+     "rank": 23,
      "id": "0JFWU4MYTr2njSM8EQ0PyG",
      "name": "Break Collapse/Interlude - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1190,7 +1184,27 @@
      "cc": "US"
     },
     {
+     "rank": 24,
+     "id": "0Sz34vbxPeboL84ZknpvYo",
+     "name": "Galbi",
+     "artists": [
+      "Saint Levant"
+     ],
+     "year": 2024,
+     "cc": "US"
+    },
+    {
      "rank": 25,
+     "id": "1Neey2oqU4yz7yRsfQoLn7",
+     "name": "Dulce Perro",
+     "artists": [
+      "Kovacs"
+     ],
+     "year": 2025,
+     "cc": "NL"
+    },
+    {
+     "rank": 26,
      "id": "1OqGk0PZ40yqc7lr6818nS",
      "name": "Hey Homie (butter version)",
      "artists": [
@@ -1201,7 +1215,7 @@
      "cc": "QM"
     },
     {
-     "rank": 26,
+     "rank": 27,
      "id": "23HpBB4VRJQTLOB8mqCMx2",
      "name": "Hippie Sunshine",
      "artists": [
@@ -1211,7 +1225,7 @@
      "cc": "GB"
     },
     {
-     "rank": 27,
+     "rank": 28,
      "id": "2JucLTha4V5dX17V3d4lMK",
      "name": "Caravan petrol",
      "artists": [
@@ -1221,7 +1235,7 @@
      "cc": "IT"
     },
     {
-     "rank": 28,
+     "rank": 29,
      "id": "2hGcxTBOm5i8N4ey68uVIY",
      "name": "Bluish",
      "artists": [
@@ -1231,7 +1245,7 @@
      "cc": "QZ"
     },
     {
-     "rank": 29,
+     "rank": 30,
      "id": "2p8IUWQDrpjuFltbdgLOag",
      "name": "After Hours",
      "artists": [
@@ -1241,7 +1255,7 @@
      "cc": "US"
     },
     {
-     "rank": 30,
+     "rank": 31,
      "id": "3PfeeFn8o0ltaPNIu8NAM6",
      "name": "Desert Dub",
      "artists": [
@@ -1251,7 +1265,7 @@
      "cc": "FR"
     },
     {
-     "rank": 31,
+     "rank": 32,
      "id": "3j1lvwbdfj3xflDnQazc8n",
      "name": "Alicia",
      "artists": [
@@ -1262,7 +1276,7 @@
      "cc": "NL"
     },
     {
-     "rank": 32,
+     "rank": 33,
      "id": "4XTG3W373uKndLiWFJ47mL",
      "name": "I Got A Feelin' In My Body",
      "artists": [
@@ -1273,7 +1287,7 @@
      "cc": "US"
     },
     {
-     "rank": 33,
+     "rank": 34,
      "id": "4yq8Oc51K2mgLfo9BjU3Rr",
      "name": "The Door (Tiago PZK Version)",
      "artists": [
@@ -1284,7 +1298,17 @@
      "cc": "US"
     },
     {
-     "rank": 34,
+     "rank": 35,
+     "id": "51ukPU68k4Zl0cLdNGXaHn",
+     "name": "Nightshift Superstar",
+     "artists": [
+      "Muse"
+     ],
+     "year": 2026,
+     "cc": "GB"
+    },
+    {
+     "rank": 36,
      "id": "5N5sO1NTlB6fu8GRmExRQK",
      "name": "Cut Me Loose",
      "artists": [
@@ -1294,7 +1318,17 @@
      "cc": "IT"
     },
     {
-     "rank": 35,
+     "rank": 37,
+     "id": "7vZ9v4c0ft0ro30awMw32V",
+     "name": "Cryogen",
+     "artists": [
+      "Muse"
+     ],
+     "year": 2026,
+     "cc": "GB"
+    },
+    {
+     "rank": 38,
      "id": "7xQAfvXzm3AkraOtGPWIZg",
      "name": "Wow.",
      "artists": [
@@ -1304,7 +1338,7 @@
      "cc": "US"
     },
     {
-     "rank": 36,
+     "rank": 39,
      "id": "7l59JoWa0L9tSUhRkZ3dfg",
      "name": "Le Disco",
      "artists": [
@@ -1314,7 +1348,7 @@
      "cc": "BE"
     },
     {
-     "rank": 37,
+     "rank": 40,
      "id": "42KXlhjwcrXTM0HEOSgwiA",
      "name": "Baba Calling",
      "artists": [
@@ -1325,7 +1359,7 @@
      "cc": "FR"
     },
     {
-     "rank": 38,
+     "rank": 41,
      "id": "4OZgLTWdsiogtoDdZVEtpZ",
      "name": "You (feat. UMI)",
      "artists": [
@@ -1336,7 +1370,7 @@
      "cc": "JP"
     },
     {
-     "rank": 39,
+     "rank": 42,
      "id": "5ODIUPpNdmVZRjTMHa0Vjp",
      "name": "Te Doy La Libertad",
      "artists": [
@@ -1346,7 +1380,7 @@
      "cc": "FR"
     },
     {
-     "rank": 40,
+     "rank": 43,
      "id": "1X4Ntw6Lbaa1ACgilCqMpr",
      "name": "Alive - Chris Lord-Alge Mix",
      "artists": [
@@ -1356,7 +1390,17 @@
      "cc": "US"
     },
     {
-     "rank": 41,
+     "rank": 44,
+     "id": "3XrwmzNSU5MP07MT7l9TEQ",
+     "name": "eez-eh",
+     "artists": [
+      "Kasabian"
+     ],
+     "year": 2014,
+     "cc": "GB"
+    },
+    {
+     "rank": 45,
      "id": "5lLYhn61327TTcnPwn5Eb6",
      "name": "Lost - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1366,7 +1410,7 @@
      "cc": "US"
     },
     {
-     "rank": 42,
+     "rank": 46,
      "id": "5pfn68duSmBKo4FhYknOms",
      "name": "FATHER (feat. Travis Scott)",
      "artists": [
@@ -1378,7 +1422,7 @@
      "cc": "QZ"
     },
     {
-     "rank": 43,
+     "rank": 47,
      "id": "6GQ3WTaNHMFlVmN4burGat",
      "name": "Butterfly",
      "artists": [
@@ -1388,17 +1432,17 @@
      "cc": "US"
     },
     {
-     "rank": 44,
-     "id": "6ycsfY3nZ9ozsSoCSuMwUj",
-     "name": "Montagem Nada",
+     "rank": 48,
+     "id": "6zTm22XW67xwncqhtF3TmF",
+     "name": "Rattlesnake",
      "artists": [
-      "Lunak"
+      "Glass Beams"
      ],
-     "year": 2026,
-     "cc": "CN"
+     "year": 2021,
+     "cc": "AU"
     },
     {
-     "rank": 45,
+     "rank": 49,
      "id": "7iJxOmYRIiUz3S4mVm6Bx6",
      "name": "December",
      "artists": [
@@ -1408,7 +1452,7 @@
      "cc": "US"
     },
     {
-     "rank": 46,
+     "rank": 50,
      "id": "7vu1mYZglSa7Zq9yT1kIrs",
      "name": "Shouf Shouf",
      "artists": [
@@ -1417,48 +1461,6 @@
      ],
      "year": 2026,
      "cc": "DE"
-    },
-    {
-     "rank": 47,
-     "id": "7tqE0tpg1KCBnizHaX1B8A",
-     "name": "Habibi",
-     "artists": [
-      "Timor Jana",
-      "AFRONOM",
-      "ASLN"
-     ],
-     "year": 2025,
-     "cc": "CA"
-    },
-    {
-     "rank": 48,
-     "id": "16x23W9udcF7iPcNfU4k28",
-     "name": "Mar Azul",
-     "artists": [
-      "Natanael Cano"
-     ],
-     "year": 2026,
-     "cc": "QZ"
-    },
-    {
-     "rank": 49,
-     "id": "2VSUUa8YlYS5ZyVXZTwv5R",
-     "name": "SUPERPOWERS",
-     "artists": [
-      "Kasabian"
-     ],
-     "year": 2026,
-     "cc": "GB"
-    },
-    {
-     "rank": 50,
-     "id": "4S9TTIC637gscv055ziGLw",
-     "name": "La Hafla",
-     "artists": [
-      "Acid Arab"
-     ],
-     "year": 2016,
-     "cc": "BE"
     }
    ],
    "medium_term": [
@@ -2151,16 +2153,6 @@
     },
     {
      "rank": 17,
-     "id": "0qprlw0jfsW4H9cG0FFE0Z",
-     "name": "Cold Little Heart",
-     "artists": [
-      "Michael Kiwanuka"
-     ],
-     "year": 2016,
-     "cc": "GB"
-    },
-    {
-     "rank": 18,
      "id": "1dlrW5uLrr1h7PpGA2bduV",
      "name": "Those Were The Days",
      "artists": [
@@ -2168,6 +2160,16 @@
      ],
      "year": 2024,
      "cc": "NL"
+    },
+    {
+     "rank": 18,
+     "id": "0qprlw0jfsW4H9cG0FFE0Z",
+     "name": "Cold Little Heart",
+     "artists": [
+      "Michael Kiwanuka"
+     ],
+     "year": 2016,
+     "cc": "GB"
     },
     {
      "rank": 19,
@@ -2221,6 +2223,17 @@
     },
     {
      "rank": 24,
+     "id": "17skcqaIwMeidP4Q70Weiu",
+     "name": "Se Me Nota (Agarrame) - Prod by B-One",
+     "artists": [
+      "Chimbala",
+      "Omega"
+     ],
+     "year": 2021,
+     "cc": "IT"
+    },
+    {
+     "rank": 25,
      "id": "6dN6m9zDXxLKtckqbLxaPX",
      "name": "Hexagons",
      "artists": [
@@ -2230,7 +2243,7 @@
      "cc": "GB"
     },
     {
-     "rank": 25,
+     "rank": 26,
      "id": "1EDPVGbyPKJPeGqATwXZvN",
      "name": "The Emptiness Machine",
      "artists": [
@@ -2240,7 +2253,7 @@
      "cc": "US"
     },
     {
-     "rank": 26,
+     "rank": 27,
      "id": "13nMWX9yA13HoDvnQgmgSn",
      "name": "POSER",
      "artists": [
@@ -2250,17 +2263,6 @@
      ],
      "year": 2025,
      "cc": "US"
-    },
-    {
-     "rank": 27,
-     "id": "17skcqaIwMeidP4Q70Weiu",
-     "name": "Se Me Nota (Agarrame) - Prod by B-One",
-     "artists": [
-      "Chimbala",
-      "Omega"
-     ],
-     "year": 2021,
-     "cc": "IT"
     },
     {
      "rank": 28,
@@ -2566,11 +2568,11 @@
      "electronic": 0.1863,
      "world": 0.0507,
      "pop": 0.1568,
-     "rnb": 0.0983,
-     "hiphop": 0.1174,
+     "rnb": 0.0765,
+     "hiphop": 0.0957,
      "folk": 0.0087,
-     "other": 0.0077,
-     "jazz": 0.0239
+     "jazz": 0.0565,
+     "other": 0.0185
     },
     "examples": {
      "rock": [
@@ -2587,25 +2589,24 @@
      ],
      "rnb": [
       "The Weeknd",
-      "Teddy Swims",
-      "Saint Levant"
-     ],
-     "pop": [
-      "Elyanna",
-      "Stromae",
-      "Ado",
-      "Noga Erez"
+      "Teddy Swims"
      ],
      "hiphop": [
       "Post Malone",
-      "Lil Nas X",
-      "Saint Levant"
+      "Lil Nas X"
      ],
      "world": [
       "Renato Carosone"
      ],
      "jazz": [
+      "Henri Texier",
       "Parov Stelar"
+     ],
+     "pop": [
+      "Elyanna",
+      "Ado",
+      "Noga Erez",
+      "Stromae"
      ]
     }
    },
@@ -2721,8 +2722,8 @@
      ],
      "latin": [
       "Hermanos Gutiérrez",
-      "KAROL G",
       "Feid",
+      "KAROL G",
       "Myke Towers"
      ],
      "pop": [
@@ -2745,7 +2746,8 @@
  "trend": {
   "dates": [
    "2026-10-20",
-   "2026-10-21"
+   "2026-10-21",
+   "2026-10-22"
   ],
   "artists": [
    {
@@ -2753,15 +2755,8 @@
     "name": "Linkin Park",
     "ranks": [
      1,
+     1,
      1
-    ]
-   },
-   {
-    "id": "3ShO8tPKqXUUpOA0urOWW7",
-    "name": "Acid Arab",
-    "ranks": [
-     2,
-     2
     ]
    },
    {
@@ -2769,31 +2764,8 @@
     "name": "Kasabian",
     "ranks": [
      3,
-     3
-    ]
-   },
-   {
-    "id": "586uxXMyD5ObPuzjtrzO1Q",
-    "name": "SOFI TUKKER",
-    "ranks": [
-     4,
-     4
-    ]
-   },
-   {
-    "id": "1Xyo4u8uXC1ZmMpatF05PJ",
-    "name": "The Weeknd",
-    "ranks": [
-     14,
-     5
-    ]
-   },
-   {
-    "id": "1l6pQ0SDItjXzbG9zloE2n",
-    "name": "MESTIZA",
-    "ranks": [
-     5,
-     6
+     3,
+     2
     ]
    },
    {
@@ -2801,6 +2773,43 @@
     "name": "Muse",
     "ranks": [
      15,
+     7,
+     3
+    ]
+   },
+   {
+    "id": "3ShO8tPKqXUUpOA0urOWW7",
+    "name": "Acid Arab",
+    "ranks": [
+     2,
+     2,
+     4
+    ]
+   },
+   {
+    "id": "586uxXMyD5ObPuzjtrzO1Q",
+    "name": "SOFI TUKKER",
+    "ranks": [
+     4,
+     4,
+     5
+    ]
+   },
+   {
+    "id": "1Xyo4u8uXC1ZmMpatF05PJ",
+    "name": "The Weeknd",
+    "ranks": [
+     14,
+     5,
+     6
+    ]
+   },
+   {
+    "id": "1l6pQ0SDItjXzbG9zloE2n",
+    "name": "MESTIZA",
+    "ranks": [
+     5,
+     6,
      7
     ]
    },
@@ -2809,15 +2818,8 @@
     "name": "Måneskin",
     "ranks": [
      6,
+     8,
      8
-    ]
-   },
-   {
-    "id": "0jIWKlfmD4Ew7HeVVrq03g",
-    "name": "Elyanna",
-    "ranks": [
-     7,
-     9
     ]
    },
    {
@@ -2825,6 +2827,16 @@
     "name": "UPSAHL",
     "ranks": [
      8,
+     10,
+     9
+    ]
+   },
+   {
+    "id": "246dkjvS1zLTtiykXe5h60",
+    "name": "Post Malone",
+    "ranks": [
+     9,
+     11,
      10
     ]
    }
