@@ -138,6 +138,7 @@ export const contacts = [
   { label: '公众号', value: 'impm013', href: null },
   { label: 'Medium', value: 'm.yishan.li', href: 'https://m.yishan.li/' },
   { label: 'Newsletter', value: 'ai.yishan.li', href: 'https://ai.yishan.li/' },
+  { label: 'GitHub', value: 'github.com/yishan', href: 'https://github.com/yishan' },
   {
     label: '小红书',
     value: 'Yishan 壹山',
