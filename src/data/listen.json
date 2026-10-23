@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-22T16:10:09.384Z",
+ "generated_at": "2026-10-23T16:10:09.374Z",
  "since": "2026-10-16",
- "until": "2026-10-23",
- "plays": 135,
- "tracks": 125,
- "artists": 170,
+ "until": "2026-10-24",
+ "plays": 171,
+ "tracks": 153,
+ "artists": 191,
  "sources": {
-  "playlist": 83,
-  "direct": 49,
+  "playlist": 98,
+  "direct": 70,
   "album": 3
  },
  "daily": [
@@ -41,7 +41,11 @@
   },
   {
    "date": "2026-10-23",
-   "count": 0
+   "count": 33
+  },
+  {
+   "date": "2026-10-24",
+   "count": 3
   }
  ],
  "week": [
@@ -157,26 +161,26 @@
    0,
    0,
    0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
-   0,
    7,
-   17,
    1,
    0,
    0,
    0,
    0,
-   0
+   0,
+   1,
+   0,
+   7,
+   18,
+   15,
+   1,
+   0,
+   0,
+   0,
+   8
   ],
   [
-   0,
+   3,
    0,
    0,
    0,
@@ -230,13 +234,43 @@
  ],
  "artist_plays": [
   {
+   "id": "5a0vNTQQzypm39DLAf6dI7",
+   "name": "尹光",
+   "count": 6
+  },
+  {
    "id": "6XyY86QOPPrYVGvF9ch6wz",
    "name": "Linkin Park",
    "count": 5
   },
   {
+   "id": "60ey4Voi6Mqk4pVkgz5BSX",
+   "name": "Wan K.",
+   "count": 5
+  },
+  {
+   "id": "3SXwqSqAoBz9WCI9PDQzY6",
+   "name": "Fontaines D.C.",
+   "count": 4
+  },
+  {
+   "id": "12Chz98pHFMPJEknJQMWvI",
+   "name": "Muse",
+   "count": 4
+  },
+  {
+   "id": "5KKpBU5eC2tJDzf0wmlRp2",
+   "name": "RAYE",
+   "count": 4
+  },
+  {
    "id": "0Kekt6CKSo0m5mivKcoH51",
    "name": "Sergei Rachmaninoff",
+   "count": 4
+  },
+  {
+   "id": "0epOFNiUfyON9EYx7Tpr6V",
+   "name": "The Strokes",
    "count": 4
   },
   {
@@ -245,64 +279,34 @@
    "count": 4
   },
   {
-   "id": "5a0vNTQQzypm39DLAf6dI7",
-   "name": "尹光",
-   "count": 4
-  },
-  {
    "id": "4VVEpEhC8NcR7AqNEds42U",
    "name": "Chimbala",
    "count": 3
   },
   {
-   "id": "3SXwqSqAoBz9WCI9PDQzY6",
-   "name": "Fontaines D.C.",
+   "id": "6bDWAcdtVR3WHz2xtiIPUi",
+   "name": "Fujii Kaze",
    "count": 3
   },
   {
-   "id": "12Chz98pHFMPJEknJQMWvI",
-   "name": "Muse",
+   "id": "7jVv8c5Fj3E9VhNjxT4snq",
+   "name": "Lil Nas X",
+   "count": 3
+  },
+  {
+   "id": "165ZgPlLkK7bf5bDoFc6Sb",
+   "name": "Limp Bizkit",
+   "count": 3
+  },
+  {
+   "id": "3HXSUfI76zVZk71UMAeVfp",
+   "name": "No Party For Cao Dong",
    "count": 3
   },
   {
    "id": "1UjxAZqzphB1tsMb1aWBj0",
    "name": "Omega",
    "count": 3
-  },
-  {
-   "id": "33qOK5uJ8AR2xuQQAhHump",
-   "name": "Teddy Swims",
-   "count": 3
-  },
-  {
-   "id": "60ey4Voi6Mqk4pVkgz5BSX",
-   "name": "Wan K.",
-   "count": 3
-  },
-  {
-   "id": "3ShO8tPKqXUUpOA0urOWW7",
-   "name": "Acid Arab",
-   "count": 2
-  },
-  {
-   "id": "0US6t3wOzabccOupxTHl2S",
-   "name": "Cam Cole",
-   "count": 2
-  },
-  {
-   "id": "4tZwfgrHOc3mvqYlEYSvVi",
-   "name": "Daft Punk",
-   "count": 2
-  },
-  {
-   "id": "1Cs0zKBU1kc0i8ypK3B9ai",
-   "name": "David Guetta",
-   "count": 2
-  },
-  {
-   "id": "0jIWKlfmD4Ew7HeVVrq03g",
-   "name": "Elyanna",
-   "count": 2
   }
  ],
  "top": {
@@ -340,18 +344,18 @@
     },
     {
      "rank": 7,
+     "id": "0lAWpj5szCSwM4rUMHYmrr",
+     "name": "Måneskin"
+    },
+    {
+     "rank": 8,
      "id": "1hzfo8twXdOegF3xireCYs",
      "name": "Milky Chance"
     },
     {
-     "rank": 8,
+     "rank": 9,
      "id": "43ZHCT0cAZBISjO8DG9PnE",
      "name": "Elvis Presley"
-    },
-    {
-     "rank": 9,
-     "id": "5bt1p0ybrvQPJwt4YINGTF",
-     "name": "Renato Carosone"
     },
     {
      "rank": 10,
@@ -360,43 +364,43 @@
     },
     {
      "rank": 11,
-     "id": "0lAWpj5szCSwM4rUMHYmrr",
-     "name": "Måneskin"
+     "id": "3yfDRplDZh03Y0fEeCd6B0",
+     "name": "my little airport"
     },
     {
      "rank": 12,
-     "id": "7nFb95Ufz3MkdXP4bnlSES",
-     "name": "Henri Texier"
-    },
-    {
-     "rank": 13,
      "id": "33qOK5uJ8AR2xuQQAhHump",
      "name": "Teddy Swims"
     },
     {
-     "rank": 14,
+     "rank": 13,
      "id": "6bDWAcdtVR3WHz2xtiIPUi",
      "name": "Fujii Kaze"
     },
     {
-     "rank": 15,
+     "rank": 14,
      "id": "0jIWKlfmD4Ew7HeVVrq03g",
      "name": "Elyanna"
     },
     {
-     "rank": 16,
+     "rank": 15,
      "id": "165ZgPlLkK7bf5bDoFc6Sb",
      "name": "Limp Bizkit"
     },
     {
-     "rank": 17,
+     "rank": 16,
      "id": "4yvcSjfu4PC0CYQyLy4wSq",
      "name": "Glass Animals"
     },
     {
-     "rank": 18,
+     "rank": 17,
      "id": "0epOFNiUfyON9EYx7Tpr6V",
      "name": "The Strokes"
+    },
+    {
+     "rank": 18,
+     "id": "11wRdbnoYqRddKBrpHt4Ue",
+     "name": "Kasabian"
     },
     {
      "rank": 19,
@@ -405,41 +409,36 @@
     },
     {
      "rank": 20,
-     "id": "11wRdbnoYqRddKBrpHt4Ue",
-     "name": "Kasabian"
-    },
-    {
-     "rank": 21,
      "id": "3SXwqSqAoBz9WCI9PDQzY6",
      "name": "Fontaines D.C."
     },
     {
-     "rank": 22,
+     "rank": 21,
      "id": "5ahmcjOOZ9FkOwTZqTRAZ8",
      "name": "Lorien Testard"
     },
     {
-     "rank": 23,
+     "rank": 22,
      "id": "6mEQK9m2krja6X1cfsAjfl",
      "name": "Ado"
     },
     {
-     "rank": 24,
-     "id": "7jVv8c5Fj3E9VhNjxT4snq",
-     "name": "Lil Nas X"
-    },
-    {
-     "rank": 25,
+     "rank": 23,
      "id": "5VwCIS8jdx9ZHjApLFNrTZ",
      "name": "Noga Erez"
     },
     {
-     "rank": 26,
+     "rank": 24,
      "id": "5a0vNTQQzypm39DLAf6dI7",
      "name": "尹光"
     },
     {
-     "rank": 27,
+     "rank": 25,
+     "id": "5bt1p0ybrvQPJwt4YINGTF",
+     "name": "Renato Carosone"
+    },
+    {
+     "rank": 26,
      "id": "5j4HeCoUlzhfWtjAfM1acR",
      "name": "Stromae"
     }
@@ -522,18 +521,18 @@
     },
     {
      "rank": 16,
-     "id": "5K4W6rqBFWDnAN6FQUkS6x",
-     "name": "Kanye West"
-    },
-    {
-     "rank": 17,
      "id": "0elWFr7TW8piilVRYJUe4P",
      "name": "Natanael Cano"
     },
     {
-     "rank": 18,
+     "rank": 17,
      "id": "7E2aQQjErJocovYFjYLzWU",
      "name": "Emei"
+    },
+    {
+     "rank": 18,
+     "id": "5K4W6rqBFWDnAN6FQUkS6x",
+     "name": "Kanye West"
     },
     {
      "rank": 19,
@@ -552,13 +551,13 @@
     },
     {
      "rank": 22,
-     "id": "5WUlDfRSoLAfcVSX1WnrxN",
-     "name": "Sia"
+     "id": "6qqNVTkY8uBg9cP3Jd7DAH",
+     "name": "Billie Eilish"
     },
     {
      "rank": 23,
-     "id": "6qqNVTkY8uBg9cP3Jd7DAH",
-     "name": "Billie Eilish"
+     "id": "5WUlDfRSoLAfcVSX1WnrxN",
+     "name": "Sia"
     },
     {
      "rank": 24,
@@ -582,18 +581,18 @@
     },
     {
      "rank": 28,
-     "id": "4tZwfgrHOc3mvqYlEYSvVi",
-     "name": "Daft Punk"
-    },
-    {
-     "rank": 29,
      "id": "5INjqkS1o8h1imAzPqGZBb",
      "name": "Tame Impala"
     },
     {
-     "rank": 30,
+     "rank": 29,
      "id": "4NJhFmfw43RLBLjQvxDuRS",
      "name": "Wolfgang Amadeus Mozart"
+    },
+    {
+     "rank": 30,
+     "id": "4tZwfgrHOc3mvqYlEYSvVi",
+     "name": "Daft Punk"
     },
     {
      "rank": 31,
@@ -617,33 +616,33 @@
     },
     {
      "rank": 35,
+     "id": "3yfDRplDZh03Y0fEeCd6B0",
+     "name": "my little airport"
+    },
+    {
+     "rank": 36,
      "id": "6M2wZ9GZgrQXHCFfjv46we",
      "name": "Dua Lipa"
     },
     {
-     "rank": 36,
+     "rank": 37,
      "id": "4kI8Ie27vjvonwaB2ePh8T",
      "name": "Portugal. The Man"
     },
     {
-     "rank": 37,
+     "rank": 38,
      "id": "0lAWpj5szCSwM4rUMHYmrr",
      "name": "Måneskin"
     },
     {
-     "rank": 38,
+     "rank": 39,
      "id": "165ZgPlLkK7bf5bDoFc6Sb",
      "name": "Limp Bizkit"
     },
     {
-     "rank": 39,
+     "rank": 40,
      "id": "2kO6mP0olFJGGh6kvUdNC8",
      "name": "Des Rocs"
-    },
-    {
-     "rank": 40,
-     "id": "3yfDRplDZh03Y0fEeCd6B0",
-     "name": "my little airport"
     },
     {
      "rank": 41,
@@ -682,18 +681,18 @@
     },
     {
      "rank": 48,
-     "id": "7mvhRvEAHiCTQHUnH7fgnv",
-     "name": "Tatsuya Kitani"
-    },
-    {
-     "rank": 49,
      "id": "00FQb4jTyendYWaN8pK0wa",
      "name": "Lana Del Rey"
     },
     {
-     "rank": 50,
+     "rank": 49,
      "id": "1294QqYm1VuxxjRiL9M0h9",
      "name": "UPSAHL"
+    },
+    {
+     "rank": 50,
+     "id": "3HXSUfI76zVZk71UMAeVfp",
+     "name": "No Party For Cao Dong"
     }
    ],
    "long_term": [
@@ -985,16 +984,6 @@
     },
     {
      "rank": 4,
-     "id": "6IvrPhGXKrr2iWweWJNWeY",
-     "name": "SILVER APPLE EYES",
-     "artists": [
-      "Kasabian"
-     ],
-     "year": 2026,
-     "cc": "GB"
-    },
-    {
-     "rank": 5,
      "id": "5U1ekX3gtDjqIsJ9Ves4cT",
      "name": "World's Greatest!",
      "artists": [
@@ -1004,7 +993,7 @@
      "cc": "US"
     },
     {
-     "rank": 6,
+     "rank": 5,
      "id": "17skcqaIwMeidP4Q70Weiu",
      "name": "Se Me Nota (Agarrame) - Prod by B-One",
      "artists": [
@@ -1015,7 +1004,7 @@
      "cc": "IT"
     },
     {
-     "rank": 7,
+     "rank": 6,
      "id": "6ycsfY3nZ9ozsSoCSuMwUj",
      "name": "Montagem Nada",
      "artists": [
@@ -1025,7 +1014,7 @@
      "cc": "CN"
     },
     {
-     "rank": 8,
+     "rank": 7,
      "id": "4l97lD6mdxDzCHx1hUvjuZ",
      "name": "Goddess In Disguise (butter version)",
      "artists": [
@@ -1035,6 +1024,16 @@
      ],
      "year": 2025,
      "cc": "QM"
+    },
+    {
+     "rank": 8,
+     "id": "6IvrPhGXKrr2iWweWJNWeY",
+     "name": "SILVER APPLE EYES",
+     "artists": [
+      "Kasabian"
+     ],
+     "year": 2026,
+     "cc": "GB"
     },
     {
      "rank": 9,
@@ -1138,26 +1137,6 @@
     },
     {
      "rank": 19,
-     "id": "02rMAu7hazKhd64yb6zgKU",
-     "name": "Hotel California - 2013 Remaster",
-     "artists": [
-      "Eagles"
-     ],
-     "year": 1976,
-     "cc": "US"
-    },
-    {
-     "rank": 20,
-     "id": "0JFWU4MYTr2njSM8EQ0PyG",
-     "name": "Break Collapse/Interlude - Unshatter Film Soundtrack - Live in São Paulo",
-     "artists": [
-      "Linkin Park"
-     ],
-     "year": 2026,
-     "cc": "US"
-    },
-    {
-     "rank": 21,
      "id": "1Neey2oqU4yz7yRsfQoLn7",
      "name": "Dulce Perro",
      "artists": [
@@ -1167,7 +1146,37 @@
      "cc": "NL"
     },
     {
+     "rank": 20,
+     "id": "7Ki2fTfTdDhqY2AY8muY5z",
+     "name": "Making Love to Morgan Wallen",
+     "artists": [
+      "Limp Bizkit"
+     ],
+     "year": 2025,
+     "cc": "US"
+    },
+    {
+     "rank": 21,
+     "id": "02rMAu7hazKhd64yb6zgKU",
+     "name": "Hotel California - 2013 Remaster",
+     "artists": [
+      "Eagles"
+     ],
+     "year": 1976,
+     "cc": "US"
+    },
+    {
      "rank": 22,
+     "id": "0JFWU4MYTr2njSM8EQ0PyG",
+     "name": "Break Collapse/Interlude - Unshatter Film Soundtrack - Live in São Paulo",
+     "artists": [
+      "Linkin Park"
+     ],
+     "year": 2026,
+     "cc": "US"
+    },
+    {
+     "rank": 23,
      "id": "1OqGk0PZ40yqc7lr6818nS",
      "name": "Hey Homie (butter version)",
      "artists": [
@@ -1178,7 +1187,7 @@
      "cc": "QM"
     },
     {
-     "rank": 23,
+     "rank": 24,
      "id": "279LczresTWVkCsdLwgJSZ",
      "name": "Love's a Stranger",
      "artists": [
@@ -1188,7 +1197,17 @@
      "cc": "GB"
     },
     {
-     "rank": 24,
+     "rank": 25,
+     "id": "2I8Z8AjStXpjXowdnrwePA",
+     "name": "Stitches",
+     "artists": [
+      "Conor Maynard"
+     ],
+     "year": 2016,
+     "cc": "GB"
+    },
+    {
+     "rank": 26,
      "id": "2JucLTha4V5dX17V3d4lMK",
      "name": "Caravan petrol",
      "artists": [
@@ -1198,7 +1217,7 @@
      "cc": "IT"
     },
     {
-     "rank": 25,
+     "rank": 27,
      "id": "2hGcxTBOm5i8N4ey68uVIY",
      "name": "Bluish",
      "artists": [
@@ -1208,7 +1227,7 @@
      "cc": "QZ"
     },
     {
-     "rank": 26,
+     "rank": 28,
      "id": "2p8IUWQDrpjuFltbdgLOag",
      "name": "After Hours",
      "artists": [
@@ -1218,7 +1237,7 @@
      "cc": "US"
     },
     {
-     "rank": 27,
+     "rank": 29,
      "id": "3j1lvwbdfj3xflDnQazc8n",
      "name": "Alicia",
      "artists": [
@@ -1229,7 +1248,7 @@
      "cc": "NL"
     },
     {
-     "rank": 28,
+     "rank": 30,
      "id": "4XTG3W373uKndLiWFJ47mL",
      "name": "I Got A Feelin' In My Body",
      "artists": [
@@ -1240,7 +1259,7 @@
      "cc": "US"
     },
     {
-     "rank": 29,
+     "rank": 31,
      "id": "4yq8Oc51K2mgLfo9BjU3Rr",
      "name": "The Door (Tiago PZK Version)",
      "artists": [
@@ -1251,7 +1270,7 @@
      "cc": "US"
     },
     {
-     "rank": 30,
+     "rank": 32,
      "id": "51ukPU68k4Zl0cLdNGXaHn",
      "name": "Nightshift Superstar",
      "artists": [
@@ -1261,7 +1280,7 @@
      "cc": "GB"
     },
     {
-     "rank": 31,
+     "rank": 33,
      "id": "5N5sO1NTlB6fu8GRmExRQK",
      "name": "Cut Me Loose",
      "artists": [
@@ -1271,17 +1290,7 @@
      "cc": "IT"
     },
     {
-     "rank": 32,
-     "id": "7Ki2fTfTdDhqY2AY8muY5z",
-     "name": "Making Love to Morgan Wallen",
-     "artists": [
-      "Limp Bizkit"
-     ],
-     "year": 2025,
-     "cc": "US"
-    },
-    {
-     "rank": 33,
+     "rank": 34,
      "id": "7vZ9v4c0ft0ro30awMw32V",
      "name": "Cryogen",
      "artists": [
@@ -1291,7 +1300,7 @@
      "cc": "GB"
     },
     {
-     "rank": 34,
+     "rank": 35,
      "id": "7xQAfvXzm3AkraOtGPWIZg",
      "name": "Wow.",
      "artists": [
@@ -1299,16 +1308,6 @@
      ],
      "year": 2019,
      "cc": "US"
-    },
-    {
-     "rank": 35,
-     "id": "2oAkiviJVqGJ0TOjqHlohI",
-     "name": "Tuvou Fa' L'Americano",
-     "artists": [
-      "Renato Carosone"
-     ],
-     "year": 2006,
-     "cc": "ES"
     },
     {
      "rank": 36,
@@ -1814,16 +1813,6 @@
     },
     {
      "rank": 34,
-     "id": "18bHbpAKgsf8dor8F6qXHF",
-     "name": "Going Shopping",
-     "artists": [
-      "The Strokes"
-     ],
-     "year": 2026,
-     "cc": "US"
-    },
-    {
-     "rank": 35,
      "id": "678w1Y8jYOnjkiqwlQXhAb",
      "name": "Calixta",
      "artists": [
@@ -1831,6 +1820,16 @@
      ],
      "year": 2020,
      "cc": "CH"
+    },
+    {
+     "rank": 35,
+     "id": "6IvrPhGXKrr2iWweWJNWeY",
+     "name": "SILVER APPLE EYES",
+     "artists": [
+      "Kasabian"
+     ],
+     "year": 2026,
+     "cc": "GB"
     },
     {
      "rank": 36,
@@ -1894,16 +1893,6 @@
     },
     {
      "rank": 42,
-     "id": "6IvrPhGXKrr2iWweWJNWeY",
-     "name": "SILVER APPLE EYES",
-     "artists": [
-      "Kasabian"
-     ],
-     "year": 2026,
-     "cc": "GB"
-    },
-    {
-     "rank": 43,
      "id": "12MIli33DAePXOMcp0y2Lm",
      "name": "Inception/Intro - Unshatter Film Soundtrack - Live in São Paulo",
      "artists": [
@@ -1913,7 +1902,7 @@
      "cc": "US"
     },
     {
-     "rank": 44,
+     "rank": 43,
      "id": "2jlVvpkcnxyXxZvFmTRVnK",
      "name": "On My Mind",
      "artists": [
@@ -1924,7 +1913,7 @@
      "cc": "QZ"
     },
     {
-     "rank": 45,
+     "rank": 44,
      "id": "6pDCHs5gb0XlyyHIOIzVoM",
      "name": "相認",
      "artists": [
@@ -1935,7 +1924,7 @@
      "cc": "HK"
     },
     {
-     "rank": 46,
+     "rank": 45,
      "id": "2VSUUa8YlYS5ZyVXZTwv5R",
      "name": "SUPERPOWERS",
      "artists": [
@@ -1945,7 +1934,7 @@
      "cc": "GB"
     },
     {
-     "rank": 47,
+     "rank": 46,
      "id": "6PvdCuWMJituW4MxDNE9E4",
      "name": "SAY NO TO DRUGS",
      "artists": [
@@ -1958,7 +1947,7 @@
      "cc": "DG"
     },
     {
-     "rank": 48,
+     "rank": 47,
      "id": "3oL68eDKQDntxE08KD5mU5",
      "name": "真的漢子",
      "artists": [
@@ -1970,7 +1959,7 @@
      "cc": "HK"
     },
     {
-     "rank": 49,
+     "rank": 48,
      "id": "7bRLb9t0fR0xBJvtnuhwpw",
      "name": "Shimmering Scars",
      "artists": [
@@ -1980,7 +1969,7 @@
      "cc": "GB"
     },
     {
-     "rank": 50,
+     "rank": 49,
      "id": "1UadmpJPoZsTbNFXNJEITc",
      "name": "Goulou Marhaba",
      "artists": [
@@ -1990,6 +1979,17 @@
      ],
      "year": 2026,
      "cc": "FR"
+    },
+    {
+     "rank": 50,
+     "id": "5zgz5pODNTx56hw66i9lBM",
+     "name": "Dear Myself (feat. Wan K)",
+     "artists": [
+      "尹光",
+      "Wan K."
+     ],
+     "year": 2023,
+     "cc": "HK"
     }
    ],
    "long_term": [
@@ -2282,16 +2282,6 @@
     },
     {
      "rank": 29,
-     "id": "4iyCORYRUEVoGZ8aU0DN7F",
-     "name": "Sun",
-     "artists": [
-      "Derik Fein"
-     ],
-     "year": 2025,
-     "cc": "TC"
-    },
-    {
-     "rank": 30,
      "id": "6rjcolCXESvf6i9BXZl7UO",
      "name": "La Hafla",
      "artists": [
@@ -2300,6 +2290,16 @@
      ],
      "year": 2016,
      "cc": "BE"
+    },
+    {
+     "rank": 30,
+     "id": "4iyCORYRUEVoGZ8aU0DN7F",
+     "name": "Sun",
+     "artists": [
+      "Derik Fein"
+     ],
+     "year": 2025,
+     "cc": "TC"
     },
     {
      "rank": 31,
@@ -2428,16 +2428,6 @@
     },
     {
      "rank": 43,
-     "id": "1BLOVHYYlH4JUHQGcpt75R",
-     "name": "Ode To The Mets",
-     "artists": [
-      "The Strokes"
-     ],
-     "year": 2020,
-     "cc": "US"
-    },
-    {
-     "rank": 44,
      "id": "1XbP4kn5CSYvv1if1rQGbF",
      "name": "Tango",
      "artists": [
@@ -2447,7 +2437,7 @@
      "cc": "DE"
     },
     {
-     "rank": 45,
+     "rank": 44,
      "id": "5mFZipkX1HZ4Idz5LOWpzq",
      "name": "Cut the Bridge",
      "artists": [
@@ -2457,7 +2447,7 @@
      "cc": "US"
     },
     {
-     "rank": 46,
+     "rank": 45,
      "id": "0r3nMF80NSIuPIxeod4aoG",
      "name": "Beso (Fruta Fresca)",
      "artists": [
@@ -2468,7 +2458,7 @@
      "cc": "US"
     },
     {
-     "rank": 47,
+     "rank": 46,
      "id": "5x6uHnSxo3txWs2MbGbZRQ",
      "name": "Gul l'Abi",
      "artists": [
@@ -2479,7 +2469,7 @@
      "cc": "BE"
     },
     {
-     "rank": 48,
+     "rank": 47,
      "id": "4p8PHD6AHkxNFoN8jAZt9L",
      "name": "但願人長久",
      "artists": [
@@ -2489,7 +2479,7 @@
      "cc": "HK"
     },
     {
-     "rank": 49,
+     "rank": 48,
      "id": "5vNRhkKd0yEAg8suGBpjeY",
      "name": "APT.",
      "artists": [
@@ -2500,7 +2490,7 @@
      "cc": "US"
     },
     {
-     "rank": 50,
+     "rank": 49,
      "id": "0kosUz0jePvjiz4ctmR6wL",
      "name": "Dai Dai",
      "artists": [
@@ -2509,6 +2499,16 @@
      ],
      "year": 2026,
      "cc": "US"
+    },
+    {
+     "rank": 50,
+     "id": "2EOOd0UJfRZzzlok8IZ6iZ",
+     "name": "宮",
+     "artists": [
+      "Vaundy"
+     ],
+     "year": 2023,
+     "cc": "JP"
     }
    ]
   }
@@ -2566,25 +2566,25 @@
   ],
   "terms": {
    "short_term": {
-    "covered": 24,
-    "total": 27,
+    "covered": 23,
+    "total": 26,
     "share": {
-     "rock": 0.3356,
-     "electronic": 0.1785,
-     "world": 0.0486,
-     "pop": 0.2024,
-     "rnb": 0.0733,
-     "folk": 0.0396,
-     "jazz": 0.0542,
-     "other": 0.0178,
-     "hiphop": 0.05
+     "rock": 0.3502,
+     "electronic": 0.1863,
+     "world": 0.0507,
+     "pop": 0.2546,
+     "rnb": 0.0765,
+     "folk": 0.0413,
+     "hiphop": 0.0087,
+     "other": 0.0077,
+     "jazz": 0.0239
     },
     "examples": {
      "rock": [
       "Linkin Park",
       "Muse",
-      "Elvis Presley",
-      "Måneskin"
+      "Måneskin",
+      "Elvis Presley"
      ],
      "electronic": [
       "Acid Arab",
@@ -2599,21 +2599,17 @@
      "folk": [
       "Milky Chance"
      ],
-     "world": [
-      "Renato Carosone"
-     ],
-     "jazz": [
-      "Henri Texier",
-      "Parov Stelar"
-     ],
      "pop": [
+      "my little airport",
       "Elyanna",
       "Ado",
-      "Noga Erez",
-      "尹光"
+      "Noga Erez"
      ],
-     "hiphop": [
-      "Lil Nas X"
+     "jazz": [
+      "Parov Stelar"
+     ],
+     "world": [
+      "Renato Carosone"
      ]
     }
    },
@@ -2661,7 +2657,7 @@
       "Tove Lo",
       "Elyanna",
       "Emei",
-      "Sia"
+      "Billie Eilish"
      ],
      "jazz": [
       "Django Reinhardt",
@@ -2755,13 +2751,15 @@
    "2026-10-20",
    "2026-10-21",
    "2026-10-22",
-   "2026-10-23"
+   "2026-10-23",
+   "2026-10-24"
   ],
   "artists": [
    {
     "id": "6XyY86QOPPrYVGvF9ch6wz",
     "name": "Linkin Park",
     "ranks": [
+     1,
      1,
      1,
      1,
@@ -2775,6 +2773,7 @@
      15,
      7,
      3,
+     2,
      2
     ]
    },
@@ -2785,6 +2784,7 @@
      2,
      2,
      4,
+     3,
      3
     ]
    },
@@ -2795,6 +2795,7 @@
      4,
      4,
      5,
+     4,
      4
     ]
    },
@@ -2805,6 +2806,7 @@
      14,
      5,
      6,
+     5,
      5
     ]
    },
@@ -2815,7 +2817,19 @@
      5,
      6,
      7,
+     6,
      6
+    ]
+   },
+   {
+    "id": "0lAWpj5szCSwM4rUMHYmrr",
+    "name": "Måneskin",
+    "ranks": [
+     6,
+     8,
+     8,
+     11,
+     7
     ]
    },
    {
@@ -2825,7 +2839,8 @@
      null,
      null,
      null,
-     7
+     7,
+     8
     ]
    },
    {
@@ -2835,16 +2850,7 @@
      10,
      12,
      11,
-     8
-    ]
-   },
-   {
-    "id": "5bt1p0ybrvQPJwt4YINGTF",
-    "name": "Renato Carosone",
-    "ranks": [
-     11,
-     13,
-     12,
+     8,
      9
     ]
    },
@@ -2855,6 +2861,7 @@
      12,
      15,
      14,
+     10,
      10
     ]
    }
