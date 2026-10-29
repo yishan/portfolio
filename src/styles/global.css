@@ -3,10 +3,6 @@
   --paper: #faf9f5;
   --ink: #1a1917;
   --ink-2: #6b6862;
-  --ink-3: #a5a29a;
-  --hairline: rgba(26, 25, 23, 0.14);
-  --hairline-strong: rgba(26, 25, 23, 0.32);
-  --dot: rgba(26, 25, 23, 0.22);
   --vermillion: #c63c26;
   /* 等宽优先；box-drawing 字形缺失时由 ascii.rest mono 补齐，中文回退到系统黑体 */
   --mono: 'IBM Plex Mono', 'SF Mono', Menlo, 'ascii.rest mono', 'PingFang SC', monospace;
@@ -15,8 +11,6 @@
     'Microsoft YaHei', sans-serif;
   --max: 1080px;
   --theme-label: '亮';
-  /* 悬停底色：墨色混进纸色 5%，浅色主题下略深、深色主题下略亮 */
-  --tint: color-mix(in srgb, var(--ink) 5%, var(--paper));
 }
 
 /* 默认跟随系统；html[data-theme] 是访客手动选的主题，优先于系统设置 */
@@ -32,10 +26,6 @@
     --paper: #161513;
     --ink: #e8e6e1;
     --ink-2: #98958e;
-    --ink-3: #64615b;
-    --hairline: rgba(232, 230, 225, 0.14);
-    --hairline-strong: rgba(232, 230, 225, 0.3);
-    --dot: rgba(232, 230, 225, 0.2);
     --vermillion: #e05a42;
     --theme-label: '暗';
   }
@@ -44,10 +34,6 @@
   --paper: #161513;
   --ink: #e8e6e1;
   --ink-2: #98958e;
-  --ink-3: #64615b;
-  --hairline: rgba(232, 230, 225, 0.14);
-  --hairline-strong: rgba(232, 230, 225, 0.3);
-  --dot: rgba(232, 230, 225, 0.2);
   --vermillion: #e05a42;
   --theme-label: '暗';
 }
@@ -102,7 +88,7 @@ a {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.08em;
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 
 .display {
@@ -110,17 +96,7 @@ a {
   font-weight: 600;
 }
 
-.dotgrid {
-  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1.5px);
-  background-size: 22px 22px;
-}
-
-.index-no {
-  color: var(--vermillion);
-  font-weight: 500;
-}
-
-/* 区块之间不再画分割线：每个区块的标题行本身就是分界，再加横线会重复 */
+/* 区块之间只靠留白分开：没有分割线、没有编号 */
 .section {
   padding: 72px 0;
   position: relative;
@@ -128,32 +104,11 @@ a {
 
 .section-label {
   font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  color: var(--ink-2);
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  gap: 1ch;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* 区块标题旁是一行稀疏的点：·· 01 产品奇遇 — REVIEW · · · · · ·
-   用间隔圆点而不是连续的 ─，视觉上更轻，也和正文里的实线（如时间轴）区分开 */
-.section-label::before {
-  content: '··';
-  color: var(--ink-3);
-  letter-spacing: 0.6ch;
-}
-
-.section-label::after {
-  content: '································································································································';
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  color: var(--ink-3);
-  letter-spacing: 0.6ch;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin-bottom: 32px;
 }
 
 .arrow-link {

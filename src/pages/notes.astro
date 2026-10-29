@@ -8,90 +8,24 @@ const years = [...new Set(notes.map((n) => n.year))].map((year) => ({
   year,
   items: notes.filter((n) => n.year === year),
 }));
-
-// 月份密度：从最早一条到最近一条逐月排开，每条记一个点；点击跳到该月最近的一条
-const first = notes.at(-1)?.month;
-const last = notes[0]?.month;
-const months = [];
-if (first && last) {
-  let [y, m] = first.split('-').map(Number);
-  for (let key = first; key <= last; ) {
-    const items = notes.filter((n) => n.month === key);
-    months.push({ key, y, m, count: items.length, href: items[0] && `#${items[0].id}` });
-    m += 1;
-    if (m > 12) { m = 1; y += 1; }
-    key = `${y}-${String(m).padStart(2, '0')}`;
-  }
-}
-// 连续 3 个月以上没有短记就折叠成一列「⋯」，跨年断档时点阵不会被拉得很长
-const cols = [];
-for (let i = 0; i < months.length; ) {
-  let j = i;
-  while (j < months.length && months[j].count === 0) j++;
-  if (j - i >= 3) {
-    cols.push({ gap: true, from: months[i], to: months[j - 1] });
-    i = j;
-  } else {
-    cols.push(months[i]);
-    i += 1;
-  }
-}
-// 年份标在每一年出现的第一列下面
-let shownYear = null;
-for (const c of cols) {
-  if (c.gap) continue;
-  c.showYear = c.y !== shownYear;
-  shownYear = c.y;
-}
-const pad = (m) => String(m).padStart(2, '0');
-const peak = Math.max(1, ...months.map((x) => x.count));
-const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-', '.')}` : '';
 ---
 
 <Article
   title={entry.data.title}
-  kicker="NOTES — 短记"
   date={notes[0]?.date ?? entry.data.latest}
   description={entry.data.description}
 >
   {intro && <div class="notes-intro" set:html={intro} />}
 
-  <figure class="density" aria-label={`按月分布：${span}，共 ${notes.length} 条`}>
-    <div class="density-cols" style={`--peak: ${peak}`}>
-      {cols.map((x) => {
-        if (x.gap) {
-          return (
-            <span class="mono density-col density-gap" title={`${x.from.y}.${pad(x.from.m)} — ${x.to.y}.${pad(x.to.m)} · 无`}>
-              <span class="density-dots" aria-hidden="true"></span>
-              <span class="density-m">⋯</span>
-            </span>
-          );
-        }
-        const Tag = x.href ? 'a' : 'span';
-        return (
-          <Tag class="mono density-col" href={x.href} title={`${x.y}.${pad(x.m)} · ${x.count} 条`}>
-            <span class="density-dots" aria-hidden="true">
-              {x.count ? Array.from({ length: x.count }, () => <i>•</i>) : <i class="empty">·</i>}
-            </span>
-            <span class="density-m">{pad(x.m)}</span>
-            {x.showYear && <span class="density-y">{x.y}</span>}
-          </Tag>
-        );
-      })}
-    </div>
-    <figcaption class="mono density-cap">{notes.length} 条 · {span}</figcaption>
-  </figure>
-
   {years.map((g) => (
     <section class="year" aria-labelledby={`y-${g.year}`}>
-      <h2 class="mono year-label" id={`y-${g.year}`}>{g.year} →</h2>
+      <h2 class="mono year-label" id={`y-${g.year}`}>{g.year}</h2>
       <ol class="notes">
         {g.items.map((n) => (
           <li class="note" id={n.id}>
             <a class="mono note-date" href={`#${n.id}`} aria-label={`${n.date} 的短记链接`}>
               <time datetime={n.date}>{n.label}</time>
             </a>
-            <span class="note-node" aria-hidden="true"></span>
             <div class="note-body" set:html={n.body} />
           </li>
         ))}
@@ -103,73 +37,9 @@ const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-',
 <style>
   .notes-intro {
     color: var(--ink-2);
+    margin-bottom: 56px;
   }
 
-  /* 月份密度：一列一个月，点数即条数，像手画的 ASCII 柱状图 */
-  .density {
-    margin: 8px 0 56px;
-  }
-  .density-cols {
-    display: flex;
-    gap: 2px;
-    padding-bottom: 22px;
-    border-bottom: 1px dotted var(--hairline-strong);
-    overflow-x: auto;
-  }
-  .density-col {
-    position: relative;
-    flex: 1 0 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    min-height: calc(var(--peak) * 11px + 28px);
-    font-size: 12px;
-    color: var(--ink-3);
-    border-bottom: none;
-  }
-  .density-dots {
-    display: flex;
-    flex-direction: column-reverse;
-    line-height: 11px;
-    font-size: 16px;
-    font-style: normal;
-  }
-  .density-dots i {
-    font-style: normal;
-  }
-  a.density-col .density-dots {
-    color: var(--ink-2);
-  }
-  .density-m {
-    margin-top: 6px;
-    font-size: 11px;
-  }
-  .density-y {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    font-size: 11px;
-    color: var(--ink-2);
-    letter-spacing: 0.06em;
-  }
-  :global(.prose) a.density-col {
-    color: var(--ink-3);
-    border-bottom: none;
-    transition: color 0.25s ease;
-  }
-  :global(.prose) a.density-col:hover,
-  :global(.prose) a.density-col:hover .density-dots {
-    color: var(--vermillion);
-  }
-  .density-cap {
-    margin-top: 28px;
-    font-size: 12px;
-    color: var(--ink-3);
-    letter-spacing: 0.06em;
-  }
-
-  /* 年份分组 + 左侧时间轨 */
   .year + .year {
     margin-top: 56px;
   }
@@ -177,59 +47,30 @@ const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-',
     font-family: var(--mono);
     font-size: 14px;
     font-weight: 500;
-    color: var(--ink-2);
     margin: 0 0 20px;
   }
   :global(.prose) .notes {
-    --gutter: 72px;
-    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .notes::before {
-    content: '';
-    position: absolute;
-    top: 6px;
-    bottom: 0;
-    left: var(--gutter);
-    border-left: 1px solid var(--hairline);
-  }
   :global(.prose) .note {
-    position: relative;
     display: grid;
-    grid-template-columns: var(--gutter) 1fr;
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
     margin: 0;
-    padding: 4px 0 18px;
+    padding: 0 0 22px;
     scroll-margin-top: 80px;
   }
   :global(.prose) a.note-date {
     padding-top: 4px;
     font-size: 13px;
     line-height: 1.9;
-    color: var(--ink-3);
-    border-bottom: none;
+    color: var(--ink-2);
+    text-decoration: none;
     transition: color 0.25s ease;
   }
-  :global(.prose) a.note-date::after {
-    content: ' ¶';
-    opacity: 0;
-    transition: opacity 0.25s ease;
-  }
-  .note-node {
-    position: absolute;
-    left: var(--gutter);
-    top: 13px;
-    width: 7px;
-    height: 7px;
-    translate: -3px 0;
-    border-radius: 50%;
-    border: 1px solid var(--ink-3);
-    background: var(--paper);
-    transition: background 0.25s ease, border-color 0.25s ease;
-  }
   .note-body {
-    padding: 4px 0 0 24px;
     min-width: 0;
   }
   :global(.prose) .note-body :global(p:last-child) {
@@ -239,45 +80,11 @@ const span = first && last ? `${first.replace('-', '.')} — ${last.replace('-',
   :global(.prose) .note:target a.note-date {
     color: var(--vermillion);
   }
-  :global(.prose) .note:hover a.note-date::after,
-  :global(.prose) .note:target a.note-date::after {
-    opacity: 1;
-  }
-  .note:hover .note-node,
-  .note:target .note-node {
-    border-color: var(--vermillion);
-  }
-  .note:target .note-node {
-    background: var(--vermillion);
-  }
-  .note:target .note-body {
-    background: linear-gradient(to right, var(--tint), transparent 80%);
-  }
 
   @media (max-width: 720px) {
-    :global(.prose) .notes {
-      --gutter: 54px;
-    }
-    .density-col {
-      flex-basis: 12px;
-      min-width: 0;
-    }
-    .density-cols {
-      gap: 1px;
-      overflow-x: hidden;
-    }
-    /* 手机上一列太窄，月份数字会挤成一串：只留年份和断档标记 */
-    .density-col:not(.density-gap) .density-m {
-      visibility: hidden;
-    }
-    :global(.prose) a.note-date {
-      font-size: 12px;
-    }
-    .note-body {
-      padding-left: 16px;
-    }
-    :global(.prose) a.note-date::after {
-      content: none;
+    :global(.prose) .note {
+      grid-template-columns: 1fr;
+      gap: 2px;
     }
   }
 </style>

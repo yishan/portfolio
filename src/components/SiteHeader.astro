@@ -1,16 +1,16 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
-// links: [{ href, label }]；scramble 只在首页开启（悬停时字符乱序动效）
-const { links, scramble = false } = Astro.props;
+// links: [{ href, label }]
+const { links } = Astro.props;
 ---
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a href="/" class:list={['mono brand', { scramble }]}>YISHAN.LI</a>
+    <a href="/" class="mono brand">YISHAN.LI</a>
     <div class="header-actions">
       <nav class="mono site-nav" id="site-nav" aria-label="主导航">
-        {links.map((l) => <a href={l.href} class:list={{ scramble }}>{l.label}</a>)}
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
       </nav>
       <ThemeToggle />
       <button
@@ -29,9 +29,7 @@ const { links, scramble = false } = Astro.props;
     position: sticky;
     top: 0;
     z-index: 10;
-    background: color-mix(in srgb, var(--paper) 82%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--hairline);
+    background: var(--paper);
   }
   .header-inner {
     display: flex;
@@ -69,13 +67,10 @@ const { links, scramble = false } = Astro.props;
     color: var(--ink-2);
   }
   .menu-toggle::before {
-    content: '[=]';
-  }
-  .menu-toggle[aria-expanded='true'] {
-    color: var(--vermillion);
+    content: '菜单';
   }
   .menu-toggle[aria-expanded='true']::before {
-    content: '[x]';
+    content: '关闭';
   }
 
   /* 手机上导航收进菜单：顶栏只留主题切换和菜单按钮，点开后在顶栏下方展开整宽列表 */
@@ -96,26 +91,15 @@ const { links, scramble = false } = Astro.props;
       gap: 0;
       padding: 0 24px 12px;
       background: var(--paper);
-      border-bottom: 1px solid var(--hairline);
     }
     .site-header.open .site-nav {
       display: flex;
       animation: nav-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .site-nav a {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px 0;
+      padding: 12px 0;
       font-size: 14px;
       color: var(--ink);
-      border-bottom: 1px dashed var(--hairline-strong);
-    }
-    .site-nav a:last-child {
-      border-bottom: none;
-    }
-    .site-nav a::after {
-      content: '→';
-      color: var(--ink-3);
     }
   }
   @keyframes nav-in {

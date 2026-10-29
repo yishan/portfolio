@@ -66,12 +66,10 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
 <Article
   title="Yishan ⨯ 微信读书"
   docTitle="Yishan ⨯ 微信读书"
-  kicker="READ — 在读"
   date={data.generated_at}
   description="我在微信读书上的阅读记录：每年读多久、一天里什么时候读、读得最久的书、划线最多的书。"
 >
   <div class="rd-intro">
-    <div class="fig" data-fig="book"></div>
     <p>我的微信读书记录</p>
     <p class="mono rd-stats">
       <span><b>{Math.round(data.total_s / 3600)}</b> 小时</span>
@@ -84,7 +82,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </div>
 
   <section class="rd-sec" aria-labelledby="rd-01">
-    <h2 class="rd-h" id="rd-01"><span class="index-no">01</span> 每年读多久</h2>
+    <h2 class="rd-h" id="rd-01">每年读多久</h2>
     <p class="rd-sub">一行一年，中间十二格是十二个月，格子越深读得越久。</p>
     <div class="rd-scroll rd-fig">
       <div class="mono yr" role="table" aria-label="每年每月的阅读时长">
@@ -108,7 +106,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-02">
-    <h2 class="rd-h" id="rd-02"><span class="index-no">02</span> 最近一年的每一天</h2>
+    <h2 class="rd-h" id="rd-02">最近一年的每一天</h2>
     <p class="rd-sub">一列一周，从上到下周一到周日。</p>
     <div class="rd-scroll rd-fig">
       <div class="mono cal" style={`--weeks: ${weeks.length}`} role="img" aria-label={`最近一年有 ${readDays.length} 天在读书`}>
@@ -131,7 +129,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-03">
-    <h2 class="rd-h" id="rd-03"><span class="index-no">03</span> 一天里的什么时候</h2>
+    <h2 class="rd-h" id="rd-03">一天里的什么时候</h2>
     <p class="rd-sub">所有年份合在一起，每个钟头读了多久。</p>
     <div class="rd-scroll rd-fig">
       <div class="mono hrs" style={`--h: ${COL_H}`} role="img" aria-label={`一天里各时段的阅读时长，最常在 ${peakHour} 点读`}>
@@ -151,12 +149,11 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-04">
-    <h2 class="rd-h" id="rd-04"><span class="index-no">04</span> 读得最久的书</h2>
+    <h2 class="rd-h" id="rd-04">读得最久的书</h2>
     <p class="rd-sub">按每本书累计的阅读时长。</p>
     <ol class="mono rows rd-fig">
-      {data.longest.map((b, i) => (
+      {data.longest.map((b) => (
         <li class="row">
-          <span class="row-i">{pad(i + 1)}</span>
           <span class="row-t"><a href={b.link} title={b.title}>{short(b.title)}</a><span class="row-a"> · {b.author}</span></span>
           <span class="row-bar" aria-hidden="true">{bar(b.s, longPeak, 18, '▇')}</span>
           <span class="row-n">{hrs(b.s)}</span>
@@ -169,7 +166,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-05">
-    <h2 class="rd-h" id="rd-05"><span class="index-no">05</span> 读什么</h2>
+    <h2 class="rd-h" id="rd-05">读什么</h2>
     <p class="rd-sub">先是各类书读了多久，再是书架上 {data.shelf.books} 本公开的书按大类数。</p>
     <div class="cats rd-fig">
       <ul class="mono rows">
@@ -195,7 +192,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-06">
-    <h2 class="rd-h" id="rd-06"><span class="index-no">06</span> 作者与出版社</h2>
+    <h2 class="rd-h" id="rd-06">作者与出版社</h2>
     <p class="rd-sub">读得多的作者（按时长），和读得多的出版社（按本数）。</p>
     <div class="cats rd-fig">
       <ul class="mono rows">
@@ -221,12 +218,11 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-07">
-    <h2 class="rd-h" id="rd-07"><span class="index-no">07</span> 划线最多的书</h2>
+    <h2 class="rd-h" id="rd-07">划线最多的书</h2>
     <p class="rd-sub">{data.notebooks.books} 本书里留了笔记。这里按划线、想法和书签加起来排。</p>
     <ol class="mono rows rd-fig">
-      {data.notebooks.top.map((b, i) => (
+      {data.notebooks.top.map((b) => (
         <li class="row note-row">
-          <span class="row-i">{pad(i + 1)}</span>
           <span class="row-t"><a href={b.link} title={b.title}>{short(b.title)}</a></span>
           <span class="row-bar" aria-hidden="true">{bar(b.highlights, notePeak, 12, '▇')}</span>
           <span class="row-n">{b.highlights}<span class="row-a"> 划线{b.thoughts ? ` · ${b.thoughts} 想法` : ''}</span></span>
@@ -236,7 +232,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   </section>
 
   <section class="rd-sec" aria-labelledby="rd-08">
-    <h2 class="rd-h" id="rd-08"><span class="index-no">08</span> 最近翻开的</h2>
+    <h2 class="rd-h" id="rd-08">最近翻开的</h2>
     <p class="rd-sub">书架上最近读过的几本。</p>
     <ul class="mono recent rd-fig">
       {data.shelf.recent.map((b) => (
@@ -264,7 +260,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     gap: 6px 22px;
     margin-top: 20px;
     font-size: 13px;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .rd-stats b {
     font-weight: 500;
@@ -282,9 +278,6 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     color: var(--ink);
     margin: 0 0 10px;
   }
-  .rd-h .index-no {
-    margin-right: 0.6ch;
-  }
   :global(.prose) .rd-sub {
     font-size: 14px;
     color: var(--ink-2);
@@ -294,7 +287,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     margin: 18px 0 0;
     font-size: 12px;
     line-height: 1.8;
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0.04em;
   }
   .rd-scroll {
@@ -317,7 +310,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   }
   .yr-m.yr-mh {
     font-size: 10px;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .yr-y {
     color: var(--ink);
@@ -339,7 +332,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     color: var(--vermillion);
   }
   .yr-bar {
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -350,7 +343,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     white-space: nowrap;
   }
   .yr-d {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
 
   /* 02 每天 */
@@ -365,14 +358,14 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   }
   .cal-m {
     font-size: 10px;
-    color: var(--ink-3);
+    color: var(--ink-2);
     text-align: left;
     white-space: nowrap;
     overflow: visible;
   }
   .cal-d {
     font-size: 10px;
-    color: var(--ink-3);
+    color: var(--ink-2);
     text-align: left;
   }
   .cal-c:hover {
@@ -404,7 +397,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     font-style: normal;
   }
   .hrs-bar i.empty {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .hrs-col:hover .hrs-bar {
     color: var(--vermillion);
@@ -413,8 +406,6 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     margin-top: 6px;
     height: 1.4em;
     font-size: 10px;
-    color: var(--ink-3);
-    border-top: 1px dotted var(--hairline-strong);
     align-self: stretch;
     text-align: center;
   }
@@ -429,7 +420,7 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   }
   :global(.prose) .row {
     display: grid;
-    grid-template-columns: 3ch minmax(0, 1fr) 18ch 9ch;
+    grid-template-columns: minmax(0, 1fr) 18ch 9ch;
     gap: 1.5ch;
     align-items: baseline;
     margin: 0;
@@ -437,13 +428,10 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     color: var(--ink-2);
   }
   :global(.prose) .note-row {
-    grid-template-columns: 3ch minmax(0, 1fr) 12ch 15ch;
+    grid-template-columns: minmax(0, 1fr) 12ch 15ch;
   }
   :global(.prose) .cat-row {
     grid-template-columns: minmax(0, 1fr) 12ch 12ch;
-  }
-  .row-i {
-    color: var(--ink-3);
   }
   .row-t {
     font-family: var(--sans);
@@ -457,23 +445,19 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
   :global(.prose) .row-t a {
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px dotted var(--hairline-strong);
   }
   :global(.prose) .row-t a:hover {
     color: var(--vermillion);
   }
   .row-a {
     font-size: 12px;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .row-bar {
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0;
     overflow: hidden;
     white-space: nowrap;
-  }
-  .row:first-child .row-bar {
-    color: var(--ink-2);
   }
   .row-n {
     color: var(--ink);
@@ -496,79 +480,32 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
     align-items: baseline;
     margin: 0;
     line-height: 2;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .recent-s {
     text-align: right;
   }
 
-  /* 书本线稿：和 /listen 的唱机同一套线宽与配色；窄屏隐藏 */
-  .fig {
-    float: right;
-    width: 170px;
-    margin: -8px 0 12px 32px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    --fg-plate: var(--paper);
-    --fg-hi: var(--ink);
-    --fg-edge: color-mix(in srgb, var(--ink) 55%, transparent);
-    --fg-mid: color-mix(in srgb, var(--ink) 32%, transparent);
-    --fg-lo: color-mix(in srgb, var(--ink) 16%, transparent);
-  }
-  .fig :global(svg) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .fig :global(:is(polygon, polyline, line, circle)) {
-    fill: var(--fg-plate);
-    stroke: var(--fg-mid);
-    stroke-width: 0.9;
-    vector-effect: non-scaling-stroke;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
-  .fig :global(.fo) {
-    stroke: var(--fg-plate);
-    stroke-width: 0.6;
-  }
-  .fig :global(.nf) { fill: none; }
-  .fig :global(.sil) { stroke: var(--fg-edge); }
-  .fig :global(.lo) { stroke: var(--fg-lo); }
-  .fig :global(.hi) { stroke: var(--fg-hi); }
-  .fig :global(.accent) { stroke: var(--vermillion); }
-  .rd-intro::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-
   .rv .rd-fig {
     opacity: 0;
-    filter: blur(3px);
     translate: 0 4px;
-    transition: opacity 0.6s ease, filter 0.6s ease, translate 0.6s ease;
+    transition: opacity 0.6s ease, translate 0.6s ease;
   }
   .rv.rv-in .rd-fig {
     opacity: 1;
-    filter: none;
     translate: 0 0;
   }
 
   @media (max-width: 720px) {
-    .fig {
-      display: none;
-    }
     .cats {
       grid-template-columns: 1fr;
       gap: 24px;
     }
     :global(.prose) .row {
-      grid-template-columns: 3ch minmax(0, 1fr) 9ch;
+      grid-template-columns: minmax(0, 1fr) 9ch;
     }
     :global(.prose) .note-row {
-      grid-template-columns: 3ch minmax(0, 1fr) 14ch;
+      grid-template-columns: minmax(0, 1fr) 14ch;
     }
     :global(.prose) .cat-row {
       grid-template-columns: minmax(0, 1fr) 12ch;
@@ -580,12 +517,6 @@ const notePeak = Math.max(1, ...data.notebooks.top.map((b) => b.highlights));
 </style>
 
 <script>
-  import { mount } from '../scripts/figures/engine.js';
-  import { book } from '../scripts/figures/book.js';
-
-  const fig = document.querySelector('.fig[data-fig="book"]');
-  mount(fig, book(), { trigger: fig.closest('.rd-intro') });
-
   // 02：默认滚到最近一周
   document.querySelectorAll('.cal').forEach((el) => (el.parentElement.scrollLeft = el.parentElement.scrollWidth));
 

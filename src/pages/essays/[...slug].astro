@@ -9,14 +9,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const no = entry.id.slice(0, 3);
 ---
 
 <Article
-  kicker={`但说无妨 — ESSAY #${no}`}
   title={entry.data.title}
   date={entry.data.date ?? entry.data.latest}
-  tags={entry.data.tags}
   description={entry.data.description}
 >
   <Content />

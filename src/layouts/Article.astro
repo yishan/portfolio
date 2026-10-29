@@ -12,10 +12,9 @@ const navLinks = [
   { href: '/#contact', label: '联系' },
 ];
 
-const { title, kicker, date, description } = Astro.props;
+const { title, date, description } = Astro.props;
 // 浏览器标签页标题：默认在页面标题后加「 — Yishan」，页面已经带名字时可以传 docTitle 覆盖
 const docTitle = Astro.props.docTitle ?? `${title} — Yishan`;
-const tags = Astro.props.tags ?? [];
 const dateStr = date
   ? new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
   : null;
@@ -26,15 +25,9 @@ const dateStr = date
 
   <main class="wrap">
     <article class="article">
-      <header class="article-head dotgrid">
-        {kicker && <p class="mono kicker">{kicker}</p>}
+      <header class="article-head">
         <h1 class="display">{title}</h1>
-        {(dateStr || tags.length > 0) && (
-          <p class="mono article-meta">
-            {dateStr && <span>{dateStr}</span>}
-            {tags.map((t) => <span class="tag">#{t}</span>)}
-          </p>
-        )}
+        {dateStr && <p class="mono article-meta">{dateStr}</p>}
       </header>
       <div class="prose">
         <slot />
@@ -53,15 +46,8 @@ const dateStr = date
     padding: 64px 0 80px;
   }
   .article-head {
-    padding: 40px 0 36px;
-    margin-bottom: 40px;
-    border-bottom: 1px solid var(--hairline);
-    --dot: color-mix(in srgb, var(--ink) 8%, transparent);
-  }
-  .kicker {
-    color: var(--vermillion);
-    letter-spacing: 0.16em;
-    margin-bottom: 18px;
+    padding: 40px 0 0;
+    margin-bottom: 48px;
   }
   h1 {
     font-size: clamp(28px, 4.5vw, 40px);
@@ -69,18 +55,10 @@ const dateStr = date
     line-height: 1.35;
   }
   .article-meta {
-    margin-top: 18px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .tag {
-    color: var(--ink-3);
+    margin-top: 14px;
   }
   .article-foot {
-    margin-top: 64px;
-    padding-top: 24px;
-    border-top: 1px dotted var(--hairline-strong);
+    margin-top: 80px;
   }
   .article-foot .arrow-link {
     color: var(--ink-2);
@@ -108,25 +86,26 @@ const dateStr = date
     line-height: 1.9;
   }
   .prose :global(a) {
-    color: var(--vermillion);
-    border-bottom: 1px dotted var(--hairline-strong);
-    transition: border-color 0.25s ease;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.25s ease;
   }
   .prose :global(a:hover) {
-    border-bottom-color: var(--vermillion);
+    color: var(--vermillion);
+  }
+  /* 正文里的强调不用斜体 */
+  .prose :global(em) {
+    font-style: normal;
   }
   .prose :global(img) {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 2em auto;
-    border: 1px solid var(--hairline);
   }
   .prose :global(blockquote) {
     margin: 1.8em 0;
-    padding: 14px 22px;
-    border-left: 2px solid var(--vermillion);
-    background: color-mix(in srgb, var(--ink) 4%, transparent);
+    padding-left: 2em;
     color: var(--ink-2);
   }
   .prose :global(blockquote p) {
@@ -141,27 +120,18 @@ const dateStr = date
     margin-bottom: 0.4em;
     line-height: 1.85;
   }
+  /* 分隔线只留空白 */
   .prose :global(hr) {
     border: none;
-    border-top: 1px dotted var(--hairline-strong);
-    margin: 2.5em 0;
+    margin: 3em 0;
   }
   .prose :global(code) {
     font-family: var(--mono);
     font-size: 0.88em;
-    background: color-mix(in srgb, var(--ink) 6%, transparent);
-    padding: 2px 6px;
-    border-radius: 3px;
   }
   .prose :global(pre) {
-    padding: 16px 20px;
     overflow-x: auto;
-    border: 1px solid var(--hairline);
     margin: 0 0 1.2em;
-  }
-  .prose :global(pre code) {
-    background: none;
-    padding: 0;
   }
   .prose :global(table) {
     border-collapse: collapse;
@@ -171,9 +141,12 @@ const dateStr = date
   }
   .prose :global(th),
   .prose :global(td) {
-    border: 1px solid var(--hairline);
-    padding: 8px 12px;
+    padding: 6px 24px 6px 0;
     text-align: left;
+    vertical-align: top;
+  }
+  .prose :global(th) {
+    font-weight: 600;
   }
 
   @media (max-width: 720px) {

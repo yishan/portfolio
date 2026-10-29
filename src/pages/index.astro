@@ -16,8 +16,6 @@ const drawCount = 3;
 const current = products[products.length - 1];
 const timeline = [...products].reverse();
 const fmtDate = (d) => d.slice(5).replace('-', '.');
-// 随手试验区块（04）在没有数据时隐藏，之后的区块编号随之前移
-const no = (n) => String(demos.length > 0 || n < 4 ? n : n - 1).padStart(2, '0');
 const navLinks = [
   { href: '#notes', label: '灵光' },
   { href: '#products', label: '奇遇' },
@@ -31,7 +29,7 @@ const navLinks = [
 ---
 
 <Base>
-  <SiteHeader links={navLinks} scramble />
+  <SiteHeader links={navLinks} />
 
   <main>
     <section class="cover" aria-label="封面">
@@ -41,91 +39,64 @@ const navLinks = [
           <Ascii piece="big-text" options={{ text: profile.name.toUpperCase() }} label={profile.name} />
         </div>
       </div>
-      <a class="mono scroll-cue" href="#hero" id="scroll-cue">
-        <span class="cue-label">scroll<span class="cue-key"> <span class="cue-or">or</span> [ENTER]</span></span>
-        <span class="cue-drop" aria-hidden="true"><span>│</span><span>│</span><span>↓</span></span>
-      </a>
+      <a class="mono scroll-cue" href="#hero" id="scroll-cue" aria-label="向下滚动到正文">↓</a>
     </section>
 
     <section class="hero" id="hero">
-      <div class="wrap">
-        <p class="mono hero-kicker">PRODUCT · UX · DATA · AI — SINCE {profile.since}</p>
-        <div class="hero-body">
-          <div class="hero-hello">
-            <h1 class="display hello"><span class="prompt" aria-hidden="true">$</span> 你好，我是{profile.cnName}。<span class="cursor" aria-hidden="true"></span></h1>
-            <p class="hero-role">{profile.role}</p>
+      <div class="wrap hero-body">
+        <div class="hero-text">
+          <h1 class="display hello">你好，我是{profile.cnName}。</h1>
+          <p class="hero-role">{profile.role}</p>
+          <p class="epigraph">“{profile.epigraph}”</p>
+          <div class="hero-intro">
+            {profile.intro.map((p) => <p>{p}</p>)}
           </div>
-          <div class="hero-text">
-            <p class="epigraph">“{profile.epigraph}”</p>
-            <div class="hero-intro">
-              {profile.intro.map((p) => <p>{p}</p>)}
-            </div>
-            <p class="mono motto"># {profile.motto}</p>
-          </div>
-          <figure class="art-fit hero-art" style="--cols: 64">
-            <Ascii piece="black-hole" fps={15} label="一个黑洞：吸积盘绕着中心旋转，光线被引力弯折" />
-            <figcaption class="mono">fig. 1 — mass &amp; pull · ascii.rest</figcaption>
-          </figure>
+        </div>
+        <div class="art-fit hero-art" style="--cols: 64">
+          <Ascii piece="black-hole" fps={15} label="一个黑洞：吸积盘绕着中心旋转，光线被引力弯折" />
         </div>
       </div>
     </section>
 
     <section class="section" id="notes">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(1)}</span> 灵光 — NOTES</h2>
-        <div class="draw-wrap">
-          <div class="fig fig-gutter" data-fig="prism"></div>
-          <ol class="draw-list" id="draw-list">
-            {notes.slice(0, drawCount).map((n) => (
-              <li class="draw-note">
-                <a class="mono draw-date" href={`/notes#${n.id}`}><time datetime={n.date}>{n.date.replaceAll('-', '.')}</time></a>
-                <div class="draw-body" set:html={n.body} />
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div class="draw-actions">
-          <button class="mono draw-more" type="button" id="draw-more" hidden>
-            <span class="draw-icon" aria-hidden="true">↻</span> 看看别的
-          </button>
-          <a class="mono arrow-link draw-all" href="/notes">全部 {notes.length} 条 <span class="arrow">→</span></a>
-        </div>
+        <h2 class="section-label">灵光</h2>
+        <ol class="draw-list" id="draw-list">
+          {notes.slice(0, drawCount).map((n) => (
+            <li class="draw-note">
+              <a class="mono draw-date" href={`/notes#${n.id}`}><time datetime={n.date}>{n.date.replaceAll('-', '.')}</time></a>
+              <div class="draw-body" set:html={n.body} />
+            </li>
+          ))}
+        </ol>
+        <a class="mono arrow-link more-link" href="/notes">全部 {notes.length} 条 <span class="arrow">→</span></a>
         <script is:inline type="application/json" id="notes-data" set:html={JSON.stringify(notes.map(({ id, date, body }) => ({ id, date, body }))).replaceAll('<', '\\u003c')} />
       </div>
     </section>
 
     <section class="section" id="products">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(2)}</span> 产品奇遇 — REVIEW</h2>
-        <div class="fig" data-fig="annual"></div>
+        <h2 class="section-label">产品奇遇</h2>
         <p class="section-note">每年我会总结一份当年使用的互联网产品与服务。</p>
-        <div class="timeline" role="list">
-          <div class="timeline-rail" aria-hidden="true"></div>
+        <ul class="years">
           {timeline.map((p) => (
-            <a class="timeline-node" class:list={{ current: p.year === current.year }} href={p.href} role="listitem">
-              <span class="node-dot" aria-hidden="true"></span>
-              <span class="mono node-year">{p.year}</span>
-              {p.year === current.year && <span class="mono node-tag">最近</span>}
-            </a>
+            <li>
+              <a class="mono year" class:list={{ current: p.year === current.year }} href={p.href}>{p.year}</a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
     <section class="section" id="projects">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(3)}</span> 兴趣项目 — SIDE PROJECTS</h2>
+        <h2 class="section-label">兴趣项目</h2>
         <p class="section-note">{projects.about}</p>
-        <div class="project-grid">
+        <div class="block-grid">
           {projects.items.map((p) => (
-            <a class="project-card" href={p.href}>
-              <span class="tick tick-tl" aria-hidden="true">+</span>
-              <span class="tick tick-tr" aria-hidden="true">+</span>
-              <span class="tick tick-bl" aria-hidden="true">+</span>
-              <span class="tick tick-br" aria-hidden="true">+</span>
-              <p class="mono project-domain">{p.domain} <span class="project-arrow" aria-hidden="true">↗</span></p>
-              <p class="display project-name">{p.name}</p>
-              <p class="project-desc">{p.desc}</p>
+            <a class="block" href={p.href}>
+              <p class="display block-title">{p.name} <span class="arrow" aria-hidden="true">↗</span></p>
+              <p class="block-desc">{p.desc}</p>
             </a>
           ))}
         </div>
@@ -135,8 +106,7 @@ const navLinks = [
     {demos.length > 0 && (
       <section class="section" id="lab">
         <div class="wrap">
-          <h2 class="section-label"><span class="index-no">{no(4)}</span> 随手试验 — EXPERIMENTS</h2>
-          <div class="fig" data-fig="beaker"></div>
+          <h2 class="section-label">随手试验</h2>
           <p class="section-note">{lab.about}</p>
           <ul class="lab-grid">
             {demos.slice(0, lab.limit).map((d) => (
@@ -146,36 +116,25 @@ const navLinks = [
                     {d.thumb && <img class:list={{ 'thumb-light': d.thumbDark }} src={d.thumb} alt="" loading="lazy" decoding="async" />}
                     {d.thumb && d.thumbDark && <img class="thumb-dark" src={d.thumbDark} alt="" loading="lazy" decoding="async" />}
                   </div>
-                  <p class="mono lab-date">
-                    <time class="rel-date" datetime={d.date}>{fmtDate(d.date)}</time>
-                    <span class="lab-arrow" aria-hidden="true">↗</span>
-                  </p>
                   <p class="display lab-title">{d.title}</p>
+                  <p class="mono lab-date"><time class="rel-date" datetime={d.date}>{fmtDate(d.date)}</time></p>
                 </a>
               </li>
             ))}
           </ul>
-          <a class="mono arrow-link lab-all" href={lab.href}>
-            全部 {demos.length} 个 demo · {lab.domain} <span class="arrow">→</span>
-          </a>
+          <a class="mono arrow-link more-link" href={lab.href}>全部 {demos.length} 个 <span class="arrow">→</span></a>
         </div>
       </section>
     )}
 
     <section class="section" id="references">
       <div class="wrap">
-        <h2 class="section-label"><span class="index-no">{no(5)}</span> 参考文本 — REFERENCE</h2>
-        <div class="ref-grid">
+        <h2 class="section-label">参考文本</h2>
+        <div class="block-grid">
           {references.map((r) => (
-            <a class="ref-card" href={r.href}>
-              <span class="tick tick-tl" aria-hidden="true">+</span>
-              <span class="tick tick-tr" aria-hidden="true">+</span>
-              <span class="tick tick-bl" aria-hidden="true">+</span>
-              <span class="tick tick-br" aria-hidden="true">+</span>
-              <p class="mono ref-label">{r.label}</p>
-              <p class="display ref-title">{r.title}</p>
-              <p class="ref-desc">{r.desc}</p>
-              <span class="mono ref-go">阅读 <span class="arrow">→</span></span>
+            <a class="block" href={r.href}>
+              <p class="display block-title">{r.title} <span class="arrow" aria-hidden="true">→</span></p>
+              <p class="block-desc">{r.desc}</p>
             </a>
           ))}
         </div>
@@ -184,22 +143,20 @@ const navLinks = [
 
     <section class="section" id="essays">
       <div class="wrap" data-reveal>
-        <h2 class="section-label"><span class="index-no">{no(6)}</span> 但说无妨 — ESSAYS</h2>
+        <h2 class="section-label">但说无妨</h2>
         <p class="section-note">{essays.about}</p>
         {essays.groups.map((g) => (
           <div class="essay-group">
-            <h3 class="mono essay-year">{g.year} →</h3>
+            <h3 class="mono essay-year">{g.year}</h3>
             <ul class="essay-list" id={`essay-list-${g.year}`}>
               {g.items.map((e, idx) => (
                 <li class:list={{ 'list-extra': idx >= 5 }} style={idx >= 5 ? `--i: ${idx - 5}` : undefined}>
                   <a
-                    class="essay-row"
+                    class="row"
                     href={e.href}
                     {...(e.external && { target: '_blank', rel: 'noopener' })}
                   >
-                    <span class="essay-title">{e.title}</span>
-                    <span class="leader" aria-hidden="true"></span>
-                    <span class="mono essay-no">{e.external ? `${e.via} ${e.label} ↗` : e.no}</span>
+                    {e.title}{e.external && <span class="arrow" aria-hidden="true"> ↗</span>}
                   </a>
                 </li>
               ))}
@@ -212,10 +169,7 @@ const navLinks = [
                 aria-controls={`essay-list-${g.year}`}
                 data-count={g.items.length - 5}
                 data-unit="篇"
-              >
-                <span class="toggle-plus" aria-hidden="true">+</span>
-                <span class="toggle-text">展开其余 {g.items.length - 5} 篇</span>
-              </button>
+              >展开其余 {g.items.length - 5} 篇</button>
             )}
           </div>
         ))}
@@ -224,7 +178,7 @@ const navLinks = [
 
     <section class="section" id="newsletter">
       <div class="wrap" data-reveal>
-        <h2 class="section-label"><span class="index-no">{no(7)}</span> 有所启发 — NEWSLETTER</h2>
+        <h2 class="section-label">有所启发</h2>
         <p class="section-note">
           {newsletter.about}
           <a class="arrow-link subscribe" href={newsletter.subscribe}>欢迎订阅 <span class="arrow">→</span></a>
@@ -232,11 +186,7 @@ const navLinks = [
         <ul class="issue-list" id="issue-list">
           {newsletter.issues.map((i, idx) => (
             <li class:list={{ 'list-extra': idx >= 5 }} style={idx >= 5 ? `--i: ${idx - 5}` : undefined}>
-              <a class="issue-row" href={i.href}>
-                <span class="mono issue-no">#{i.no}</span>
-                <span class="issue-title">{i.title}</span>
-                <span class="mono issue-arrow" aria-hidden="true">→</span>
-              </a>
+              <a class="row" href={i.href}>{i.title}</a>
             </li>
           ))}
         </ul>
@@ -248,21 +198,17 @@ const navLinks = [
             aria-controls="issue-list"
             data-count={newsletter.issues.length - 5}
             data-unit="期"
-          >
-            <span class="toggle-plus" aria-hidden="true">+</span>
-            <span class="toggle-text">展开其余 {newsletter.issues.length - 5} 期</span>
-          </button>
+          >展开其余 {newsletter.issues.length - 5} 期</button>
         )}
-        <div class="fig fig-end" data-fig="typewriter"></div>
+        <div class="fig" data-fig="typewriter"></div>
       </div>
     </section>
 
   </main>
 
   <footer class="footer" id="contact">
-    <canvas id="ascii-field" aria-hidden="true"></canvas>
     <div class="wrap">
-      <h2 class="section-label"><span class="index-no">{no(8)}</span> 在这些地方找到我 — FIND ME</h2>
+      <h2 class="section-label">在这些地方找到我</h2>
       <ul class="contact-list">
         {contacts.map((c) => (
           <li class="contact-item">
@@ -275,20 +221,25 @@ const navLinks = [
           </li>
         ))}
       </ul>
-      <p class="mono footer-motto">© {new Date().getFullYear()} Yishan · {profile.motto} · <a class="licenses" href="/resume">Resume</a> · <a class="licenses" href="/read">在读</a> · <a class="licenses" href="/listen">在听</a> · <a class="licenses" href="/licenses.txt">第三方许可</a></p>
+      <p class="mono footer-links">
+        <span>© {new Date().getFullYear()} Yishan · {profile.motto}</span>
+        <a href="/resume">Resume</a>
+        <a href="/read">在读</a>
+        <a href="/listen">在听</a>
+        <a href="/licenses.txt">第三方许可</a>
+      </p>
     </div>
   </footer>
 </Base>
 
 <style>
-  /* 封面：占满首屏，只放大字；底部是向下滚动的提示 */
+  /* 封面：占满首屏，只放大字和一行字符雨；底部一个向下的箭头 */
   .cover {
     position: relative;
-    min-height: calc(100svh - 58px);
+    min-height: calc(100svh - 56px);
     display: flex;
     align-items: center;
     padding: 48px 0 120px;
-    border-bottom: 1px solid var(--hairline);
   }
   .cover > .wrap {
     position: relative;
@@ -308,55 +259,14 @@ const navLinks = [
     left: 50%;
     bottom: 28px;
     translate: -50% 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
     padding: 6px 10px;
-    color: var(--ink-2);
-    letter-spacing: 0.16em;
+    font-size: 16px;
+    transition: color 0.25s ease;
   }
-  .cue-or {
-    color: var(--ink-3);
-  }
-  /* 触屏设备没有回车键，只提示滑动 */
-  @media (hover: none) {
-    .cue-key { display: none; }
-  }
-  .cue-drop {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1;
-    font-size: 14px;
-  }
-  /* 三格字符依次点亮，像一个往下掉的点 */
-  .cue-drop span {
-    color: var(--ink-3);
-    animation: cue-fall 1.8s steps(1) infinite;
-  }
-  .cue-drop span:nth-child(2) { animation-delay: 0.3s; }
-  .cue-drop span:nth-child(3) { animation-delay: 0.6s; }
-  @keyframes cue-fall {
-    0% { color: var(--vermillion); }
-    17% { color: var(--ink-3); }
-  }
-  .scroll-cue:hover,
-  .scroll-cue:hover .cue-or {
+  .scroll-cue:hover {
     color: var(--vermillion);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .cue-drop span { animation: none; }
-    .cue-drop span:last-child { color: var(--vermillion); }
-  }
 
-  .hero {
-    position: relative;
-    padding: 80px 0 80px;
-  }
-  .hero-kicker {
-    margin-bottom: 18px;
-  }
   /* 字符作品按列数铺满容器：字号 = 容器宽 / (列数 × 字宽) */
   .art-fit {
     container-type: inline-size;
@@ -366,107 +276,58 @@ const navLinks = [
     display: block;
     font-family: var(--mono);
     font-size: min(var(--max-px, 26px), calc(100cqw / (var(--cols) * 0.61)));
-    line-height: 1.15;
+    line-height: 1;
     color: var(--ink);
   }
   .art-fit :global(pre) {
     margin: 0;
     font: inherit;
   }
-  .hero-name :global(ascii-art) {
-    color: var(--ink);
-    line-height: 1;
+
+  .hero {
+    padding: 96px 0 72px;
   }
-  /* 两行网格：第一行只放问候语；第二行左为引言与介绍、右为黑洞图，两者顶部对齐 */
+  /* 左边问候与介绍，右边黑洞；窄屏时黑洞落到介绍下面 */
   .hero-body {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 28px 48px;
-    margin-top: 40px;
+    gap: 48px;
     align-items: start;
   }
-  .hero-hello {
-    grid-column: 1;
-  }
-  .hero-text {
-    grid-column: 1;
-    grid-row: 2;
-  }
   .hero-art {
-    grid-column: 2;
-    grid-row: 2;
+    --max-px: 12px;
+  }
+  .hero-art :global(ascii-art) {
+    line-height: 1.15;
   }
   .hello {
     font-size: clamp(18px, 2.2vw, 22px);
     line-height: 1.5;
   }
-  .prompt {
-    color: var(--vermillion);
-    margin-right: 0.4ch;
-  }
-  .cursor {
-    display: inline-block;
-    width: 0.6em;
-    height: 1.1em;
-    margin-left: 0.3ch;
-    vertical-align: -0.15em;
-    background: var(--vermillion);
-    animation: blink 1.1s steps(1) infinite;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
   .hero-role {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--vermillion);
-    margin-top: 6px;
-    letter-spacing: 0.12em;
+    margin-top: 4px;
+    color: var(--ink-2);
   }
   .epigraph {
+    margin-top: 40px;
     font-family: var(--mono);
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.7;
-    color: var(--ink);
-    padding-left: 2ch;
-    border-left: 2px solid var(--vermillion);
   }
   .hero-intro {
     margin-top: 24px;
     display: grid;
     gap: 12px;
     color: var(--ink-2);
-    font-size: 14px;
-  }
-  .motto {
-    margin-top: 24px;
-    color: var(--ink-2);
-  }
-  .hero-art {
-    --max-px: 12px;
-    padding: 8px;
-    border: 1px dashed var(--hairline-strong);
-  }
-  .hero-art figcaption {
-    margin-top: 8px;
-    font-size: 11px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cursor { animation: none; }
+    font-size: 15px;
   }
 
-  /* 自绘等距线稿：浮在区块说明右侧；线宽与配色对齐 Hairline 的做法，颜色取站点变量 */
+  /* 唯一留下的线稿：有所启发末尾的打字机，只用一种线色 */
   .fig {
-    float: right;
-    width: var(--fig-w, 195px);
-    margin: -16px 0 16px 32px;
+    width: 195px;
+    margin: 48px 0 0 auto;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    --fg-plate: var(--paper);
-    --fg-hi: var(--ink);
-    --fg-edge: color-mix(in srgb, var(--ink) 55%, transparent);
-    --fg-mid: color-mix(in srgb, var(--ink) 32%, transparent);
-    --fg-lo: color-mix(in srgb, var(--ink) 16%, transparent);
   }
   .fig :global(svg) {
     display: block;
@@ -475,67 +336,52 @@ const navLinks = [
     overflow: visible;
   }
   .fig :global(:is(polygon, polyline, line, circle)) {
-    fill: var(--fg-plate);
-    stroke: var(--fg-mid);
+    fill: var(--paper);
+    stroke: var(--ink-2);
     stroke-width: 0.9;
     vector-effect: non-scaling-stroke;
     stroke-linejoin: round;
     stroke-linecap: round;
   }
   .fig :global(.fo) {
-    stroke: var(--fg-plate);
+    stroke: var(--paper);
     stroke-width: 0.6;
   }
   .fig :global(.nf) { fill: none; }
-  .fig :global(.sil) { stroke: var(--fg-edge); }
-  .fig :global(.lo) { stroke: var(--fg-lo); }
-  .fig :global(.hi) { stroke: var(--fg-hi); }
   .fig :global(.accent) { stroke: var(--vermillion); }
   .fig :global(.fo.accent) { fill: var(--vermillion); }
-  /* 放在区块末尾、不与列表并排的图形：右对齐占一行 */
-  /* 放在列表右侧空白里的图形：不浮动、不挤压列表；空白不够宽时隐藏 */
-  .draw-wrap {
-    position: relative;
+  @media (max-width: 720px) {
+    .fig { display: none; }
   }
-  .fig-gutter {
-    position: absolute;
-    right: 0;
-    top: 0;
-    float: none;
-    margin: 0;
-  }
-  @media (max-width: 1100px) {
-    .fig-gutter { display: none; }
-  }
-  /* 文章与启发列表：进入视野后逐条从淡、微糊里浮现，每条 0.6 秒。
+
+  /* 文章与启发列表：进入视野后逐条浮现，每条 0.6 秒。
      只有脚本加上 .rv 才隐藏，没有脚本或减弱动态时内容照常显示 */
   .rv :is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra)) {
     opacity: 0;
-    filter: blur(3px);
     translate: 0 4px;
   }
   .rv.rv-in :is(.essay-year, .essay-list > li:not(.list-extra), .issue-list > li:not(.list-extra)) {
     opacity: 1;
-    filter: none;
     translate: 0 0;
     transition:
       opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-      filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
       translate 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
     transition-delay: var(--d, 0s);
   }
-  .fig-end {
-    float: none;
-    margin: 8px 0 0 auto;
+
+  .section-note {
+    max-width: 620px;
+    color: var(--ink-2);
+    font-size: 15px;
+    margin: -16px 0 36px;
   }
-  .timeline,
-  .project-grid,
-  .lab-grid,
-  .issue-list {
-    clear: both;
+  .subscribe {
+    margin-left: 10px;
+    color: var(--ink);
   }
-  @media (max-width: 720px) {
-    .fig { display: none; }
+  .more-link {
+    display: inline-flex;
+    margin-top: 28px;
   }
 
   /* 灵光：三条短记，左边日期，右边全文 */
@@ -543,21 +389,20 @@ const navLinks = [
     list-style: none;
     padding: 0;
     max-width: 820px;
+    display: grid;
+    gap: 28px;
   }
   .draw-list :global(.draw-note) {
     display: grid;
     grid-template-columns: 112px 1fr;
     gap: 24px;
-    padding: 18px 8px;
-    border-bottom: 1px dashed var(--hairline-strong);
   }
   .draw-list :global(.draw-date) {
     padding-top: 3px;
     font-size: 13px;
-    color: var(--ink-3);
     transition: color 0.25s ease;
   }
-  .draw-list :global(.draw-note:hover .draw-date) {
+  .draw-list :global(.draw-date:hover) {
     color: var(--vermillion);
   }
   .draw-list :global(.draw-body) {
@@ -569,261 +414,167 @@ const navLinks = [
     margin-top: 0.7em;
   }
   .draw-list :global(.draw-body a) {
-    color: var(--vermillion);
-    border-bottom: 1px dotted var(--hairline-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  /* 浮现：三条依次从淡、微糊里慢慢清晰，不抢注意力 */
+  .draw-list :global(.draw-body a:hover) {
+    color: var(--vermillion);
+  }
   .draw-list :global(.draw-note) {
     transition:
       opacity 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-      filter 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
       translate 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
   .draw-list.veiled :global(.draw-note) {
     opacity: 0;
-    filter: blur(3px);
     translate: 0 4px;
-    transition-duration: 0.6s;
-    transition-delay: 0s !important;
-  }
-  .draw-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 28px;
-    margin-top: 24px;
-  }
-  .draw-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 0;
-    background: none;
-    border: none;
-    border-bottom: 1px dotted var(--hairline-strong);
-    cursor: pointer;
-    color: var(--ink);
-    transition: color 0.25s ease, border-color 0.25s ease;
-  }
-  .draw-more:hover {
-    color: var(--vermillion);
-    border-bottom-color: var(--vermillion);
-  }
-  .draw-icon {
-    display: inline-block;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .draw-more:hover .draw-icon {
-    transform: rotate(180deg);
-  }
-  .draw-all {
-    color: var(--ink-2);
-    border-bottom: 1px dotted var(--hairline-strong);
-    padding-bottom: 2px;
   }
   @media (max-width: 720px) {
     .draw-list :global(.draw-note) {
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 4px;
     }
   }
 
-  .section-note {
-    max-width: 620px;
-    color: var(--ink-2);
-    font-size: 15px;
-    margin: -16px 0 44px;
-  }
-  .subscribe {
-    margin-left: 10px;
-    color: var(--ink);
-    border-bottom: 1px dotted var(--hairline-strong);
-    padding-bottom: 1px;
-  }
-
-  .timeline {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 2% 0;
-  }
-  .timeline-rail {
-    position: absolute;
-    top: 8px;
-    left: 3%;
-    right: 3%;
-    overflow: hidden;
-    white-space: nowrap;
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1;
-    color: var(--ink-3);
-  }
-  .timeline-rail::before {
-    content: '──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────';
-  }
-  .timeline-node {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 0 10px;
-  }
-  .node-dot {
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0 4px;
-    background: var(--paper);
-    color: var(--ink-3);
-  }
-  .node-dot::before {
-    content: '[ ]';
-  }
-  .timeline-node.current .node-dot::before {
-    content: '[*]';
-  }
-  .node-year {
-    font-size: 14px;
-    color: var(--ink-2);
-    transition: color 0.25s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .node-tag {
-    position: absolute;
-    top: -26px;
-    font-size: 11px;
-    color: var(--vermillion);
-    letter-spacing: 0.14em;
-  }
-  .timeline-node.current .node-dot {
-    color: var(--vermillion);
-  }
-  .timeline-node.current .node-year {
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .timeline-node:hover .node-dot {
-    color: var(--vermillion);
-  }
-  .timeline-node:hover .node-dot::before {
-    content: '[x]';
-  }
-  .timeline-node:hover .node-year {
-    color: var(--vermillion);
-    transform: translateY(3px);
-  }
-
-  .issue-list {
+  /* 产品奇遇：一行年份，最近一年用墨色，其余用浅一级 */
+  .years {
     list-style: none;
     padding: 0;
-  }
-  .issue-row {
     display: flex;
-    align-items: baseline;
-    gap: 18px;
-    padding: 12px 4px;
-    border-bottom: 1px dashed var(--hairline-strong);
-    padding-left: 8px;
-    padding-right: 8px;
-    transition: background-color 0.2s ease;
+    flex-wrap: wrap;
+    gap: 12px 32px;
   }
-  .issue-title {
-    transition: color 0.2s ease;
-  }
-  .issue-no {
-    color: var(--ink-3);
-    flex-shrink: 0;
+  .year {
+    font-size: 15px;
     transition: color 0.25s ease;
   }
-  .issue-title {
-    flex: 1;
-    font-size: 15px;
+  .year.current {
     color: var(--ink);
   }
-  .issue-arrow {
-    color: var(--ink-3);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
-  }
-  .issue-row::before {
-    content: '>';
-    font-family: var(--mono);
-    width: 0;
-    overflow: hidden;
+  .year:hover {
     color: var(--vermillion);
-    transition: width 0.15s steps(2);
-  }
-  .issue-row:hover {
-    background: var(--tint);
-  }
-  .issue-row:hover::before {
-    width: 1ch;
-  }
-  .issue-row:hover .issue-title {
-    color: var(--vermillion);
-  }
-  .issue-row:hover .issue-no {
-    color: var(--vermillion);
-  }
-  .issue-row:hover .issue-arrow {
-    color: var(--vermillion);
-    transform: translateX(5px);
   }
 
-  .essay-group {
-    margin-bottom: 40px;
+  /* 项目与参考：没有边框的文字块，靠网格间距分组 */
+  .block-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 36px 48px;
+  }
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .block-title {
+    font-size: 16px;
+    transition: color 0.25s ease;
+  }
+  .block-title .arrow {
+    display: inline-block;
+    color: var(--ink-2);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+  }
+  .block-desc {
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.7;
+  }
+  .block:hover .block-title,
+  .block:hover .block-title .arrow {
+    color: var(--vermillion);
+  }
+  .block:hover .block-title .arrow {
+    transform: translateX(3px);
+  }
+
+  .lab-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 24px;
+  }
+  @media (max-width: 860px) {
+    .lab-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .lab-grid { grid-template-columns: 1fr; }
+  }
+  .lab-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lab-thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .lab-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(1);
+    transition: filter 0.3s ease;
+  }
+  .lab-card:hover .lab-thumb img {
+    filter: none;
+  }
+  /* 亮/暗两张截图按当前主题只显示一张；懒加载的图片在 display:none 时不会下载 */
+  .lab-thumb .thumb-dark {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-light { display: none; }
+    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-dark { display: block; }
+  }
+  :global(:root[data-theme='dark']) .lab-thumb .thumb-light { display: none; }
+  :global(:root[data-theme='dark']) .lab-thumb .thumb-dark { display: block; }
+  .lab-title {
+    font-size: 14px;
+    line-height: 1.45;
+    transition: color 0.25s ease;
+  }
+  .lab-date {
+    font-size: 12px;
+  }
+  .lab-card:hover .lab-title {
+    color: var(--vermillion);
+  }
+
+  /* 文章与启发：只有标题，悬停变红 */
+  .essay-group + .essay-group {
+    margin-top: 40px;
   }
   .essay-year {
     font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-2);
-    margin-bottom: 18px;
-    letter-spacing: 0.14em;
+    margin-bottom: 12px;
   }
   .essay-list {
     list-style: none;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 4px 56px;
+    gap: 0 56px;
   }
-  .essay-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding: 7px 0;
-    font-size: 14px;
+  .issue-list {
+    list-style: none;
+    padding: 0;
+  }
+  .row {
+    display: block;
+    padding: 6px 0;
+    font-size: 15px;
+    transition: color 0.25s ease;
+  }
+  .row .arrow {
     color: var(--ink-2);
-    position: relative;
   }
-  .essay-row .essay-title {
-    transition: color 0.25s ease;
-  }
-  .leader {
-    flex: 1;
-    min-width: 2ch;
-    overflow: hidden;
-    white-space: nowrap;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-3);
-  }
-  .leader::before {
-    content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .';
-  }
-  .essay-no {
-    color: var(--ink-3);
-    font-size: 11px;
-    white-space: nowrap;
-    transition: color 0.25s ease;
-  }
-  .essay-row:hover .essay-title {
-    color: var(--vermillion);
-  }
-  .essay-row:hover .essay-no {
-    color: var(--vermillion);
-  }
-  .essay-row:hover .leader {
+  .row:hover,
+  .row:hover .arrow {
     color: var(--vermillion);
   }
 
@@ -842,266 +593,19 @@ const navLinks = [
     }
   }
   .list-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 18px;
+    margin-top: 16px;
     padding: 6px 0;
     background: none;
     border: none;
-    border-bottom: 1px dotted var(--hairline-strong);
     cursor: pointer;
-    color: var(--ink-2);
-    transition: color 0.25s ease, border-color 0.25s ease;
-  }
-  .toggle-plus::before { content: '['; }
-  .toggle-plus::after { content: ']'; }
-  .toggle-plus {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1;
-    color: var(--ink-3);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
+    transition: color 0.25s ease;
   }
   .list-toggle:hover {
     color: var(--vermillion);
-    border-bottom-color: var(--vermillion);
-  }
-  .list-toggle:hover .toggle-plus {
-    color: var(--vermillion);
-  }
-  .expanded + .list-toggle .toggle-plus {
-    font-size: 0;
-  }
-  .expanded + .list-toggle .toggle-plus::before {
-    content: '[-]';
-    font-size: 14px;
-  }
-
-  .ref-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-  .ref-card {
-    position: relative;
-    border: 1px dashed var(--hairline-strong);
-    background-clip: padding-box;
-    padding: 26px 24px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-  .tick {
-    position: absolute;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--ink-3);
-    line-height: 1;
-    transition: color 0.3s ease;
-  }
-  .tick-tl { top: -7px; left: -5px; }
-  .tick-tr { top: -7px; right: -5px; }
-  .tick-bl { bottom: -7px; left: -5px; }
-  .tick-br { bottom: -7px; right: -5px; }
-  .ref-label {
-    letter-spacing: 0.16em;
-  }
-  .ref-title {
-    font-size: 16px;
-  }
-  .ref-desc {
-    font-size: 13px;
-    color: var(--ink-2);
-    line-height: 1.7;
-    flex: 1;
-  }
-  .ref-go {
-    color: var(--ink-3);
-    margin-top: 8px;
-    transition: color 0.25s ease;
-  }
-  .ref-go .arrow {
-    display: inline-block;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  /* 卡片悬停：淡底色 + 标题、角标、箭头变红，其余文字保持原色 */
-  .ref-card:hover,
-  .project-card:hover {
-    background: var(--tint);
-    border-color: var(--ink-3);
-  }
-  .ref-card:hover :is(.tick, .ref-title, .ref-go),
-  .project-card:hover :is(.tick, .project-name) {
-    color: var(--vermillion);
-  }
-  .ref-card:hover .ref-go .arrow {
-    transform: translateX(4px);
-  }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-  }
-  .project-card {
-    position: relative;
-    border: 1px dashed var(--hairline-strong);
-    padding: 24px 22px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-  .project-domain {
-    letter-spacing: 0.1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    transition: color 0.25s ease;
-  }
-  .project-arrow {
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .project-name {
-    font-size: 16px;
-  }
-  .project-desc {
-    font-size: 13px;
-    color: var(--ink-2);
-    line-height: 1.7;
-    flex: 1;
-  }
-
-  .project-card:hover .project-arrow {
-    transform: translate(2px, -2px);
-  }
-
-  .lab-grid {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px 24px;
-  }
-  @media (max-width: 860px) {
-    .lab-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 480px) {
-    .lab-grid { grid-template-columns: 1fr; }
-  }
-  .lab-card {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .lab-thumb {
-    aspect-ratio: 16 / 10;
-    border: 1px dashed var(--hairline-strong);
-    background: color-mix(in srgb, var(--ink) 4%, transparent);
-    overflow: hidden;
-    margin-bottom: 6px;
-    transition: border-color 0.3s ease;
-  }
-  .lab-thumb img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    filter: grayscale(1) contrast(1.05);
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
-  }
-  .lab-card:hover .lab-thumb img {
-    filter: none;
-  }
-  /* 亮/暗两张截图按当前主题只显示一张；懒加载的图片在 display:none 时不会下载 */
-  .lab-thumb .thumb-dark {
-    display: none;
-  }
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-light { display: none; }
-    :global(:root:not([data-theme='light'])) .lab-thumb .thumb-dark { display: block; }
-  }
-  :global(:root[data-theme='dark']) .lab-thumb .thumb-light { display: none; }
-  :global(:root[data-theme='dark']) .lab-thumb .thumb-dark { display: block; }
-  .lab-date {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 12px;
-    color: var(--ink-3);
-    transition: color 0.25s ease;
-  }
-  .lab-arrow {
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .lab-title {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-  .lab-card:hover .lab-thumb {
-    border-color: var(--vermillion);
-  }
-  .lab-card:hover .lab-thumb img {
-    transform: scale(1.03);
-  }
-  .lab-card:hover .lab-date {
-    color: var(--vermillion);
-  }
-  .lab-card:hover .lab-arrow {
-    transform: translate(2px, -2px);
-  }
-  .lab-all {
-    display: inline-block;
-    margin-top: 32px;
-    color: var(--ink-2);
-    border-bottom: 1px dotted var(--hairline-strong);
-    padding-bottom: 2px;
   }
 
   .footer {
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid var(--hairline);
     padding: 72px 0 48px;
-    --dot: color-mix(in srgb, var(--ink) 5%, transparent);
-  }
-  #ascii-field {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    color: var(--ink);
-    opacity: 0.35;
-  }
-  /* 文字在字符场里"挖"出一块纸面 */
-  .contact-label,
-  .contact-value,
-  .footer-motto,
-  .footer .section-label .index-no,
-  .footer .section-label {
-    background: var(--paper);
-    box-shadow: 0 0 0 4px var(--paper);
-  }
-  .contact-item {
-    align-items: flex-start;
-  }
-  .footer-motto {
-    width: fit-content;
-  }
-  .licenses {
-    white-space: nowrap;
-    border-bottom: 1px dotted var(--hairline-strong);
-  }
-  .licenses:hover {
-    color: var(--vermillion);
-  }
-  .footer .wrap {
-    position: relative;
   }
   .contact-list {
     list-style: none;
@@ -1113,66 +617,49 @@ const navLinks = [
   .contact-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    align-items: flex-start;
+    gap: 2px;
   }
   .contact-label {
-    font-size: 11px;
-    letter-spacing: 0.16em;
+    font-size: 12px;
   }
   .contact-value {
     font-size: 15px;
-    color: var(--ink);
   }
-  a.contact-value:hover {
-    color: var(--vermillion);
-  }
-  .footer-motto {
+  .footer-links {
     margin-top: 56px;
-    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+  .footer-links a {
+    transition: color 0.25s ease;
+  }
+  .footer-links a:hover {
+    color: var(--vermillion);
   }
 
   @media (max-width: 720px) {
     .hero {
-      padding: 36px 0 56px;
-    }
-    .cover {
-      padding-bottom: 110px;
+      padding: 56px 0 48px;
     }
     .hero-body {
       grid-template-columns: 1fr;
-      gap: 28px;
     }
-    .hero-hello,
-    .hero-text,
-    .hero-art {
-      grid-column: 1;
-      grid-row: auto;
+    .cover {
+      padding-bottom: 110px;
     }
     .section {
       padding: 56px 0;
     }
   }
-  @media (max-width: 480px) {
-    .timeline {
-      padding-top: 30px;
-    }
-    .timeline-rail {
-      top: 35.5px;
-    }
-  }
 </style>
 
 <script>
-  import { initScramble } from '../scripts/interactions.js';
-  import { initAsciiField } from '../scripts/ascii-field.js';
   import { initMatrixField } from '../scripts/matrix-field.js';
   import { mount } from '../scripts/figures/engine.js';
-  import { annual } from '../scripts/figures/annual.js';
-  import { beaker } from '../scripts/figures/beaker.js';
   import { typewriter } from '../scripts/figures/typewriter.js';
-  import { prism } from '../scripts/figures/prism.js';
 
-  initScramble(document.querySelectorAll('.scramble'));
   initMatrixField(document.getElementById('cover-rain'));
 
   // 封面：点提示或在封面上按回车，平滑滚到正文（不改地址栏）
@@ -1190,7 +677,6 @@ const navLinks = [
     e.preventDefault();
     toContent();
   });
-  initAsciiField(document.getElementById('ascii-field'));
 
   // 文章与启发：列表进入视野后逐条浮现，每条错开 0.12 秒
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1212,39 +698,23 @@ const navLinks = [
     });
   }
 
-  // 每个区块的线稿图形：指针在整个区块里移动都算"靠近"
-  const figures = { annual, beaker, typewriter, prism };
-  document.querySelectorAll('.fig').forEach((el) => {
-    const make = figures[el.dataset.fig];
-    if (make) mount(el, make(), { trigger: el.closest('section, footer') });
-  });
+  // 打字机线稿：指针在整个区块里移动都算"靠近"
+  document.querySelectorAll('.fig').forEach((el) => mount(el, typewriter(), { trigger: el.closest('section') }));
 
 
-  // 灵光：随机抽三条短记，进入视野后依次慢慢浮现；「看看别的」先淡出再换上没看过的三条，抽完一轮再洗牌
+  // 灵光：每次访问随机抽三条短记，进入视野后依次慢慢浮现
   {
     const list = document.getElementById('draw-list');
-    const more = document.getElementById('draw-more');
     const pool = JSON.parse(document.getElementById('notes-data').textContent);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const COUNT = 3;
-    let deck = [];
-    let shown = [];
-    let swap = 0;
-
-    const shuffle = (a) => {
+    const draw = () => {
+      const a = [...pool];
       for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
       }
-      return a;
-    };
-    const draw = () => {
-      if (deck.length < COUNT) {
-        const rest = pool.filter((n) => !shown.includes(n) && !deck.includes(n));
-        deck = deck.concat(shuffle(rest));
-      }
-      shown = deck.splice(0, COUNT);
-      return shown;
+      return a.slice(0, COUNT);
     };
 
     const render = (items) => {
@@ -1271,16 +741,6 @@ const navLinks = [
 
     list.classList.add('veiled');
     render(draw());
-    more.hidden = false;
-    more.addEventListener('click', () => {
-      const id = ++swap;
-      list.classList.add('veiled');
-      setTimeout(() => {
-        if (id !== swap) return;
-        render(draw());
-        reveal();
-      }, reduce ? 0 : 600);
-    });
     const io = new IntersectionObserver(
       ([e]) => {
         if (!e.isIntersecting) return;
@@ -1308,7 +768,7 @@ const navLinks = [
     btn.addEventListener('click', () => {
       const expanded = list.classList.toggle('expanded');
       btn.setAttribute('aria-expanded', String(expanded));
-      btn.querySelector('.toggle-text').textContent = expanded
+      btn.textContent = expanded
         ? '收起'
         : `展开其余 ${btn.dataset.count} ${btn.dataset.unit}`;
       if (!expanded) list.scrollIntoView({ block: 'nearest' });

@@ -161,18 +161,16 @@ const trendLines = data.trend.artists.map((a) => {
   if (i > 0) a.y = Math.max(a.y, arr[i - 1].y + 12);
 });
 
-const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN_DAYS} 天 ──`;
+const pending = (n) => `记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN_DAYS} 天`;
 ---
 
 <Article
   title="Yishan ⨯ Spotify"
   docTitle="Yishan ⨯ Spotify"
-  kicker="LISTEN — 在听"
   date={data.generated_at}
   description="我在 Spotify 上的收听记录：艺人名次的变化、歌曲的更替、唱片从哪里来、每天听多少。"
 >
   <div class="ls-intro">
-    <div class="fig" data-fig="turntable"></div>
     <p>我的 Spotify 收听记录</p>
     <p class="mono ls-stats">
       <span><b>{data.plays}</b> 次播放</span>
@@ -183,7 +181,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </div>
 
   <section class="ls-sec" aria-labelledby="ls-01">
-    <h2 class="ls-h" id="ls-01"><span class="index-no">01</span> 艺人名次变化</h2>
+    <h2 class="ls-h" id="ls-01">艺人名次变化</h2>
     <p class="ls-sub">Spotify 按三个时间段给出最常听的艺人。左边是约一年，右边是最近四周；同一位艺人在相邻两列之间连线。</p>
     <div class="ls-scroll ls-fig">
       <div class="bump" style={`--rows: ${ROWS}; --row: ${ROW_H}px`}>
@@ -197,7 +195,6 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
                 <li class:list={['bump-row', { all: a.all }]} data-a={a.id}>
                   <span class="mono bump-rank">{pad(a.rank)}</span>
                   <span class="bump-name" title={a.name}>{a.name}</span>
-                  {a.fresh && <span class="mono bump-new" title="中期和长期榜里都没有">新</span>}
                 </li>
               ))}
             </ol>
@@ -218,7 +215,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-02">
-    <h2 class="ls-h" id="ls-02"><span class="index-no">02</span> 流派</h2>
+    <h2 class="ls-h" id="ls-02">流派</h2>
     <p class="ls-sub">
       同样三个时间段，每位艺人按 MusicBrainz 上大家投票的流派标签归到大类，一位艺人可以分在几类里。条越长，这一类在那个时段的艺人里占得越多。
     </p>
@@ -248,12 +245,12 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
         </p>
       </>
     ) : (
-      <p class="mono ls-pending">── 流派数据还没有查到 ──</p>
+      <p class="mono ls-pending">流派数据还没有查到</p>
     )}
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-03">
-    <h2 class="ls-h" id="ls-03"><span class="index-no">03</span> 唱片登记地</h2>
+    <h2 class="ls-h" id="ls-03">唱片登记地</h2>
     <p class="ls-sub">每首歌都有一个国际标准录音代码（ISRC），前两位是唱片登记的国家或地区。三个时段的歌合在一起，共 {ccTotal} 首。</p>
     <ul class="mono cc ls-fig">
       {ccRows.map((r) => (
@@ -269,7 +266,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-04">
-    <h2 class="ls-h" id="ls-04"><span class="index-no">04</span> 发行年代</h2>
+    <h2 class="ls-h" id="ls-04">发行年代</h2>
     <p class="ls-sub">同一批歌，按发行年份叠起来，一个点一首。</p>
     <div class="ls-scroll ls-fig">
       <svg class="years" viewBox={`0 0 ${TW} ${YH}`} role="img" aria-label={`${dated.length} 首歌的发行年份，${recent} 首发行于 2020 年以后`}>
@@ -291,7 +288,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-05">
-    <h2 class="ls-h" id="ls-05"><span class="index-no">05</span> 每天听多少</h2>
+    <h2 class="ls-h" id="ls-05">每天听多少</h2>
     <p class="ls-sub">从开始记录那天起，一列一天。</p>
     <figure class="density ls-fig" aria-label={`每天的播放次数：${dot(data.since)} — ${dot(data.until)}`}>
       <div class="density-cols" style={`--peak: ${Math.ceil(dailyPeak / unit)}`}>
@@ -312,7 +309,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-06">
-    <h2 class="ls-h" id="ls-06"><span class="index-no">06</span> 一周里的什么时候</h2>
+    <h2 class="ls-h" id="ls-06">一周里的什么时候</h2>
     <p class="ls-sub">星期 × 24 小时，格子越深听得越多。</p>
     {ready ? (
       <>
@@ -336,7 +333,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-07">
-    <h2 class="ls-h" id="ls-07"><span class="index-no">07</span> 实际放得最多</h2>
+    <h2 class="ls-h" id="ls-07">实际放得最多</h2>
     <p class="ls-sub">按这份记录数播放次数，和 Spotify 短期榜的名次对照。</p>
     {ready ? (
       <>
@@ -358,7 +355,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-08">
-    <h2 class="ls-h" id="ls-08"><span class="index-no">08</span> 名次走势</h2>
+    <h2 class="ls-h" id="ls-08">名次走势</h2>
     <p class="ls-sub">每天记一次短期榜，看现在前十的艺人是怎么上来的。</p>
     {trendReady ? (
       <>
@@ -399,7 +396,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     gap: 6px 22px;
     margin-top: 20px;
     font-size: 13px;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .ls-stats b {
     font-weight: 500;
@@ -417,9 +414,6 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     color: var(--ink);
     margin: 0 0 10px;
   }
-  .ls-h .index-no {
-    margin-right: 0.6ch;
-  }
   :global(.prose) .ls-sub {
     font-size: 14px;
     color: var(--ink-2);
@@ -429,17 +423,13 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     margin: 18px 0 0;
     font-size: 12px;
     line-height: 1.8;
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0.04em;
   }
   :global(.prose) .ls-pending {
     margin: 0;
-    padding: 28px 0;
-    text-align: center;
     font-size: 12px;
-    color: var(--ink-3);
-    border-top: 1px dotted var(--hairline-strong);
-    border-bottom: 1px dotted var(--hairline-strong);
+    color: var(--ink-2);
   }
   /* 图比手机屏宽时横向滚动，不把字缩到看不清 */
   .ls-scroll {
@@ -466,7 +456,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   .bump-head:nth-child(2) { grid-column: 3; }
   .bump-head:nth-child(3) { grid-column: 5; }
   .bump-head span {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   :global(.prose) .bump-col {
     grid-row: 2;
@@ -482,17 +472,8 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     height: var(--row);
     margin: 0;
     line-height: var(--row);
-    color: var(--ink-3);
+    color: var(--ink-2);
     transition: color 0.25s ease, opacity 0.25s ease;
-  }
-  /* 前两列名字后面用点线引到连线起点 */
-  .bump-col-0 .bump-row::after,
-  .bump-col-1 .bump-row::after {
-    content: '';
-    flex: 1 0 8px;
-    align-self: center;
-    border-bottom: 1px dotted var(--hairline);
-    margin-left: 4px;
   }
   .bump-row.all {
     color: var(--ink);
@@ -500,18 +481,13 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   .bump-rank {
     font-size: 11px;
     letter-spacing: 0;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .bump-name {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .bump-new {
-    font-size: 10px;
-    color: var(--vermillion);
-    letter-spacing: 0;
   }
   .bump-links {
     grid-row: 2;
@@ -521,7 +497,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   }
   .bump-link {
     fill: none;
-    stroke: var(--ink-3);
+    stroke: var(--ink-2);
     stroke-width: 1;
     stroke-dasharray: 2 3;
     transition: stroke 0.25s ease, opacity 0.25s ease;
@@ -529,10 +505,6 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   .bump-link.all {
     stroke: var(--ink-2);
     stroke-dasharray: none;
-  }
-  .bump.hovering .bump-row:not(.on),
-  .bump.hovering .bump-link:not(.on) {
-    opacity: 0.25;
   }
   .bump .bump-row.on {
     color: var(--vermillion);
@@ -580,7 +552,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     white-space: nowrap;
   }
   .genre-bar {
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0;
   }
   /* 网格每行 4 格，第 4 格是短期：最近的一列颜色深一些 */
@@ -588,7 +560,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     color: var(--ink-2);
   }
   .genre-pct {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
 
   /* 03 唱片登记地：ASCII 横条 */
@@ -618,7 +590,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     text-overflow: ellipsis;
   }
   .cc-bar {
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -631,17 +603,17 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     color: var(--ink);
   }
   .cc-pct {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
 
   /* 04 发行年代 */
   .years-axis,
   .years-tick {
-    stroke: var(--hairline-strong);
+    stroke: var(--ink-2);
   }
   .years-label {
     font-size: 11px;
-    fill: var(--ink-3);
+    fill: var(--ink-2);
   }
   .years-dot {
     fill: var(--ink-2);
@@ -662,7 +634,6 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     display: flex;
     gap: 2px;
     padding-bottom: 22px;
-    border-bottom: 1px dotted var(--hairline-strong);
     overflow-x: auto;
   }
   .density-col {
@@ -674,7 +645,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     justify-content: flex-end;
     min-height: calc(var(--peak) * 11px + 28px);
     font-size: 12px;
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .density-dots {
     display: flex;
@@ -687,7 +658,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     font-style: normal;
   }
   .density-dots i.empty {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
   .density-col:hover .density-dots {
     color: var(--vermillion);
@@ -720,12 +691,12 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
   }
   .week-h {
     font-size: 10px;
-    color: var(--ink-3);
+    color: var(--ink-2);
     text-align: left;
   }
   .week-d {
     font-size: 12px;
-    color: var(--ink-3);
+    color: var(--ink-2);
     text-align: left;
   }
   .week-c:hover {
@@ -757,7 +728,7 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     text-overflow: ellipsis;
   }
   .plays-bar {
-    color: var(--ink-3);
+    color: var(--ink-2);
     letter-spacing: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -767,21 +738,21 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     color: var(--ink);
   }
   .plays-rank {
-    color: var(--ink-3);
+    color: var(--ink-2);
   }
 
   /* 08 名次走势 */
   .trend-grid {
-    stroke: var(--hairline);
+    display: none;
   }
   .trend-axis {
     font-size: 10px;
-    fill: var(--ink-3);
+    fill: var(--ink-2);
     text-anchor: end;
   }
   .trend-line path {
     fill: none;
-    stroke: var(--ink-3);
+    stroke: var(--ink-2);
     stroke-width: 1.2;
     transition: stroke 0.25s ease;
   }
@@ -796,66 +767,18 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
     fill: var(--vermillion);
   }
 
-  /* 唱机线稿：浮在开头说明的右侧，和首页的图形同一套线宽与配色；窄屏隐藏 */
-  .fig {
-    float: right;
-    width: 170px;
-    margin: -8px 0 12px 32px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    --fg-plate: var(--paper);
-    --fg-hi: var(--ink);
-    --fg-edge: color-mix(in srgb, var(--ink) 55%, transparent);
-    --fg-mid: color-mix(in srgb, var(--ink) 32%, transparent);
-    --fg-lo: color-mix(in srgb, var(--ink) 16%, transparent);
-  }
-  .fig :global(svg) {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .fig :global(:is(polygon, polyline, line, circle)) {
-    fill: var(--fg-plate);
-    stroke: var(--fg-mid);
-    stroke-width: 0.9;
-    vector-effect: non-scaling-stroke;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
-  .fig :global(.fo) {
-    stroke: var(--fg-plate);
-    stroke-width: 0.6;
-  }
-  .fig :global(.nf) { fill: none; }
-  .fig :global(.sil) { stroke: var(--fg-edge); }
-  .fig :global(.lo) { stroke: var(--fg-lo); }
-  .fig :global(.hi) { stroke: var(--fg-hi); }
-  .fig :global(.accent) { stroke: var(--vermillion); }
-  .fig :global(.fo.accent) { fill: var(--vermillion); }
-  .ls-intro::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-
-  /* 每张图进入视野后从淡、微糊里浮现，0.6 秒。只有脚本加上 .rv 才隐藏 */
+  /* 每张图进入视野后从淡里浮现，0.6 秒。只有脚本加上 .rv 才隐藏 */
   .rv .ls-fig {
     opacity: 0;
-    filter: blur(3px);
     translate: 0 4px;
-    transition: opacity 0.6s ease, filter 0.6s ease, translate 0.6s ease;
+    transition: opacity 0.6s ease, translate 0.6s ease;
   }
   .rv.rv-in .ls-fig {
     opacity: 1;
-    filter: none;
     translate: 0 0;
   }
 
   @media (max-width: 720px) {
-    .fig {
-      display: none;
-    }
     .density-col {
       flex-basis: 14px;
     }
@@ -866,12 +789,6 @@ const pending = (n) => `── 记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN
 </style>
 
 <script>
-  import { mount } from '../scripts/figures/engine.js';
-  import { turntable } from '../scripts/figures/turntable.js';
-
-  const fig = document.querySelector('.fig[data-fig="turntable"]');
-  mount(fig, turntable(), { trigger: fig.closest('.ls-intro') });
-
   // 01 / 08：指向某位艺人时，只高亮这一个人的名字和连线
   document.querySelectorAll('.bump').forEach((bump) => {
     const set = (id) => {
