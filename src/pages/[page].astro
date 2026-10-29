@@ -14,7 +14,6 @@ const { Content } = await render(entry);
 <Article
   title={entry.data.title}
   date={entry.data.latest ?? entry.data.created ?? entry.data.date}
-  tags={entry.data.tags}
   description={entry.data.description}
 >
   <Content />

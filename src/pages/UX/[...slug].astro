@@ -9,14 +9,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const series = entry.id.startsWith('ADE/') ? 'ADE 无障碍动态元素' : '用户体验定律';
 ---
 
 <Article
-  kicker={`参考文本 — ${series}`}
   title={entry.data.title}
   date={entry.data.latest ?? entry.data.date}
-  tags={entry.data.tags}
   description={entry.data.description}
 >
   <Content />

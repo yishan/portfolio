@@ -2,12 +2,10 @@
 import Article from '../layouts/Article.astro';
 import { resume } from '../data/resume.js';
 
-const pad = (n) => String(n).padStart(2, '0');
 ---
 
 <Article
   title={resume.name}
-  kicker="RESUME — 简历"
   description={`${resume.name} · ${resume.headline}`}
 >
   <div class="resume">
@@ -16,18 +14,16 @@ const pad = (n) => String(n).padStart(2, '0');
       <a href={`mailto:${resume.email}`}>{resume.email}</a>
     </p>
 
-    <h2 class="section-label r-label"><span class="index-no">01</span> 个人优势 — STRENGTHS</h2>
-    <ol class="r-list r-numbered">
-      {resume.strengths.map((s, i) => (
-        <li><span class="mono r-mark">{pad(i + 1)}</span>{s}</li>
-      ))}
-    </ol>
+    <h2 class="section-label r-label">个人优势</h2>
+    <ul class="r-list">
+      {resume.strengths.map((s) => <li><span class="mono r-mark">-</span>{s}</li>)}
+    </ul>
 
-    <h2 class="section-label r-label"><span class="index-no">02</span> 工作经历 — EXPERIENCE</h2>
+    <h2 class="section-label r-label">工作经历</h2>
     {resume.work.map((w) => (
       <div class="r-entry">
         <p class="mono r-period">{w.period}</p>
-        <h3 class="r-title">{w.org} <span class="r-role">/ {w.role}</span></h3>
+        <h3 class="r-title">{w.org} <span class="r-role">{w.role}</span></h3>
         <ul class="r-list">
           {w.duties.map((d) => <li><span class="mono r-mark">-</span>{d}</li>)}
         </ul>
@@ -35,18 +31,18 @@ const pad = (n) => String(n).padStart(2, '0');
           <>
             <p class="mono r-sub">业绩</p>
             <ul class="r-list">
-              {w.results.map((r) => <li><span class="mono r-mark">+</span>{r}</li>)}
+              {w.results.map((r) => <li><span class="mono r-mark">-</span>{r}</li>)}
             </ul>
           </>
         )}
       </div>
     ))}
 
-    <h2 class="section-label r-label"><span class="index-no">03</span> 项目经历 — PROJECTS</h2>
+    <h2 class="section-label r-label">项目经历</h2>
     {resume.projects.map((p) => (
       <div class="r-entry">
         <p class="mono r-period">{p.period}</p>
-        <h3 class="r-title">{p.name} <span class="r-role">/ {p.role}</span></h3>
+        <h3 class="r-title">{p.name} <span class="r-role">{p.role}</span></h3>
         {p.about && <p class="r-about">{p.about}</p>}
         {p.points && (
           <ul class="r-list">
@@ -56,18 +52,18 @@ const pad = (n) => String(n).padStart(2, '0');
       </div>
     ))}
 
-    <h2 class="section-label r-label"><span class="index-no">04</span> 教育经历 — EDUCATION</h2>
+    <h2 class="section-label r-label">教育经历</h2>
     {resume.education.map((e) => (
       <div class="r-entry">
         <p class="mono r-period">{e.period}</p>
-        <h3 class="r-title">{e.school} <span class="r-role">/ {e.degree}</span></h3>
+        <h3 class="r-title">{e.school} <span class="r-role">{e.degree}</span></h3>
       </div>
     ))}
   </div>
 </Article>
 
 <style>
-  /* 纯文本简历：只用字符、细线和等宽字体，不加卡片与图片 */
+  /* 纯文本简历：只用文字和留白，不加卡片、分割线与编号 */
   .resume {
     font-size: 15px;
   }
@@ -79,16 +75,16 @@ const pad = (n) => String(n).padStart(2, '0');
     color: var(--ink-2);
   }
   .resume .r-meta a {
+    text-decoration: none;
+  }
+  .resume .r-meta a:hover {
     color: var(--vermillion);
-    border-bottom: 1px dotted var(--hairline-strong);
   }
   .resume .r-label {
     font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 13px;
     line-height: 1.75;
-    color: var(--ink-2);
-    margin: 64px 0 28px;
+    margin: 64px 0 24px;
   }
   .resume .r-list {
     list-style: none;
@@ -106,22 +102,13 @@ const pad = (n) => String(n).padStart(2, '0');
     flex-shrink: 0;
     line-height: inherit;
     padding-top: 0.15em;
-    color: var(--ink-3);
-  }
-  .resume .r-numbered .r-mark {
-    color: var(--vermillion);
+    color: var(--ink-2);
   }
   .resume .r-entry {
-    padding: 0 0 28px;
-    margin: 0 0 28px;
-    border-bottom: 1px dashed var(--hairline-strong);
-  }
-  .resume .r-entry:last-of-type {
-    border-bottom: none;
+    margin: 0 0 40px;
   }
   .resume .r-period {
     margin: 0 0 4px;
-    color: var(--ink-3);
   }
   .resume .r-title {
     font-family: var(--mono);
@@ -131,6 +118,7 @@ const pad = (n) => String(n).padStart(2, '0');
     margin: 0 0 14px;
   }
   .resume .r-role {
+    margin-left: 1ch;
     font-weight: 400;
     color: var(--ink-2);
   }
@@ -141,7 +129,5 @@ const pad = (n) => String(n).padStart(2, '0');
   }
   .resume .r-sub {
     margin: 14px 0 6px;
-    color: var(--vermillion);
-    letter-spacing: 0.16em;
   }
 </style>

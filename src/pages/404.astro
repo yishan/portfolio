@@ -12,7 +12,7 @@ import Ascii from 'ascii.rest/astro';
         label="404：页面不存在"
       />
     </div>
-    <p class="mono nf-line">$ cd ~ <span class="nf-hint"># 这个页面不存在或已经搬走</span></p>
+    <p class="nf-line">这个页面不存在或已经搬走。</p>
     <a class="mono arrow-link nf-home" href="/">返回首页 <span class="arrow">→</span></a>
   </main>
 </Base>
@@ -42,14 +42,9 @@ import Ascii from 'ascii.rest/astro';
     font: inherit;
   }
   .nf-line {
-    font-size: 13px;
-    color: var(--ink);
-  }
-  .nf-hint {
-    color: var(--ink-3);
+    font-size: 15px;
   }
   .nf-home {
     font-size: 13px;
-    color: var(--vermillion);
   }
 </style>
