@@ -93,7 +93,7 @@ const navLinks = [
         <h2 class="section-label">兴趣项目</h2>
         <p class="section-note">{projects.about}</p>
         <div class="block-grid">
-          {projects.items.map((p) => (
+          {projects.items.filter((p) => !p.hidden).map((p) => (
             <a class="block" href={p.href}>
               <p class="display block-title">{p.name} <span class="arrow" aria-hidden="true">↗</span></p>
               <p class="block-desc">{p.desc}</p>

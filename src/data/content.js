@@ -83,6 +83,12 @@ export const projects = {
   about: '出于兴趣做的东西，有在线工具，也有浏览器扩展和硬件配套工具。',
   items: [
     {
+      name: 'Saan Diagram',
+      domain: 'diagram.yishan.app',
+      desc: '一个 Agent Skill，把业务描述、需求文档或白板截图转成统一规范的中英文业务图示，内置 14 种图示与 50 条校验规则。',
+      href: 'https://diagram.yishan.app',
+    },
+    {
       name: 'Cover-Arts 玩法管理器',
       domain: 'calm.yishan.app',
       desc: '为 AI Passport 设备管理玩法库：在浏览器里连接设备，给每个玩法配置名称与封面，并按固件大小自动分配存储空间。',
@@ -117,12 +123,7 @@ export const projects = {
       domain: 'tu.yishan.app',
       desc: '在线将多张图片无缝拼接成一张长图，支持拖拽与粘贴上传，无需下载安装。',
       href: 'https://tu.yishan.app',
-    },
-    {
-      name: '联行号查询工具',
-      domain: 'bank.yishan.app',
-      desc: '中国银行联行号（CNAPS）在线查询，支持按关键词与省、市、区县筛选。',
-      href: 'https://bank.yishan.app',
+      hidden: true,
     },
   ],
 };
