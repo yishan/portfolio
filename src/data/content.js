@@ -83,10 +83,16 @@ export const projects = {
   about: '出于兴趣做的东西，有在线工具，也有浏览器扩展和硬件配套工具。',
   items: [
     {
-      name: 'Saan Diagram',
-      domain: 'diagram.yishan.app',
-      desc: '一个 Agent Skill，把业务描述、需求文档或白板截图转成统一规范的中英文业务图示，内置 14 种图示与 50 条校验规则。',
-      href: 'https://diagram.yishan.app',
+      name: 'Saan Kits',
+      domain: 'kits.yishan.app',
+      desc: '一组 Agent Skills，覆盖问题梳理、调研准备、需求文档、评审原型与业务图示，按需安装到你的 AI 助手。',
+      href: 'https://kits.yishan.app',
+    },
+    {
+      name: '字感 Type Feel',
+      domain: 'typefeel.app',
+      desc: '英文、中文、粤语沉浸式打字练习，带拼音与粤拼提示和机械键盘音效，练习记录只存在本机。',
+      href: 'https://typefeel.app',
     },
     {
       name: 'Cover-Arts 玩法管理器',
