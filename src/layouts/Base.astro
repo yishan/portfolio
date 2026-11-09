@@ -42,5 +42,9 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
   </head>
   <body>
     <slot />
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </body>
 </html>
