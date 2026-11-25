@@ -1,0 +1,18 @@
+// yishan.li 的数据收集：Spotify 收听记录和微信读书。定时任务都按 UTC 写，北京时间 = UTC + 8。
+{
+  "name": "yishan-collect",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "d1_databases": [
+    // database_id 由 `wrangler d1 create yishan-collect` 生成后填入
+    { "binding": "DB", "database_name": "yishan-collect", "database_id": "00000000-0000-0000-0000-000000000000" }
+  ],
+  "triggers": {
+    "crons": [
+      "10 * * * *", // 每小时：最近播放 + 补几位艺人的流派 + 重算 listen.json
+      "20 16 * * *", // 每天 00:20：Spotify 榜单快照，生成 listen.json
+      "30 16 * * *" // 每天 00:30：微信读书，生成 read.json
+    ]
+  },
+  "observability": { "enabled": true }
+}

@@ -1,8 +1,13 @@
 ---
-import Article from '../layouts/Article.astro';
-import data from '../data/listen.json';
+export const prerender = false;
 
-// 数据由 scripts/listen-data.mjs 每天生成一次。积累不满 MIN_DAYS 天的部分先显示「记录中」
+import Article from '../layouts/Article.astro';
+import { getListen } from '../data/collected.js';
+
+const data = await getListen();
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+
+// 数据由 Cloudflare Worker（workers/collect）收集生成。积累不满 MIN_DAYS 天的部分先显示「记录中」
 const MIN_DAYS = 14;
 const TERMS = [
   { key: 'long_term', label: '长期', span: '约一年' },
@@ -10,7 +15,7 @@ const TERMS = [
   { key: 'short_term', label: '短期', span: '约四周' },
 ];
 const pad = (n) => String(n).padStart(2, '0');
-const dot = (date) => date.replaceAll('-', '.');
+const dot = (date) => (date ? date.replaceAll('-', '.') : '—');
 const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
 const list = (names) => names.join('、');
 const top = data.top;
@@ -90,7 +95,7 @@ const ccRows = ccSorted.slice(0, CC_SHOWN).map(([cc, n]) => ({ cc, n, label: ccL
 const ccRest = ccSorted.slice(CC_SHOWN);
 if (ccRest.length) ccRows.push({ cc: '··', n: ccRest.reduce((s, [, n]) => s + n, 0), label: `其他 ${ccRest.length} 地` });
 const ccTotal = ccRows.reduce((s, r) => s + r.n, 0);
-const ccPeak = Math.max(...ccRows.map((r) => r.n));
+const ccPeak = Math.max(1, ...ccRows.map((r) => r.n));
 const CC_BAR = 28;
 
 // 04 发行年代：每首歌一个点，按发行年份叠起来
@@ -176,7 +181,7 @@ const pending = (n) => `记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN_DAYS} 
       <span><b>{data.plays}</b> 次播放</span>
       <span><b>{data.tracks}</b> 首</span>
       <span><b>{data.artists}</b> 位艺人</span>
-      <span>{dot(data.since)} 开始记录</span>
+      <span>{data.since ? `${dot(data.since)} 开始记录` : '等待首次记录'}</span>
     </p>
   </div>
 
@@ -219,7 +224,7 @@ const pending = (n) => `记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN_DAYS} 
     <p class="ls-sub">
       同样三个时间段，每位艺人按 MusicBrainz 上大家投票的流派标签归到大类，一位艺人可以分在几类里。条越长，这一类在那个时段的艺人里占得越多。
     </p>
-    {genres ? (
+    {genres && genreRows.length ? (
       <>
         <div class="ls-scroll ls-fig">
           <div class="mono genre" role="table" aria-label="三个时段艺人的流派占比">
@@ -290,22 +295,26 @@ const pending = (n) => `记录中 · 第 ${Math.min(n, MIN_DAYS)} / ${MIN_DAYS} 
   <section class="ls-sec" aria-labelledby="ls-05">
     <h2 class="ls-h" id="ls-05">每天听多少</h2>
     <p class="ls-sub">从开始记录那天起，一列一天。</p>
-    <figure class="density ls-fig" aria-label={`每天的播放次数：${dot(data.since)} — ${dot(data.until)}`}>
-      <div class="density-cols" style={`--peak: ${Math.ceil(dailyPeak / unit)}`}>
-        {dailyCols.map((d) => (
-          <span class="mono density-col" title={`${dot(d.date)} · ${d.count} 次`}>
-            <span class="density-dots" aria-hidden="true">
-              {d.dots ? Array.from({ length: d.dots }, () => <i>•</i>) : <i class="empty">·</i>}
+    {dailyCols.length ? (
+      <figure class="density ls-fig" aria-label={`每天的播放次数：${dot(data.since)} — ${dot(data.until)}`}>
+        <div class="density-cols" style={`--peak: ${Math.ceil(dailyPeak / unit)}`}>
+          {dailyCols.map((d) => (
+            <span class="mono density-col" title={`${dot(d.date)} · ${d.count} 次`}>
+              <span class="density-dots" aria-hidden="true">
+                {d.dots ? Array.from({ length: d.dots }, () => <i>•</i>) : <i class="empty">·</i>}
+              </span>
+              <span class="density-m">{d.day}</span>
+              {d.showMonth && <span class="density-y">{d.m} 月</span>}
             </span>
-            <span class="density-m">{d.day}</span>
-            {d.showMonth && <span class="density-y">{d.m} 月</span>}
-          </span>
-        ))}
-      </div>
-      <figcaption class="mono ls-cap">
-        {unit > 1 ? `每个点约 ${unit} 次 · ` : '每个点一次 · '}{data.sources.playlist ?? 0} 次来自歌单，{data.sources.direct ?? 0} 次直接点播
-      </figcaption>
-    </figure>
+          ))}
+        </div>
+        <figcaption class="mono ls-cap">
+          {unit > 1 ? `每个点约 ${unit} 次 · ` : '每个点一次 · '}{data.sources.playlist ?? 0} 次来自歌单，{data.sources.direct ?? 0} 次直接点播
+        </figcaption>
+      </figure>
+    ) : (
+      <p class="mono ls-pending">暂无播放记录</p>
+    )}
   </section>
 
   <section class="ls-sec" aria-labelledby="ls-06">

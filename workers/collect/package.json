@@ -1,0 +1,21 @@
+{
+  "name": "collect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 execute yishan-collect --local --file schema.sql",
+    "db:migrate:remote": "wrangler d1 execute yishan-collect --remote --file schema.sql",
+    "spotify:auth": "node scripts/spotify-auth.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261121.1",
+    "wrangler": "^4.166.0"
+  }
+}

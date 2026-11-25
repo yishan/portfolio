@@ -1,8 +1,13 @@
 ---
-import Article from '../layouts/Article.astro';
-import data from '../data/read.json';
+export const prerender = false;
 
-// 数据由 scripts/read-data.mjs 从微信读书生成，私密阅读的书不在里面
+import Article from '../layouts/Article.astro';
+import { getRead } from '../data/collected.js';
+
+const data = await getRead();
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+
+// 数据由 Cloudflare Worker（workers/collect）从微信读书生成，私密阅读的书不在里面
 const pad = (n) => String(n).padStart(2, '0');
 const dot = (date) => date.replaceAll('-', '.');
 const hrs = (s) => (s >= 3600 ? `${Math.round(s / 3600)} 小时` : `${Math.max(1, Math.round(s / 60))} 分钟`);
