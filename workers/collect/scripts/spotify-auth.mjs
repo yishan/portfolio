@@ -4,7 +4,9 @@
 // 运行方式：
 //   SPOTIFY_CLIENT_ID=xxx SPOTIFY_CLIENT_SECRET=yyy node scripts/spotify-auth.mjs
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import http from 'node:http';
+import path from 'node:path';
 
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
@@ -64,10 +66,21 @@ const server = http.createServer(async (req, res) => {
     }
 
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end('<h2>Spotify 授权成功</h2><p>可以关闭此页面，回到终端查看 SPOTIFY_REFRESH_TOKEN。</p>');
-    console.log('\n授权成功！请将以下 refresh token 配置为 Worker Secret（SPOTIFY_REFRESH_TOKEN）：\n');
-    console.log(body.refresh_token);
-    console.log('');
+    res.end('<h2>Spotify 授权成功</h2><p>refresh token 已写入 .dev.vars，可以关闭此页面回到终端。</p>');
+
+    const devVarsPath = path.resolve('.dev.vars');
+    if (fs.existsSync(devVarsPath)) {
+      const content = fs.readFileSync(devVarsPath, 'utf8');
+      const next = /^SPOTIFY_REFRESH_TOKEN=.*$/m.test(content)
+        ? content.replace(/^SPOTIFY_REFRESH_TOKEN=.*$/m, `SPOTIFY_REFRESH_TOKEN=${body.refresh_token}`)
+        : `${content.trimEnd()}\nSPOTIFY_REFRESH_TOKEN=${body.refresh_token}\n`;
+      fs.writeFileSync(devVarsPath, next);
+      console.log('\n授权成功！SPOTIFY_REFRESH_TOKEN 已自动写入 .dev.vars。');
+    } else {
+      console.log('\n授权成功！请将以下 refresh token 配置为 Worker Secret（SPOTIFY_REFRESH_TOKEN）：\n');
+      console.log(body.refresh_token);
+      console.log('');
+    }
     server.close(() => process.exit(0));
   } catch (err) {
     res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });

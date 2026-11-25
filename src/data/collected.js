@@ -5,7 +5,7 @@ import listenFallback from './listen.json';
 import readFallback from './read.json';
 
 function baseUrl() {
-  return process.env.COLLECT_URL || import.meta.env.COLLECT_URL || 'https://yishan-collect.workers.dev';
+  return process.env.COLLECT_URL || import.meta.env.COLLECT_URL || 'https://yishan-collect.liyishan.workers.dev';
 }
 
 async function load(name, fallback, valid) {

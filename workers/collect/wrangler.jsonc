@@ -4,8 +4,7 @@
   "main": "src/index.js",
   "compatibility_date": "2026-11-01",
   "d1_databases": [
-    // database_id 由 `wrangler d1 create yishan-collect` 生成后填入
-    { "binding": "DB", "database_name": "yishan-collect", "database_id": "00000000-0000-0000-0000-000000000000" }
+    { "binding": "DB", "database_name": "yishan-collect", "database_id": "7529e891-e57e-4918-903f-b995438129f6" }
   ],
   "triggers": {
     "crons": [
